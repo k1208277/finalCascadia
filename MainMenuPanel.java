@@ -8,10 +8,12 @@ public class MainMenuPanel extends JPanel implements MouseListener
 {
     private boolean isVisible;
     private int numPlayers;
+    private HelpPanel manual;
 
     public MainMenuPanel() {
         isVisible = false;
         numPlayers = 0;
+        manual = new HelpPanel();
     }
 
     public void paint(Graphics g) {
@@ -25,7 +27,9 @@ public class MainMenuPanel extends JPanel implements MouseListener
 
     }
     public void drawRules(Graphics g) {
+        if(manual.isVisible()) {
 
+        }
     }
     public void drawPlayerNumberOptions(Graphics g) {
 

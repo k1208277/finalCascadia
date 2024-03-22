@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
-
 public class CascadiaPanel extends JPanel {
     private HelpPanel help;
     private PlayerPanel player;

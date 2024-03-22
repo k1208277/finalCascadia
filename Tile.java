@@ -1,4 +1,3 @@
-
 import java.awt.image.*;
 import java.util.*;
 
@@ -17,6 +16,7 @@ public class Tile
         possibleAnimals = new ArrayList<Integer>();
         adjacentTiles = new ArrayList<Tile>();
 
+
         habitats.add(hab1); habitats.add(hab2); habitats.add(hab2); habitats.add(hab2); habitats.add(hab1); habitats.add(hab1);
         if (animal1 != 0)
             possibleAnimals.add(animal1);
@@ -24,7 +24,6 @@ public class Tile
             possibleAnimals.add(animal2);
         if (animal3 != 0)
             possibleAnimals.add(animal3);
-
 
 
         xCoord = x;
@@ -52,6 +51,7 @@ public class Tile
     }
     public BufferedImage getImage()
     {
+        return image;
     }
     public int getXCoord()
     {

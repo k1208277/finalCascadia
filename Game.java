@@ -15,15 +15,18 @@ public class Game
 
     public Game()
     {
+        //Intatization of attributes
         tileDeck = new ArrayList<Tile>();
         starterTiles = new HashMap<Integer, ArrayList<Tile>>(); //5 starterTiles so we have an int to represent each tile. StarterTiles are an arraylist of 3 tiles
         tokenDeck = new ArrayList<Token>();
 
+        //Create all tiles and tokens
         try {
             createGame();
         } catch (IOException e) {
             System.out.println("Error with exception of creating game");
         }
+        //Shuffle tiles and tokens and remove extra tiles
         shuffleTiles();
         int totalTiles = players.size() * 20 + 3;
         for (int i = 0; i < tileDeck.size() - totalTiles; i++)

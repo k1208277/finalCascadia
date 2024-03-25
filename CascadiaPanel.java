@@ -10,7 +10,7 @@ public class CascadiaPanel extends JPanel {
     private HashMap<String, BufferedImage> icons;
     private Game game;
     private boolean gameStart, roundStart;
-
+    //erica is shrot
     public CascadiaPanel()
     {
         help = new HelpPanel();

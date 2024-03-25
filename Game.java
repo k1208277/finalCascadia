@@ -15,6 +15,16 @@ public class Game
     private ArrayList<Token> tokenDeck;
     private Tile[] availableTiles;
     private Token[] availableTokens;
+    //GameStates
+    // 1 = Start Game (Player clicks start game)
+    // 2 = Help Panel
+    // 3 = clicking on player panel to enlarge
+    // 4 = clicking on help panel
+    // 5 = start of player turn ??
+    // 6 = player uses pinecone ??
+    // 7 = GameEnd (start scoring and display leaderboard)
+    // 8 = x buttons to exit player and help panel
+    // 9 = arrows for board adjustment or help panel
 
 
     public Game()
@@ -30,12 +40,15 @@ public class Game
         } catch (IOException e) {
             System.out.println("Error with exception of creating game");
         }
+
         //Shuffle tiles and tokens and remove extra tiles
         shuffleTiles();
         int totalTiles = players.size() * 20 + 3;
         for (int i = 0; i < tileDeck.size() - totalTiles; i++)
             tileDeck.remove(i);
         shuffleTokens();
+
+
 
     }
 
@@ -68,7 +81,7 @@ public class Game
         }
 
         //starterTiles
-        //place stuff here
+
 
         //tokens
         for(int i = 1; i <= 5; i++)

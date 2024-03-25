@@ -1,6 +1,10 @@
-import java.io.File;
 import java.util.*;
 import java.io.*;
+import java.awt.*;
+import java.awt.image.*;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
 public class Game
 {
     private int gameState;
@@ -39,15 +43,41 @@ public class Game
     {
         //tiles
         Scanner s = new Scanner(new File("Cascadia.txt"));
+        BufferedImage img;
         while(s.hasNext())
         {
             String t = s.nextLine().trim();
+            String[] a = t.split(".");
+            try
+            {
+                if(Integer.parseInt(a[5]) < 21)
+                {
+                    img = ImageIO.read(Game.class.getResource("/KeyStonetiles/" + a[5] + ".png"));
+                    tileDeck.add(new Tile(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), -999, -999, true, img));
+                }
+                else
+                {
+                    img = ImageIO.read(Game.class.getResource("/KeyStonetiles/" + a[5] + ".png"));
+                    tileDeck.add(new Tile(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), -999, -999, false, img));
+                }
+            }
+            catch(Exception E)
+            {
+                System.out.println("Error in tile image number " + a[5]);
+            }
         }
 
         //starterTiles
         //place stuff here
 
         //tokens
+        for(int i = 1; i <= 5; i++)
+        {
+            for(int j = 0; i < 25; i++)
+            {
+                tokenDeck.add(new Token(i));
+            }
+        }
     }
 
     public void play()

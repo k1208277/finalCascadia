@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 public class MainMenuPanel extends JPanel implements MouseListener
 {
     private boolean isVisible;
@@ -44,10 +43,10 @@ public class MainMenuPanel extends JPanel implements MouseListener
         return numPlayers;
     }
 
-    public void mouseClicked(MouseEvent e) {	}
-    public void mouseEntered(MouseEvent e) {	}
-    public void mouseExited(MouseEvent e) {		}
-    public void mouseReleased(MouseEvent e) {	}
+    public void mouseClicked(MouseEvent e) {    }
+    public void mouseEntered(MouseEvent e) {    }
+    public void mouseExited(MouseEvent e) {    }
+    public void mouseReleased(MouseEvent e) {   }
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();

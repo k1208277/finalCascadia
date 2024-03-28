@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
-
 public class CascadiaPanel extends JPanel {
     private HelpPanel help;
     private PlayerPanel player;
@@ -11,7 +10,7 @@ public class CascadiaPanel extends JPanel {
     private HashMap<String, BufferedImage> icons;
     private Game game;
     private boolean gameStart, roundStart;
-
+    //erica is shrot
     public CascadiaPanel()
     {
         help = new HelpPanel();

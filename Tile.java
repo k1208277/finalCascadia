@@ -34,9 +34,11 @@ public class Tile
     }
     public void rotateLeft()
     {
+        habitats.add(habitats.remove(5));
     }
     public void rotateRight()
     {
+        habitats.add(habitats.remove(0));
     }
     public int getOrientation()
     {
@@ -48,6 +50,7 @@ public class Tile
     }
     public int getHabitat(int habitat)
     {
+        return habitats.get(habitat);
     }
     public BufferedImage getImage()
     {

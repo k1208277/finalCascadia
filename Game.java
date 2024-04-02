@@ -91,17 +91,10 @@ public class Game
                 tokenDeck.add(new Token(i));
             }
         }
-
-        //starterTiles
-        //place stuff here
-
-
-        //tokens
     }
 
     public void play()
     {
-
 
     }
     public int getGameState()
@@ -115,7 +108,6 @@ public class Game
 
     public void getLeaderBoard()
     {
-
 
     }
 

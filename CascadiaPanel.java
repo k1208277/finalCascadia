@@ -21,7 +21,8 @@ public class CascadiaPanel extends JPanel {
 
         try
         {
-
+            icons.add("background", ImageIO.read(CascadiaPanel.class.getResource("/Images/backround.png")));
+            icons.add("open", ImageIO.read(CascadiaPanel.class.getResource("/Images/open icon.png")));
         }
         catch(Exception e)
         {

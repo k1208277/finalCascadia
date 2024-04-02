@@ -164,8 +164,11 @@ public class Game
         }
     }
 
-    public boolean checkOverpopulation()
+    public int checkOverpopulation(boolean b)
     {
+        TreeMap<Integer, Integer> animals = new TreeMap<>();
+        for(int i = 1; i < 6; i++)
+            animals.put(i, 0);
         for(int i = 0; i < availableTokens.length; i++)
         {
 

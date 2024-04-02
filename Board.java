@@ -51,18 +51,18 @@ public class Board
     }
 
     public int elkScore() {
-
+        return 0;
     }
     public int salmonScore() {
-
+        return 0;
     }
     public int hawkScore() {
-
+        return 0;
     }
     public int bearScore() {
-
+        return 0;
     }
     public int foxScore() {
-
+        return 0;
     }
 }

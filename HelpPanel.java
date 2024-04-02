@@ -24,7 +24,7 @@ public class HelpPanel extends JPanel implements MouseListener
         }
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics g, HashMap<String, BufferedImage> icons) {
         if(isVisible) {
             drawManual(g);
         }

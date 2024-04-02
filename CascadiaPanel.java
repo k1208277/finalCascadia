@@ -21,8 +21,8 @@ public class CascadiaPanel extends JPanel {
 
         try
         {
-            icons.add("background", ImageIO.read(CascadiaPanel.class.getResource("/Images/backround.png")));
-            icons.add("open", ImageIO.read(CascadiaPanel.class.getResource("/Images/open icon.png")));
+            icons.put("background", ImageIO.read(CascadiaPanel.class.getResource("/Images/backround.png")));
+            icons.put("open", ImageIO.read(CascadiaPanel.class.getResource("/Images/open icon.png")));
         }
         catch(Exception e)
         {
@@ -38,6 +38,12 @@ public class CascadiaPanel extends JPanel {
 
     public void paint(Graphics g)
     {
-
+        g.drawImage(icons.get("background"), 0, 0, getWidth(), getHeight(), null);
+        switch(game.getGameState()) {
+            case 0: {
+                help.setVisible(true);
+                help.paint(g, icons);
+            }
+        }
     }
 }

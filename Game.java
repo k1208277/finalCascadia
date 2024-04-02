@@ -86,7 +86,7 @@ public class Game
         //tokens
         for(int i = 1; i <= 5; i++)
         {
-            for(int j = 0; i < 25; i++)
+            for(int j = 0; j < 25; j++)
             {
                 tokenDeck.add(new Token(i));
             }
@@ -171,10 +171,28 @@ public class Game
             animals.put(i, 0);
         for(int i = 0; i < availableTokens.length; i++)
         {
-
+            int key = availableTokens[i].getAnimal();
+            animals.put(key, animals.get(key) + 1);
         }
 
-        return false;
+        int num = 0;
+        for(int i = 1; i < 6; i++)
+        {
+            if (animals.get(i) > 2)
+                num = animals.get(i);
+
+            if(b)
+            {
+                for(int j = 0; j < availableTokens.length; j++)
+                {
+                    if(availableTokens[j].getAnimal() == i)
+                        availableTokens[j] = null;
+                }
+                updateTileAndTokens();
+            }
+        }
+
+        return num;
     }
 
 }

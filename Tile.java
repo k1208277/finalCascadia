@@ -32,6 +32,14 @@ public class Tile
         ifTraversed = false;
         image = b;
     }
+
+    public ArrayList<Tile> getAdjacentTiles(){
+        return adjacentTiles;
+    }
+
+    public Tile getAdjacent(int i){
+        return adjacentTiles.get(i);
+    }
     public void rotateLeft()
     {
         habitats.add(habitats.remove(5));
@@ -80,4 +88,5 @@ public class Tile
     {
         ifTraversed = b;
     }
+
 }

@@ -17,11 +17,11 @@ public class CascadiaPanel extends JPanel {
         player = new PlayerPanel();
         start = new MainMenuPanel();
         icons = new HashMap<String, BufferedImage>();
-        game = new Game();
+        game = new Game(start.getNumPlayers());
 
         try
         {
-            icons.put("background", ImageIO.read(CascadiaPanel.class.getResource("/Images/backround.png")));
+            icons.put("background", ImageIO.read(CascadiaPanel.class.getResource("/Images/background.png")));
             icons.put("open", ImageIO.read(CascadiaPanel.class.getResource("/Images/open icon.png")));
         }
         catch(Exception e)
@@ -35,14 +35,18 @@ public class CascadiaPanel extends JPanel {
     {
 
     }
-
+//g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
     public void paint(Graphics g)
     {
         g.drawImage(icons.get("background"), 0, 0, getWidth(), getHeight(), null);
         switch(game.getGameState()) {
             case 0: {
-                help.setVisible(true);
-                help.paint(g, icons);
+                start.setVisible(true);
+                start.paint(g, icons, 0);
+            }
+            case 1: {
+                start.setVisible(true);
+                start.paint(g, icons, 1);
             }
         }
     }

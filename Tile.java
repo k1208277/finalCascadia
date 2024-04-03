@@ -56,6 +56,8 @@ public class Tile
     {
         animal = t;
     }
+
+    public int getAnimal(){ return animal.getAnimal();}
     public int getHabitat(int habitat)
     {
         return habitats.get(habitat);

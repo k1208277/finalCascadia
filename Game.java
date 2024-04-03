@@ -16,20 +16,38 @@ public class Game
     private Tile[] availableTiles;
     private Token[] availableTokens;
     //GameStates
-    // 1 = Start Game (Player clicks start game)
-    // 2 = Help Panel
-    // 3 = clicking on player panel to enlarge
-    // 4 = clicking on help panel
-    // 5 = start of player turn ??
-    // 6 = player uses pinecone ??
-    // 7 = GameEnd (start scoring and display leaderboard)
-    // 8 = x buttons to exit player and help panel
-    // 9 = arrows for board adjustment or help panel
+    //0: main menu
+    //1: choose player
+    //2: main layout/choose options
+    //3: choose tile placement
+    //4: choose tile orientation
+    //5: choose tile token is placed/throwaway
+    //6: confirm and go to next player
+    //7: choose pinecone options
+    //8: choose tiles to clear
+    //9: choose specific tile and token
+    //10: helpPanel
+    //11: playerPanel
+    //12: end game
 
 
-    public Game()
+    //Mountain = 1
+    //Forest = 2
+    //Prairie = 3
+    //Wetland = 4
+    //River = 5
+
+    //Elk = 1
+    //Salmon = 2
+    //Hawk = 3
+    //Fox = 4
+    //Bear = 5
+    //Not on Tile = 0
+
+    public Game(int numOfPlayers)
     {
         //Intatization of attributes
+        players = new ArrayList<Player>();
         tileDeck = new ArrayList<Tile>();
         starterTiles = new HashMap<Integer, ArrayList<Tile>>(); //5 starterTiles so we have an int to represent each tile. StarterTiles are an arraylist of 3 tiles
         tokenDeck = new ArrayList<Token>();
@@ -40,6 +58,18 @@ public class Game
         } catch (IOException e) {
             System.out.println("Error with exception of creating game");
         }
+        
+        //Create Number of players
+        for (int i = 0; i < numOfPlayers; i++) {
+            try {
+                players.add(new Player(new Board(new Tile(2, 2, 5, 5, 0, 10, 10, false, ImageIO.read(Game.class.getResource("/StarterTiles/1a.png"))))));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        //SetGameState
+        setGameState(0);
 
         //Shuffle tiles and tokens and remove extra tiles
         shuffleTiles();
@@ -65,18 +95,24 @@ public class Game
             {
                 if(Integer.parseInt(a[5]) < 21)
                 {
+                    System.out.println(t);
                     img = ImageIO.read(Game.class.getResource("/KeyStonetiles/" + a[5] + ".png"));
                     tileDeck.add(new Tile(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), -999, -999, true, img));
                 }
                 else
                 {
+                    System.out.println(t +" empty");
                     img = ImageIO.read(Game.class.getResource("/KeyStonetiles/" + a[5] + ".png"));
                     tileDeck.add(new Tile(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), -999, -999, false, img));
                 }
             }
             catch(Exception E)
             {
-                System.out.println("Error in tile image number " + a[5]);
+                System.out.print("Error in tile image number ");
+                for (int i = 0; i < a.length; i++)
+                    System.out.print(a[i] + " ");
+                System.out.println(" "+ a.length);
+//                System.out.println("Error in tile image number "+ );
             }
         }
 

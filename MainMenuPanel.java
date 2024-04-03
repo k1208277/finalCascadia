@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
+import java.awt.image.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 public class MainMenuPanel extends JPanel implements MouseListener
@@ -11,26 +12,32 @@ public class MainMenuPanel extends JPanel implements MouseListener
 
     public MainMenuPanel() {
         isVisible = false;
-        numPlayers = 0;
+        numPlayers = 3;
         manual = new HelpPanel();
     }
-
-    public void paint(Graphics g) {
+//g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
+    public void paint(Graphics g, HashMap<String, BufferedImage> icons, int state) {
         if(isVisible) {
-            drawBackround(g);
-            drawRules(g);
-            drawPlayerNumberOptions(g);
+            if(state == 0) {
+                drawBackround(g, icons);
+            }
+            else if(state==1) {
+                drawPlayerNumberOptions(g, icons);
+            }
+            drawRules(g, icons);
         }
     }
-    public void drawBackround(Graphics g) {
-
+    public void drawBackround(Graphics g, HashMap<String, BufferedImage> icons) {
+        g.drawImage(icons.get("title"), (int)(getWidth()/7.59), (int)(getHeight()/3.059), (int)(getWidth()/1.36), (int)(getHeight()/6.667), null);
+        g.setColor(Color.white);
+        //g.drawRect((int)(getWidth()/3.018), (int)(getHeight()/1.859), (int)(getWidth()/2.967), (int)(getHeight()));
     }
-    public void drawRules(Graphics g) {
+    public void drawRules(Graphics g, HashMap<String, BufferedImage> icons) {
         if(manual.isVisible()) {
-
+            manual.paint(g, icons);
         }
     }
-    public void drawPlayerNumberOptions(Graphics g) {
+    public void drawPlayerNumberOptions(Graphics g, HashMap<String, BufferedImage> icons) {
 
     }
     public void setVisible(boolean b) {
@@ -50,6 +57,7 @@ public class MainMenuPanel extends JPanel implements MouseListener
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
+
     }
 
 }

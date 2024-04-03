@@ -60,6 +60,21 @@ public class Board
         return 0;
     }
     public int bearScore() {
+        ArrayList<Tile> allTiles = traverse();
+        ArrayList<Tile> allBears = new ArrayList<>();
+        for (int i = 0; i < allTiles.size(); i++){
+            if (allTiles.get(i).getAnimal() == 5){
+                allBears.add(allTiles.get(i));
+            }
+        }
+        int numPairs = 0;
+        for (int i = 0; i < allBears.size(); i++){
+            Tile bt = allBears.get(i);
+        }
+
+
+
+
         return 0;
     }
     public int foxScore() {

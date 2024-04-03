@@ -26,19 +26,19 @@ public class Player
         numOfPineCones--;
     }
 
-    public int getHabitatScore(int habitatNum)
-    {
-        //Algorithm to find largest habitat score
-        //set score to its place in score arraylist
-        //return score
-    }
+//    public int getHabitatScore(int habitatNum)
+//    {
+//        //Algorithm to find largest habitat score
+//        //set score to its place in score arraylist
+//        //return score
+//    }
 
-    public int getAnimalScore(int animalNum)
-    {
-        //Algorithm to find the total animal score that satisfies the specific animal scoring card
-        //add to totalHabitat score
-        //return score
-    }
+//    public int getAnimalScore(int animalNum)
+//    {
+//        //Algorithm to find the total animal score that satisfies the specific animal scoring card
+//        //add to totalHabitat score
+//        //return score
+//    }
 
     public int getScore()
     {

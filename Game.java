@@ -91,6 +91,7 @@ public class Game
         {
             String t = s.nextLine().trim();
             String[] a = t.split(".");
+
             try
             {
                 if(Integer.parseInt(a[5]) < 21)
@@ -114,6 +115,7 @@ public class Game
                 System.out.println(" "+ a.length);
 //                System.out.println("Error in tile image number "+ );
             }
+
         }
 
         //starterTiles

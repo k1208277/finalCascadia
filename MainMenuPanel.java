@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 public class MainMenuPanel extends JPanel implements MouseListener
 {
     private boolean isVisible;
-    private int numPlayers;
+    private int numPlayers, width, height;
     private HelpPanel manual;
 
     public MainMenuPanel() {
@@ -16,7 +16,8 @@ public class MainMenuPanel extends JPanel implements MouseListener
         manual = new HelpPanel();
     }
 //g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
-    public void paint(Graphics g, HashMap<String, BufferedImage> icons, int state) {
+    public void paint(Graphics g, HashMap<String, BufferedImage> icons, int state, int width, int height) {
+        setWH(width, height);
         if(isVisible) {
             if(state == 0) {
                 drawBackround(g, icons);
@@ -29,8 +30,19 @@ public class MainMenuPanel extends JPanel implements MouseListener
     }
     public void drawBackround(Graphics g, HashMap<String, BufferedImage> icons) {
         g.drawImage(icons.get("title"), (int)(getWidth()/7.59), (int)(getHeight()/3.059), (int)(getWidth()/1.36), (int)(getHeight()/6.667), null);
+        g.setColor(new Color(0, 0, 0, 127));
+        g.fillRect((int)(getWidth()/3.018), (int)(getHeight()/1.859), (int)(getWidth()/2.967), (int)(getHeight()/8.78));
+        g.fillRect((int)(getWidth()/3.018), (int)(getHeight()/1.438), (int)(getWidth()/2.967), (int)(getHeight()/8.78));
+
         g.setColor(Color.white);
-        //g.drawRect((int)(getWidth()/3.018), (int)(getHeight()/1.859), (int)(getWidth()/2.967), (int)(getHeight()));
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+        g2.drawRect((int)(getWidth()/3.018), (int)(getHeight()/1.859), (int)(getWidth()/2.967), (int)(getHeight()/8.78));
+        g2.drawRect((int)(getWidth()/3.018), (int)(getHeight()/1.438), (int)(getWidth()/2.967), (int)(getHeight()/8.78));
+
+        g.setFont(new Font("main", 1, (int)(getHeight()/13.824)));
+        //System.out.println((int)(getHeight()/13.824));
+        g.drawString("New Game", (int)(getWidth()/2.485), (int)(getHeight()/1.62));
     }
     public void drawRules(Graphics g, HashMap<String, BufferedImage> icons) {
         if(manual.isVisible()) {
@@ -49,7 +61,9 @@ public class MainMenuPanel extends JPanel implements MouseListener
     public int getNumPlayers() {
         return numPlayers;
     }
-
+    public void setWH(int w, int h) {width = w; height = h;}
+    public int getWidth() {return width;}
+    public int getHeight() {return height;}
     public void mouseClicked(MouseEvent e) {    }
     public void mouseEntered(MouseEvent e) {    }
     public void mouseExited(MouseEvent e) {    }

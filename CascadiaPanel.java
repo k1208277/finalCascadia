@@ -41,14 +41,15 @@ public class CascadiaPanel extends JPanel {
     public void paint(Graphics g)
     {
         g.drawImage(icons.get("background"), 0, 0, getWidth(), getHeight(), null);
+        System.out.println(game.getGameState());
         switch(game.getGameState()) {
             case 0: {
                 start.setVisible(true);
-                start.paint(g, icons, 0);
+                start.paint(g, icons, 0, getWidth(), getHeight());
             }
             case 1: {
                 start.setVisible(true);
-                start.paint(g, icons, 1);
+                start.paint(g, icons, 1, getWidth(), getHeight());
             }
         }
     }

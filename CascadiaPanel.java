@@ -23,6 +23,8 @@ public class CascadiaPanel extends JPanel {
         {
             icons.put("background", ImageIO.read(CascadiaPanel.class.getResource("/Images/background.png")));
             icons.put("open", ImageIO.read(CascadiaPanel.class.getResource("/Images/open icon.png")));
+            icons.put("title", ImageIO.read(CascadiaPanel.class.getResource("/Images/title.png")));
+            icons.put("person", ImageIO.read(CascadiaPanel.class.getResource("/Images/person.png")));
         }
         catch(Exception e)
         {

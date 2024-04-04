@@ -17,7 +17,9 @@ public class HelpPanel extends JPanel implements MouseListener
         isVisible = false;
 
         try {
-
+            for (int i = 1; i < 9; i++) {
+                manualImages.put(i, ImageIO.read(HelpPanel.class.getResource("/Manual/pg" + i + ".png")));
+            }
         }
         catch(Exception e) {
             System.out.println("Error in help panel");

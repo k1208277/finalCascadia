@@ -9,6 +9,7 @@ public class Game
 {
     private int gameState;
     private ArrayList<Player> players;
+    private Player currentPlayer;
     private int turn;
     private ArrayList<Tile> tileDeck;
     private HashMap<Integer, ArrayList<Tile>> starterTiles;
@@ -44,7 +45,7 @@ public class Game
     //Bear = 5
     //Not on Tile = 0
 
-    public Game(int numOfPlayers)
+    public Game()
     {
         //Intatization of attributes
         players = new ArrayList<Player>();
@@ -59,14 +60,6 @@ public class Game
             System.out.println("Error with exception of creating game");
         }
         
-        //Create Number of players
-        for (int i = 0; i < numOfPlayers; i++) {
-            try {
-                players.add(new Player(new Board(new Tile(2, 2, 5, 5, 0, 10, 10, false, ImageIO.read(Game.class.getResource("/StarterTiles/1a.png"))))));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
 
         //SetGameState
         setGameState(0);
@@ -78,6 +71,8 @@ public class Game
             tileDeck.remove(i);
         shuffleTokens();
 
+        //Set Current player
+        setCurrentPlayer(players.get(0));
 
 
     }
@@ -90,35 +85,67 @@ public class Game
         while(s.hasNext())
         {
             String t = s.nextLine().trim();
-            String[] a = t.split(".");
+            System.out.println(t);
+            String[] a = t.split(" ");
+            System.out.println(Arrays.toString(a));
 
             try
             {
                 if(Integer.parseInt(a[5]) < 21)
                 {
-                    System.out.println(t);
                     img = ImageIO.read(Game.class.getResource("/KeyStonetiles/" + a[5] + ".png"));
                     tileDeck.add(new Tile(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), -999, -999, true, img));
                 }
                 else
                 {
-                    System.out.println(t +" empty");
-                    img = ImageIO.read(Game.class.getResource("/KeyStonetiles/" + a[5] + ".png"));
+                    img = ImageIO.read(Game.class.getResource("/RegularTiles/" + a[5] + ".png"));
                     tileDeck.add(new Tile(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), -999, -999, false, img));
                 }
             }
             catch(Exception E)
             {
-                System.out.print("Error in tile image number ");
-                for (int i = 0; i < a.length; i++)
-                    System.out.print(a[i] + " ");
-                System.out.println(" "+ a.length);
-//                System.out.println("Error in tile image number "+ );
+                System.out.print("Error in tile image number");
+//                for (int i = 0; i < a.length; i++)
+//                    System.out.print(a[i] + " ");
+//                System.out.println(" "+ a.length);
+//                System.out.println("Error in tile image number "+ a[5]);
             }
 
         }
 
         //starterTiles
+        //int hab1, int hab2, int animal1, int animal2, int animal3, int x, int y, boolean , image
+        starterTiles.put(1, new ArrayList<Tile>());
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "1a.png"));
+        starterTiles.get(1).add(new Tile(2, 2, 1, 0, 0, -999, -999, true, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "1b.png"));
+        starterTiles.get(1).add(new Tile(1, 5, 1, 3, 5, -999, -999, false, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "1c.png"));
+        starterTiles.get(1).add(new Tile(4, 3, 2, 4, 0, -999, -999, false, img));
+
+        starterTiles.put(2, new ArrayList<Tile>());
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "2a.png"));
+        starterTiles.get(2).add(new Tile(3, 3, 4, 0, 0, -999, -999, true, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "2b.png"));
+        starterTiles.get(2).add(new Tile(4, 5, 2, 3, 4, -999, -999, false, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "2c.png"));
+        starterTiles.get(2).add(new Tile(2, 1, 1, 5, 0, -999, -999, false, img));
+
+        starterTiles.put(3, new ArrayList<Tile>());
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "3a.png"));
+        starterTiles.get(3).add(new Tile(4, 4, 3, 0, 0, -999, -999, true, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "3b.png"));
+        starterTiles.get(3).add(new Tile(5, 2, 2, 3, 1, -999, -999, false, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "3c.png"));
+        starterTiles.get(3).add(new Tile(3, 1, 5, 4, 0, -999, -999, false, img));
+
+        starterTiles.put(4, new ArrayList<Tile>());
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "4a.png"));
+        starterTiles.get(4).add(new Tile(1, 1, 5, 0, 0, -999, -999, true, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "4b.png"));
+        starterTiles.get(4).add(new Tile(2, 4, 3, 1, 4, -999, -999, false, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "4c.png"));
+        starterTiles.get(4).add(new Tile(5, 3, 2, 5, 0, -999, -999, false, img));
 
 
         //tokens
@@ -135,6 +162,7 @@ public class Game
     {
         //GAME LOOP
 
+
     }
     public int getGameState()
     {
@@ -144,6 +172,30 @@ public class Game
     {
         gameState = gs;
     }
+
+    public Player getCurrentPlayer()
+    {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player p)
+    {
+        currentPlayer = p;
+    }
+
+    public void setNumOfPlayers(int x)
+    {
+        //Create Number of players
+        for (int i = 0; i < x; i++) {
+            try {             //HARDCODED PLAYER AND TILE
+                players.add(new Player(new Board(new Tile(2, 2, 5, 5, 0, 10, 10, false, ImageIO.read(Game.class.getResource("/StarterTiles/1a.png"))))));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
 
     public void getLeaderBoard()
     {

@@ -17,7 +17,7 @@ public class CascadiaPanel extends JPanel {
         player = new PlayerPanel();
         start = new MainMenuPanel();
         icons = new HashMap<String, BufferedImage>();
-        game = new Game(start.getNumPlayers());
+        game = new Game();
 
         try
         {
@@ -30,13 +30,10 @@ public class CascadiaPanel extends JPanel {
         {
             System.out.println("Error in CascadiaPanel");
         }
-        play();
+
 
     }
-    public void play()
-    {
 
-    }
 //g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
     public void paint(Graphics g)
     {

@@ -3,7 +3,9 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
-public class CascadiaPanel extends JPanel {
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+public class CascadiaPanel extends JPanel implements MouseListener{
     private HelpPanel help;
     private PlayerPanel player;
     private MainMenuPanel start;
@@ -38,15 +40,46 @@ public class CascadiaPanel extends JPanel {
     public void paint(Graphics g)
     {
         g.drawImage(icons.get("background"), 0, 0, getWidth(), getHeight(), null);
-        System.out.println(game.getGameState());
-        switch(game.getGameState()) {
+        int s = game.getGameState();
+        //System.out.println(s);
+        switch(s) {
             case 0: {
                 start.setVisible(true);
                 start.paint(g, icons, 0, getWidth(), getHeight());
+                break;
             }
             case 1: {
                 start.setVisible(true);
                 start.paint(g, icons, 1, getWidth(), getHeight());
+                break;
+            }
+        }
+    }
+
+    public void mouseClicked(MouseEvent e) {    }
+    public void mouseEntered(MouseEvent e) {    }
+    public void mouseExited(MouseEvent e) {    }
+    public void mouseReleased(MouseEvent e) {   }
+    public void mousePressed(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        switch(game.getGameState()) {
+            case 0 : {
+                if(start.stateChangeClick(x, y)) {
+                    game.setGameState(1);
+                }
+                repaint();
+                break;
+            }
+            case 1 : {
+                int pat = start.playerAmountClick(x, y);
+                if(pat>0) {
+                    game.setNumOfPlayers(pat);
+
+                    game.setGameState(2);
+                    repaint();
+                }
+                break;
             }
         }
     }

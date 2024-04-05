@@ -72,8 +72,7 @@ public class Game
         shuffleTokens();
 
         //Set Current player
-        setCurrentPlayer(players.get(0));
-
+        //setCurrentPlayer(players.get(0));
 
     }
 

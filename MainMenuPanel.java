@@ -2,9 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.awt.image.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-public class MainMenuPanel extends JPanel implements MouseListener
+public class MainMenuPanel extends JPanel
 {
     private boolean isVisible;
     private int numPlayers, width, height;
@@ -18,15 +16,15 @@ public class MainMenuPanel extends JPanel implements MouseListener
 //g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
     public void paint(Graphics g, HashMap<String, BufferedImage> icons, int state, int width, int height) {
         setWH(width, height);
-        if(isVisible) {
+        if(isVisible && !manual.isVisible()) {
             if(state == 0) {
                 drawBackround(g, icons, state);
             }
-            else if(state==1) {
+            else {
                 drawPlayerNumberOptions(g, icons, state);
             }
-            drawRules(g, icons);
         }
+        drawRules(g, icons);
     }
     public void drawBackround(Graphics g, HashMap<String, BufferedImage> icons, int state) {
         if(state == 0) {
@@ -53,7 +51,8 @@ public class MainMenuPanel extends JPanel implements MouseListener
         }
     }
     public void drawPlayerNumberOptions(Graphics g, HashMap<String, BufferedImage> icons, int state) {
-        if(state ==1) {
+        if(state == 1) {
+            System.out.println(state);
             g.setColor(new Color(0, 0, 0, 127));
             g.fillRect((int)(getWidth()/5.517), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
             g.fillRect((int)(getWidth()/2.406), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
@@ -92,15 +91,7 @@ public class MainMenuPanel extends JPanel implements MouseListener
     public void setWH(int w, int h) {width = w; height = h;}
     public int getWidth() {return width;}
     public int getHeight() {return height;}
-    public void mouseClicked(MouseEvent e) {    }
-    public void mouseEntered(MouseEvent e) {    }
-    public void mouseExited(MouseEvent e) {    }
-    public void mouseReleased(MouseEvent e) {   }
-    public void mousePressed(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
 
-    }
     public int playerAmountClick(int x, int y) {
         int i = 0;
         /*
@@ -108,10 +99,36 @@ public class MainMenuPanel extends JPanel implements MouseListener
             g.fillRect((int)(getWidth()/2.406), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
             g.fillRect((int)(getWidth()/1.538), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
          */
-        if(x>=(int)(getWidth()/5.517) && x<=(int)(getWidth()/5.517)+(int)(getWidth()/5.944)) {
-
+        if(y>=getHeight()/2 && y<= getHeight()/2+(int)(getHeight()/3.333) ) {
+            if(x>=(int)(getWidth()/5.517) && x<=(int)(getWidth()/5.517)+(int)(getWidth()/5.944) ) {
+                return 2;
+            }
+            else if(x>=(int)(getWidth()/2.406) && x<=(int)(getWidth()/2.406)+(int)(getWidth()/5.944)) {
+                return 3;
+            }
+            else if(x>= (int)(getWidth()/1.538) && x<= (int)(getWidth()/1.538) +(int)(getWidth()/5.944)) {
+                return 4;
+            }
         }
         return i;
+    }
+    public boolean stateChangeClick(int x, int y) {
+        /*
+        g.fillRect((int)(getWidth()/3.018), (int)(getHeight()/1.859), (int)(getWidth()/2.967), (int)(getHeight()/8.78));
+            g.fillRect((int)(getWidth()/3.018), (int)(getHeight()/1.438), (int)(getWidth()/2.967), (int)(getHeight()/8.78));
+
+         */
+        if(!manual.isVisible()) {
+            if(x>=(int)(getWidth()/3.018) && x<= (int)(getWidth()/3.018)+(int)(getWidth()/2.967)) {
+                if (y>=(int)(getHeight()/1.859) && y<=(int)(getHeight()/1.859)+(int)(getHeight()/8.78)) {
+                    return true;
+                }
+                else if(y>=(int)(getHeight()/1.438) && y<=(int)(getHeight()/1.438) +(int)(getHeight()/8.78)) {
+                    manual.setVisible(true);
+                }
+            }
+        }
+        return false;
     }
 
 }

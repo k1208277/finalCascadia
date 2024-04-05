@@ -47,7 +47,7 @@ public class MainMenuPanel extends JPanel
     }
     public void drawRules(Graphics g, HashMap<String, BufferedImage> icons) {
         if(manual.isVisible()) {
-            manual.paint(g, icons);
+            manual.paint(g, icons, width, height);
         }
     }
     public void drawPlayerNumberOptions(Graphics g, HashMap<String, BufferedImage> icons, int state) {
@@ -58,10 +58,11 @@ public class MainMenuPanel extends JPanel
             g.fillRect((int)(getWidth()/2.406), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
             g.fillRect((int)(getWidth()/1.538), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
 
-            g.setColor(Color.WHITE);
-            g.drawRect((int)(getWidth()/5.517), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
-            g.drawRect((int)(getWidth()/2.406), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
-            g.drawRect((int)(getWidth()/1.538), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
+            g.setColor(Color.white);
+            Graphics2D g2 = (Graphics2D)g;
+            g2.drawRect((int)(getWidth()/5.517), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
+            g2.drawRect((int)(getWidth()/2.406), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
+            g2.drawRect((int)(getWidth()/1.538), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
 
             g.drawImage(icons.get("person"), (int)(getWidth()/4.812), (int)(getHeight()/1.662), (int)(getWidth()/21.33), (int)(getHeight()/10.485), null);
             g.drawImage(icons.get("person"), (int)(getWidth()/3.636), (int)(getHeight()/1.662), (int)(getWidth()/21.33), (int)(getHeight()/10.485), null);

@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 public class HelpPanel extends JPanel implements MouseListener
 {
     private HashMap<Integer, BufferedImage> manualImages;
-    private int pageNum;
+    private int pageNum, width, height;;
     private boolean isVisible;
 
     public HelpPanel() {
@@ -25,15 +25,17 @@ public class HelpPanel extends JPanel implements MouseListener
             System.out.println("Error in help panel");
         }
     }
-
-    public void paint(Graphics g, HashMap<String, BufferedImage> icons) {
+//(int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight())
+    public void paint(Graphics g, HashMap<String, BufferedImage> icons, int w, int h) {
+        setWH(w, h);
         if(isVisible) {
-            drawManual(g);
+            drawManual(g, icons);
         }
     }
 
-    public void drawManual(Graphics g) {
-
+    public void drawManual(Graphics g, HashMap<String, BufferedImage> icons) {
+        g.setColor(new Color(0, 0, 0, 153));
+        g.fillRect((int)(getWidth()/17.944), (int)(getHeight()/10.093), (int)(getWidth()/1.126), (int)(getHeight()/1.249));
 
     }
 
@@ -53,6 +55,9 @@ public class HelpPanel extends JPanel implements MouseListener
     public boolean isVisible() {
         return isVisible;
     }
+    public void setWH(int w, int h) {width = w; height = h;}
+    public int getWidth() {return width;}
+    public int getHeight() {return height;}
 
     public void mouseClicked(MouseEvent e) {    }
     public void mouseEntered(MouseEvent e) {    }

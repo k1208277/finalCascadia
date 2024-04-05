@@ -27,13 +27,16 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             icons.put("open", ImageIO.read(CascadiaPanel.class.getResource("/Images/open icon.png")));
             icons.put("title", ImageIO.read(CascadiaPanel.class.getResource("/Images/title.png")));
             icons.put("person", ImageIO.read(CascadiaPanel.class.getResource("/Images/person.png")));
+            icons.put("right", ImageIO.read(CascadiaPanel.class.getResource("/Images/right.png")));
+            icons.put("left", ImageIO.read(CascadiaPanel.class.getResource("/Images/left.png")));
+            icons.put("exit", ImageIO.read(CascadiaPanel.class.getResource("/Images/exit.png")));
         }
         catch(Exception e)
         {
             System.out.println("Error in CascadiaPanel");
         }
 
-
+        addMouseListener(this);
     }
 
 //g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
@@ -56,7 +59,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
     }
 
-    public void mouseClicked(MouseEvent e) {    }
+    public void mouseClicked(MouseEvent e) {
+
+    }
     public void mouseEntered(MouseEvent e) {    }
     public void mouseExited(MouseEvent e) {    }
     public void mouseReleased(MouseEvent e) {   }
@@ -75,7 +80,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 int pat = start.playerAmountClick(x, y);
                 if(pat>0) {
                     game.setNumOfPlayers(pat);
-
                     game.setGameState(2);
                     repaint();
                 }

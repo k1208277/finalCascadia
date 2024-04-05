@@ -75,7 +75,6 @@ public class Game
         //setCurrentPlayer(players.get(0));
 
     }
-
     public void createGame() throws IOException
     {
         //tiles

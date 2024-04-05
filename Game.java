@@ -147,6 +147,14 @@ public class Game
         img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "4c.png"));
         starterTiles.get(4).add(new Tile(5, 3, 2, 5, 0, -999, -999, false, img));
 
+        starterTiles.put(5, new ArrayList<Tile>());
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "5a.png"));
+        starterTiles.get(5).add(new Tile(5, 5, 2, 0, 0, -999, -999, true, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "5b.png"));
+        starterTiles.get(5).add(new Tile(3, 3, 2, 1, 5, -999, -999, false, img));
+        img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "5c.png"));
+        starterTiles.get(5).add(new Tile(1, 4, 3, 4, 0, -999, -999, false, img));
+
 
         //tokens
         for(int i = 1; i <= 5; i++)

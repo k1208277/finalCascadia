@@ -59,21 +59,9 @@ public class Game
         } catch (IOException e) {
             System.out.println("Error with exception of creating game");
         }
-        
 
         //SetGameState
         setGameState(0);
-
-        //Shuffle tiles and tokens and remove extra tiles
-        shuffleTiles();
-        int totalTiles = players.size() * 20 + 3;
-        for (int i = 0; i < tileDeck.size() - totalTiles; i++)
-            tileDeck.remove(i);
-        shuffleTokens();
-
-        //Set Current player
-        //setCurrentPlayer(players.get(0));
-
     }
     public void createGame() throws IOException
     {
@@ -167,7 +155,30 @@ public class Game
     public void play()
     {
         //GAME LOOP
+        //Shuffle tiles and tokens and remove extra tiles
+        shuffleTiles();
+        int totalTiles = players.size() * 20 + 3;
+        for (int i = 0; i < tileDeck.size() - totalTiles; i++)
+            tileDeck.remove(i);
+        shuffleTokens();
 
+
+                //overpopulation
+                if (checkOverpopulation(false) == 4)
+                    checkOverpopulation(true);
+                else if (checkOverpopulation(false) == 3)
+                    if(//player wants to clear)
+                        checkOverpopulation(true);
+
+                //pinecones
+                if(currentPlayer.getPineCones() > 0)
+                {
+        
+                }
+            }
+        }
+
+        getLeaderBoard();
 
     }
     public int getGameState()
@@ -184,24 +195,39 @@ public class Game
         return currentPlayer;
     }
 
-    public void setCurrentPlayer(Player p)
+    public void setCurrentPlayer(int p)
     {
-        currentPlayer = p;
+        currentPlayer = players.get(p);
     }
 
     public void setNumOfPlayers(int x)
     {
         //Create Number of players
         for (int i = 0; i < x; i++) {
-            try {             //HARDCODED PLAYER AND TILE
-                players.add(new Player(new Board(new Tile(2, 2, 5, 5, 0, 10, 10, false, ImageIO.read(Game.class.getResource("/StarterTiles/1a.png"))))));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+//            try {             //HARDCODED PLAYER AND TILE
+//                players.add(new Player(new Board(new Tile(2, 2, 5, 5, 0, 10, 10, false, ImageIO.read(Game.class.getResource("/StarterTiles/1a.png"))))));
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+            ArrayList<Tile> st = new ArrayList<>();
+            int ind = (int)(Math.random() * 5 + 1);
+            if(starterTiles.containsKey(ind))
+                st = starterTiles.remove(ind);
+            else
+                ind = (int)(Math.random() * 5 + 1);
+            players.add(new Player(new Board(st.get(0))));
+            players.get(i).getBoard().addTile(st.get(1), st.get(0), 4);
         }
 
+        play();
     }
 
+        //turns
+        while(checkGameEnd())
+        {
+            for(int i = 0; i < players.size(); i++)
+            {
+                setCurrentPlayer(i);
 
     public void getLeaderBoard()
     {
@@ -210,7 +236,7 @@ public class Game
 
     public boolean checkGameEnd()
     {
-        return turn > 20;
+        return turn < 20;
     }
 
     public void shuffleTiles()

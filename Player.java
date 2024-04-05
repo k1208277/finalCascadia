@@ -26,6 +26,11 @@ public class Player
         numOfPineCones--;
     }
 
+    public int getPineCones()
+    {
+        return numOfPineCones;
+    }
+
 //    public int getHabitatScore(int habitatNum)
 //    {
 //        //Algorithm to find largest habitat score

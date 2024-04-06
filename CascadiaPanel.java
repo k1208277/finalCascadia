@@ -69,14 +69,16 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         int x = e.getX();
         int y = e.getY();
         switch(game.getGameState()) {
-            case 0 : {
+            case 0 :
+            {
                 if(start.stateChangeClick(x, y)) {
                     game.setGameState(1);
                 }
                 repaint();
                 break;
             }
-            case 1 : {
+            case 1 :
+            {
                 int pat = start.playerAmountClick(x, y);
                 if(pat>0) {
                     game.setNumOfPlayers(pat);

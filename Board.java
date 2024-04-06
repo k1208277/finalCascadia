@@ -146,15 +146,15 @@ public class Board
 
 
         switch(aloneHawks){
-            case 0: return 0;break;
-            case 1: return 2;break;
-            case 2: return 5;break;
-            case 3: return 8;break;
-            case 4: return 11;break;
-            case 5: return 14;break;
-            case 6: return 18;break;
-            case 7: return 22;break;
-            default: return 26;break;
+            case 0: return 0;
+            case 1: return 2;
+            case 2: return 5;
+            case 3: return 8;
+            case 4: return 11;
+            case 5: return 14;
+            case 6: return 18;
+            case 7: return 22;
+            default: return 26;
         }
 
 

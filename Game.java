@@ -52,6 +52,9 @@ public class Game
         tileDeck = new ArrayList<Tile>();
         starterTiles = new HashMap<Integer, ArrayList<Tile>>(); //5 starterTiles so we have an int to represent each tile. StarterTiles are an arraylist of 3 tiles
         tokenDeck = new ArrayList<Token>();
+        availableTiles = new Tile[4];
+        availableTokens = new Token[4];
+
 
         //Create all tiles and tokens
         try {
@@ -158,9 +161,28 @@ public class Game
         //Shuffle tiles and tokens and remove extra tiles
         shuffleTiles();
         int totalTiles = players.size() * 20 + 3;
-        for (int i = 0; i < tileDeck.size() - totalTiles; i++)
-            tileDeck.remove(i);
+        for (int j = 0; j < tileDeck.size() - totalTiles; j++)
+            tileDeck.remove(j);
         shuffleTokens();
+
+        //Filling in the starting tiles and tokens
+        for (int i = 0; i < 4; i++)
+            availableTiles[i] = tileDeck.remove(0);
+        for (int i = 0; i < 4; i++)
+            availableTokens[i] = tokenDeck.remove(0);
+
+        //turns
+        while(checkGameEnd()) //Overall loop, all players have to reach 20 turns
+        {
+            for(int i = 0; i < players.size(); i++) //individual player turn loop
+            {
+                //Reset board
+                shuffleTokens();
+
+                setCurrentPlayer(i);
+
+
+
 
 
                 //overpopulation
@@ -168,18 +190,17 @@ public class Game
                     checkOverpopulation(true);
                 else if (checkOverpopulation(false) == 3)
                     if(//player wants to clear)
-                        checkOverpopulation(true);
+                    checkOverpopulation(true);
 
                 //pinecones
                 if(currentPlayer.getPineCones() > 0)
                 {
-        
+
                 }
             }
+            turn++;
         }
-
         getLeaderBoard();
-
     }
     public int getGameState()
     {
@@ -203,7 +224,8 @@ public class Game
     public void setNumOfPlayers(int x)
     {
         //Create Number of players
-        for (int i = 0; i < x; i++) {
+        for (int i = 0; i < x; i++)
+        {
 //            try {             //HARDCODED PLAYER AND TILE
 //                players.add(new Player(new Board(new Tile(2, 2, 5, 5, 0, 10, 10, false, ImageIO.read(Game.class.getResource("/StarterTiles/1a.png"))))));
 //            } catch (IOException e) {
@@ -211,10 +233,12 @@ public class Game
 //            }
             ArrayList<Tile> st = new ArrayList<>();
             int ind = (int)(Math.random() * 5 + 1);
+
             if(starterTiles.containsKey(ind))
                 st = starterTiles.remove(ind);
             else
                 ind = (int)(Math.random() * 5 + 1);
+
             players.add(new Player(new Board(st.get(0))));
             players.get(i).getBoard().addTile(st.get(1), st.get(0), 4);
         }
@@ -222,12 +246,7 @@ public class Game
         play();
     }
 
-        //turns
-        while(checkGameEnd())
-        {
-            for(int i = 0; i < players.size(); i++)
-            {
-                setCurrentPlayer(i);
+
 
     public void getLeaderBoard()
     {
@@ -251,15 +270,15 @@ public class Game
     }
 
     public void shuffleTokens()
-    {
+        {
         for(int i = 0; i < tokenDeck.size(); i++)
         {
-            int k = (int)(Math.random() * tokenDeck.size());
-            Token temp = tokenDeck.get(k);
-            tokenDeck.set(k, tokenDeck.get(i));
-            tokenDeck.set(i, temp);
+        int k = (int)(Math.random() * tokenDeck.size());
+        Token temp = tokenDeck.get(k);
+        tokenDeck.set(k, tokenDeck.get(i));
+        tokenDeck.set(i, temp);
         }
-    }
+        }
 
     public Token getToken(int i)
     {
@@ -276,14 +295,14 @@ public class Game
         for(int i = 0; i < availableTokens.length; i++)
         {
             if(availableTokens[i] == null)
-                availableTokens[i] = getToken(0);
+            availableTokens[i] = getToken(0);
         }
 
 
         for(int i = 0; i < availableTiles.length; i++)
         {
             if(availableTiles[i] == null)
-                availableTiles[i] = getTile(0);
+            availableTiles[i] = getTile(0);
         }
     }
 
@@ -302,14 +321,14 @@ public class Game
         for(int i = 1; i < 6; i++)
         {
             if (animals.get(i) > 2)
-                num = animals.get(i);
+            num = animals.get(i);
 
             if(b)
             {
                 for(int j = 0; j < availableTokens.length; j++)
                 {
-                    if(availableTokens[j].getAnimal() == i)
-                        availableTokens[j] = null;
+                if(availableTokens[j].getAnimal() == i)
+                    availableTokens[j] = null;
                 }
                 updateTileAndTokens();
             }

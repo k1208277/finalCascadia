@@ -189,8 +189,8 @@ public class Game
                 if (checkOverpopulation(false) == 4)
                     checkOverpopulation(true);
                 else if (checkOverpopulation(false) == 3)
-                    if(//player wants to clear)
-                    checkOverpopulation(true);
+                if(//player wants to clear)
+                  checkOverpopulation(true);
 
                 //pinecones
                 if(currentPlayer.getPineCones() > 0)

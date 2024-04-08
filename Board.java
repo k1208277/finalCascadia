@@ -105,7 +105,13 @@ public class Board
 
             if (validRun) {
                 switch(run.size()){
-
+                    case 1: score += 2; break;
+                    case 2: score += 5; break;
+                    case 3: score += 8; break;
+                    case 4: score += 12; break;
+                    case 5: score += 16; break;
+                    case 6: score += 20; break;
+                    default: score += 25; break;
 
                 }
             }

@@ -12,6 +12,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private HashMap<String, BufferedImage> icons;
     private Game game;
     private boolean gameStart, roundStart;
+    private boolean tileClicked, tokenClicked;
     //erica is shrot
     public CascadiaPanel()
     {
@@ -86,6 +87,17 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     repaint();
                 }
                 break;
+            }
+            case 2 :
+            {
+                while () //player has not clicked on a tile
+                {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        System.out.println("Error in threat.sleep method = "+e.getMessage());
+                    }
+                }
             }
         }
     }

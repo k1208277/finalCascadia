@@ -19,17 +19,18 @@ public class Game
     //GameStates
     //0: main menu
     //1: choose player
-    //2: main layout/choose options
-    //3: choose tile placement
-    //4: choose tile orientation
-    //5: choose tile token is placed/throwaway
-    //6: confirm and go to next player
-    //7: choose pinecone options
-    //8: choose tiles to clear
-    //9: choose specific tile and token
-    //10: helpPanel
-    //11: playerPanel
-    //12: end game
+    //2: main layout/choose tile options
+    //3: main layout/choose token options
+    //4: choose tile placement
+    //5: choose tile orientation
+    //6: choose tile token is placed/throwaway
+    //7: confirm and go to next player
+    //8: choose pinecone options
+    //9: choose tiles to clear
+    //10: choose specific tile and token
+    //11: helpPanel
+    //12: playerPanel
+    //13: end game
 
 
     //Mountain = 1
@@ -178,8 +179,9 @@ public class Game
             {
                 //Reset board
                 shuffleTokens();
-
+                updateTileAndTokens();
                 setCurrentPlayer(i);
+                setGameState(2);
 
 
 
@@ -188,9 +190,9 @@ public class Game
                 //overpopulation
                 if (checkOverpopulation(false) == 4)
                     checkOverpopulation(true);
-                else if (checkOverpopulation(false) == 3)
-                if(//player wants to clear)
-                  checkOverpopulation(true);
+//                else if (checkOverpopulation(false) == 3)
+//                if(//player wants to clear)
+//                  checkOverpopulation(true);
 
                 //pinecones
                 if(currentPlayer.getPineCones() > 0)
@@ -337,4 +339,21 @@ public class Game
         return num;
     }
 
+    public void waitForSeconds(double seconds)
+    {
+        try {
+            Thread.sleep((int) (seconds * 1000));
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void waitForTileClick(double seconds)
+    {
+        try {
+            Thread.sleep((int) (seconds * 1000));
+        } catch (InterruptedException e) {
+            System.out.println("Error in threat.sleep method = "+e.getMessage());
+        }
+    }
 }

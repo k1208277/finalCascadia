@@ -15,7 +15,13 @@ public class Board
 
     public void addTile(Tile newTile, Tile adjTile, int orientation)
     {
-
+            ArrayList<Tile> traversal = traverse();
+            for (Tile t: traversal){
+                if (t == adjTile){
+                    t.getAdjacentTiles().set(orientation, newTile);
+                    break;
+                }
+            }
 
     }
 
@@ -56,9 +62,15 @@ public class Board
         }
         return traversal;
     }
+    public int getHabitatScore(int h){
+        ArrayList<Tile> allTiles = traverse();
+        int max = 0;
+        return max;
+    }
 
 
     public int elkScore() {
+
         return 0;
     }
     public int salmonScore() {
@@ -117,7 +129,9 @@ public class Board
             }
         }
 
-
+        for(int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
         return score;
     }
     public int hawkScore() {
@@ -150,7 +164,9 @@ public class Board
             allTiles.get(i).setChecker(false);
         }
 
-
+        for(int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
         switch(aloneHawks){
             case 0: return 0;
             case 1: return 2;
@@ -234,7 +250,9 @@ public class Board
             }
             score += uniques.size();
         }
-
+        for(int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
 
         return score;
 

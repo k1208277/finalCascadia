@@ -4,6 +4,7 @@ public class Player
     private int numOfPineCones, totalHabitatScore;
     private int[] score; //score[0] = total score of habitats, rest is each animal score
     private Board board;
+
     public Player(Board b)
     {
         board = b;

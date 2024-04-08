@@ -20,17 +20,18 @@ public class Game
     //0: main menu
     //1: choose player
     //2: main layout/choose tile options
-    //3: main layout/choose token options
-    //4: choose tile placement
-    //5: choose tile orientation
-    //6: choose tile token is placed/throwaway
-    //7: confirm and go to next player
-    //8: choose pinecone options
-    //9: choose tiles to clear
-    //10: choose specific tile and token
-    //11: helpPanel
-    //12: playerPanel
-    //13: end game
+    //3: choose tile placement
+    //4: choose tile orientation
+    //5: choose tile token is placed/throwaway
+    //6: confirm and go to next player
+    //7: choose pinecone options
+    //8: choose tokens to clear
+    //9: choose specific tile and token
+    //10: helpPanel
+    //11: playerPanel
+    //12: end game
+    //13: overpopulation choice to remove
+
 
 
     //Mountain = 1
@@ -67,6 +68,56 @@ public class Game
         //SetGameState
         setGameState(0);
     }
+
+    public void play()
+    {
+        //GAME LOOP
+        //Shuffle tiles and tokens and remove extra tiles
+        shuffleTiles();
+        int totalTiles = players.size() * 20 + 3;
+        for (int j = 0; j < tileDeck.size() - totalTiles; j++)
+            tileDeck.remove(j);
+        shuffleTokens();
+
+        //Filling in the starting tiles and tokens
+        updateTileAndTokens();
+
+        //turns
+        while(checkGameEnd()) //Overall loop, all players have to reach 20 turns
+        {
+            for(int i = 0; i < players.size(); i++) //individual player turn loop
+            {
+                //Reset board
+                shuffleTokens();
+                updateTileAndTokens();
+                setCurrentPlayer(i);
+                setGameState(2);
+                waitForSeconds(1);
+
+                //overpopulation
+                if (checkOverpopulation(false) == 4) {
+                    checkOverpopulation(true);
+                    setGameState(2);
+                }
+                else if (checkOverpopulation(false) == 3) {
+                    if(gameState == 13)
+                    {
+                      checkOverpopulation(true);
+                      setGameState(2);
+                    }
+                }
+
+                //pinecones
+                if(currentPlayer.getPineCones() > 0)
+                {
+
+                }
+            }
+            turn++;
+        }
+        getLeaderBoard();
+    }
+
     public void createGame() throws IOException
     {
         //tiles
@@ -165,54 +216,6 @@ public class Game
         }
     }
 
-    public void play()
-    {
-        //GAME LOOP
-        //Shuffle tiles and tokens and remove extra tiles
-        shuffleTiles();
-        int totalTiles = players.size() * 20 + 3;
-        for (int j = 0; j < tileDeck.size() - totalTiles; j++)
-            tileDeck.remove(j);
-        shuffleTokens();
-
-        //Filling in the starting tiles and tokens
-        for (int i = 0; i < 4; i++)
-            availableTiles[i] = tileDeck.remove(0);
-        for (int i = 0; i < 4; i++)
-            availableTokens[i] = tokenDeck.remove(0);
-
-        //turns
-        while(checkGameEnd()) //Overall loop, all players have to reach 20 turns
-        {
-            for(int i = 0; i < players.size(); i++) //individual player turn loop
-            {
-                //Reset board
-                shuffleTokens();
-                updateTileAndTokens();
-                setCurrentPlayer(i);
-                setGameState(2);
-
-
-
-
-
-                //overpopulation
-                if (checkOverpopulation(false) == 4)
-                    checkOverpopulation(true);
-//                else if (checkOverpopulation(false) == 3)
-//                if(//player wants to clear)
-//                  checkOverpopulation(true);
-
-                //pinecones
-                if(currentPlayer.getPineCones() > 0)
-                {
-
-                }
-            }
-            turn++;
-        }
-        getLeaderBoard();
-    }
     public int getGameState()
     {
         return gameState;
@@ -230,6 +233,15 @@ public class Game
     public void setCurrentPlayer(int p)
     {
         currentPlayer = players.get(p);
+    }
+
+    public int getPlayerNum() {
+        for(int i = 0; i<players.size(); i++) {
+            if(players.get(i).equals(currentPlayer)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void setNumOfPlayers(int x)
@@ -285,10 +297,10 @@ public class Game
         {
         for(int i = 0; i < tokenDeck.size(); i++)
         {
-        int k = (int)(Math.random() * tokenDeck.size());
-        Token temp = tokenDeck.get(k);
-        tokenDeck.set(k, tokenDeck.get(i));
-        tokenDeck.set(i, temp);
+            int k = (int)(Math.random() * tokenDeck.size());
+            Token temp = tokenDeck.get(k);
+            tokenDeck.set(k, tokenDeck.get(i));
+            tokenDeck.set(i, temp);
         }
         }
 
@@ -305,17 +317,12 @@ public class Game
     public void updateTileAndTokens()
     {
         for(int i = 0; i < availableTokens.length; i++)
-        {
             if(availableTokens[i] == null)
-            availableTokens[i] = getToken(0);
-        }
-
+                availableTokens[i] = tokenDeck.remove(0);
 
         for(int i = 0; i < availableTiles.length; i++)
-        {
             if(availableTiles[i] == null)
-            availableTiles[i] = getTile(0);
-        }
+                availableTiles[i] = tileDeck.remove(0);
     }
 
     public int checkOverpopulation(boolean b)

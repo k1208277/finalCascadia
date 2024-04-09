@@ -31,6 +31,9 @@ public class Tile
         orientation = 0;
         ifTraversed = false;
         image = b;
+        for (int i = 0; i <= 5; i++){
+            adjacentTiles.add(null);
+        }
     }
 
     public ArrayList<Tile> getAdjacentTiles(){

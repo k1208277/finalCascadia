@@ -120,6 +120,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
+        System.out.println(x +" " +y);
         switch(game.getGameState()) {
             case 0 :
             {

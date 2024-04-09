@@ -62,9 +62,24 @@ public class Board
         }
         return traversal;
     }
-    public int getHabitatScore(int h){
+    public int getHabitatScore(int h) {
         ArrayList<Tile> allTiles = traverse();
+        ArrayList<Tile> habitatTiles = new ArrayList<Tile>();
+        for (int i = 0; i < allTiles.size(); i++) {
+            Tile temp = allTiles.get(i);
+            if (temp.getAdjacentTiles().contains(h)) {
+                habitatTiles.add(temp);
+            }
+        }
         int max = 0;
+
+        for (int i = 0; i < habitatTiles.size(); i++) {
+            Tile temp = habitatTiles.get(i);
+            ArrayList<Tile> group = new ArrayList<>();
+            Queue<Tile> q = new LinkedList<>();
+        }
+
+
         return max;
     }
 
@@ -157,13 +172,6 @@ public class Board
                 aloneHawks++;
             }
         }
-        for(int i = 0; i < allTiles.size(); i++){
-            allTiles.get(i).setChecker(false);
-        }
-        for(int i = 0; i < allTiles.size(); i++){
-            allTiles.get(i).setChecker(false);
-        }
-
         for(int i = 0; i < allTiles.size(); i++){
             allTiles.get(i).setChecker(false);
         }

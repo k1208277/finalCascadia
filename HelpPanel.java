@@ -36,7 +36,11 @@ public class HelpPanel extends JPanel implements MouseListener
     public void drawManual(Graphics g, HashMap<String, BufferedImage> icons) {
         g.setColor(new Color(0, 0, 0, 153));
         g.fillRect((int)(getWidth()/17.944), (int)(getHeight()/10.093), (int)(getWidth()/1.126), (int)(getHeight()/1.249));
-
+        switch(pageNum) {
+            case 1: {
+                //g.drawImage(manualImages.get(1), (int)(getWidth()/6.153), (int)(getHeight()/3.553), (int)(getWidth()/1.44), (int)(getHeight()/2.293), null);
+            }
+        }
     }
 
     public void pageLeft() {

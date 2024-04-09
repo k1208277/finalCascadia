@@ -77,7 +77,7 @@ public class MainMenuPanel extends JPanel
             g.drawImage(icons.get("person"), (int)(getWidth()/1.345), (int)(getHeight()/1.494), (int)(getWidth()/21.33), (int)(getHeight()/10.485), null);
 
             g.setFont(new Font("extra", 1, (int)(getHeight()/8.13176)));
-            g.drawString("Choose Player Amount", (int)(getWidth()/5.581), (int)(getHeight()/2.318));
+            g.drawString("Choose Player Amount", (int)(getWidth()/7.4), (int)(getHeight()/2.318));
         }
     }
     public void setVisible(boolean b) {

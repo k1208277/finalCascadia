@@ -67,7 +67,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             //main layout - player chooses options
             case 2 : {
-                drawPrompt(g);
+                drawPrompt(g, "Choose a tile and token!");
                 drawOptions(g);
                 drawPlayerBoard(g);
                 drawPlayerIcons(g);
@@ -78,13 +78,21 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
     }
 
-    public void drawPrompt(Graphics g) {
+    public void drawPrompt(Graphics g, String prompt) {
         g.setColor(new Color(0, 0, 0, 102));
         g.fillRect((int)(getWidth()/6.76), (int)(getHeight()/49.09), (int)(getWidth()/1.692), (int)(getHeight()/13.17));
-        g.setFont(new Font("he", 1, 24));
+        g.setFont(new Font("he", 1, (int)(getHeight()/28.8)));
         g.setColor(colors.get(game.getPlayerNum()));
         g.drawString("Player "+game.getPlayerNum()+"'s turn!", (int)(getWidth()/2.659), (int)(getHeight()/19.286));
-
+        int x = 0; int y = 0;
+        switch(game.getGameState()) {
+            case 2 : {
+                x = (int)(getWidth()/2.954);
+                y =  (int)(getHeight()/10.693);
+                break;
+            }
+        }
+        g.drawString(prompt, x, y);
     }
     public void drawOptions(Graphics g) {
 
@@ -133,14 +141,14 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             case 13 :
             {
-                while () //player has not clicked on a tile
+               /* while () //player has not clicked on a tile
                 {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         System.out.println("Error in threat.sleep method = "+e.getMessage());
                     }
-                }
+                }*/
             }
         }
     }

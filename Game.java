@@ -83,8 +83,12 @@ public class Game
         updateTileAndTokens();
 
         //turns
-        while(checkGameEnd()) //Overall loop, all players have to reach 20 turns
+        if(!checkGameEnd())
         {
+
+        }
+
+
             for(int i = 0; i < players.size(); i++) //individual player turn loop
             {
                 //Reset board
@@ -132,7 +136,7 @@ public class Game
                         setGameState(2);
                     }
 
-                }
+
 
                 //place tile and token
 
@@ -306,7 +310,7 @@ public class Game
             players.get(i).getBoard().addTile(st.get(2), st.get(0), 3);
         }
 
-        play();
+
     }
 
 

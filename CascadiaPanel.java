@@ -137,6 +137,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     game.setNumOfPlayers(pat);
                     game.setGameState(2);
                     repaint();
+                    game.play();
                 }
                 break;
             }

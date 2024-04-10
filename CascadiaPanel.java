@@ -10,7 +10,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private PlayerPanel player;
     private MainMenuPanel start;
     private HashMap<String, BufferedImage> icons;
-    private Game game;
+    //private Game game;
     private boolean gameStart, roundStart;
     private boolean tileClicked, tokenClicked;
     private ArrayList<Color> colors;
@@ -21,7 +21,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         player = new PlayerPanel();
         start = new MainMenuPanel();
         icons = new HashMap<String, BufferedImage>();
-        game = new Game();
+        //game = new Game();
         colors = new ArrayList<Color>();
         colors.add(new Color(255, 243, 188));
         colors.add(new Color(154, 225, 228));
@@ -82,7 +82,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.setColor(new Color(0, 0, 0, 102));
         g.fillRect((int)(getWidth()/6.76), (int)(getHeight()/49.09), (int)(getWidth()/1.692), (int)(getHeight()/13.17));
         g.setFont(new Font("he", 1, (int)(getHeight()/28.8)));
-        g.setColor(colors.get(game.getPlayerNum()));
+//        g.setColor(colors.get(game.getPlayerNum()));
         g.drawString("Player "+game.getPlayerNum()+"'s turn!", (int)(getWidth()/2.659), (int)(getHeight()/19.286));
         int x = 0; int y = 0;
         switch(game.getGameState()) {
@@ -137,7 +137,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     game.setNumOfPlayers(pat);
                     game.setGameState(2);
                     repaint();
-                    game.play();
+                    game.play(game.getCurrentPlayer());
                 }
                 break;
             }

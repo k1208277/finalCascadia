@@ -16,6 +16,7 @@ public class Game
     private ArrayList<Token> tokenDeck;
     private Tile[] availableTiles;
     private Token[] availableTokens;
+    private CascadiaPanel panel;
     //GameStates
     //0: main menu
     //1: choose player
@@ -57,6 +58,8 @@ public class Game
         availableTiles = new Tile[4];
         availableTokens = new Token[4];
 
+        //create panel
+        panel = new CascadiaPanel();
 
         //Create all tiles and tokens
         try {
@@ -83,67 +86,63 @@ public class Game
         updateTileAndTokens();
 
         //turns
-        if(!checkGameEnd())
-        {
-
-        }
-
-
-            for(int i = 0; i < players.size(); i++) //individual player turn loop
-            {
-                //Reset board
-                shuffleTokens();
-                updateTileAndTokens();
-                setCurrentPlayer(i);
-                setGameState(2);
-                waitForSeconds(1);
-
-                //overpopulation
-                if (checkOverpopulation(false) == 4) {
-                    checkOverpopulation(true);
-                    setGameState(2);
-                }
-                else if (checkOverpopulation(false) == 3) {
-                    if(gameState == 13)
-                    {
-                      checkOverpopulation(true);
-                      setGameState(2);
-                    }
-                }
-
-                //pinecones
-                if(currentPlayer.getPineCones() > 0)
-                {
-                    if (gameState == 7)
-                    {
-                        while (gameState != 8 || gameState != 9)
-                        {
-                            try {
-                                Thread.sleep((int) (1000));
-                            } catch (InterruptedException e) {
-                                System.out.println("Error in gamestate 8 and 9 sleep method = "+e.getMessage());
-                            }
-                        }
-                        if (gameState == 8)
-                        {
-                            updateTileAndTokens();
-                        }
-                        else if (gameState == 9)
-                        {
-                            updateTileAndTokens();
-                        }
-
-                        setGameState(2);
-                    }
-
-
-
-                //place tile and token
-
-            }
-            turn++;
-        }
+//        while (!checkGameEnd()) {
+//
+//        }
         getLeaderBoard();
+    }
+
+
+    public void playerTurn(Player currentPlayer)
+    {
+//            for(int i = 0; i < players.size(); i++) //individual player turn loop
+//            {
+////                //Reset board
+////                shuffleTokens();
+////                updateTileAndTokens();
+////                setCurrentPlayer(i);
+////                setGameState(2);
+////                waitForSeconds(1);
+////
+////                //overpopulation
+////                if (checkOverpopulation(false) == 4) {
+////                    checkOverpopulation(true);
+////                    setGameState(2);
+////                } else if (checkOverpopulation(false) == 3) {
+////                    if (gameState == 13) {
+////                        checkOverpopulation(true);
+////                        setGameState(2);
+////                    }
+////                }
+//
+//                //pinecones
+//                if (currentPlayer.getPineCones() > 0)
+//                {
+//                    if (gameState == 7)
+//                    {
+//                        while (gameState != 8 || gameState != 9)
+//                        {
+//                            try {
+//                                Thread.sleep((int) (1000));
+//                            } catch (InterruptedException e) {
+//                                System.out.println("Error in gamestate 8 and 9 sleep method = " + e.getMessage());
+//                            }
+//                        }
+//                        if (gameState == 8) {
+//                            updateTileAndTokens();
+//                        } else if (gameState == 9) {
+//                            updateTileAndTokens();
+//                        }
+//
+//                        setGameState(2);
+//                    }
+//
+//
+//                    //place tile and token
+//
+//                }
+//                turn++;
+//            }
     }
 
     public void createGame() throws IOException
@@ -173,11 +172,8 @@ public class Game
             }
             catch(Exception E)
             {
-//                System.out.print("Error in tile image number");
-//                for (int i = 0; i < a.length; i++)
-//                    System.out.print(a[i] + " ");
-//                System.out.println(" "+ a.length);
-//                System.out.println("Error in tile image number "+ a[5]);
+                System.out.print("Error in tile image number");
+                System.out.println("Error in tile image number "+ a[5]);
             }
 
         }
@@ -415,5 +411,10 @@ public class Game
         } catch (InterruptedException e) {
             System.out.println("Error in threat.sleep method = "+e.getMessage());
         }
+    }
+
+    public CascadiaPanel getPanel()
+    {
+        return panel;
     }
 }

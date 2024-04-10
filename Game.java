@@ -122,15 +122,20 @@ public class Game
                         }
                         if (gameState == 8)
                         {
-
+                            updateTileAndTokens();
                         }
                         else if (gameState == 9)
                         {
-
+                            updateTileAndTokens();
                         }
+
+                        setGameState(2);
                     }
 
                 }
+
+                //place tile and token
+
             }
             turn++;
         }

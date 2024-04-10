@@ -86,63 +86,59 @@ public class Game
         updateTileAndTokens();
 
         //turns
-//        while (!checkGameEnd()) {
-//
-//        }
+        while (!checkGameEnd())
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                currentPlayer = players.get(i);
+                playerTurn(currentPlayer);
+            }
+            turn++;
+        }
         getLeaderBoard();
     }
 
 
     public void playerTurn(Player currentPlayer)
     {
-//            for(int i = 0; i < players.size(); i++) //individual player turn loop
-//            {
-////                //Reset board
-////                shuffleTokens();
-////                updateTileAndTokens();
-////                setCurrentPlayer(i);
-////                setGameState(2);
-////                waitForSeconds(1);
-////
-////                //overpopulation
-////                if (checkOverpopulation(false) == 4) {
-////                    checkOverpopulation(true);
-////                    setGameState(2);
-////                } else if (checkOverpopulation(false) == 3) {
-////                    if (gameState == 13) {
-////                        checkOverpopulation(true);
-////                        setGameState(2);
-////                    }
-////                }
-//
-//                //pinecones
-//                if (currentPlayer.getPineCones() > 0)
-//                {
-//                    if (gameState == 7)
-//                    {
-//                        while (gameState != 8 || gameState != 9)
-//                        {
-//                            try {
-//                                Thread.sleep((int) (1000));
-//                            } catch (InterruptedException e) {
-//                                System.out.println("Error in gamestate 8 and 9 sleep method = " + e.getMessage());
-//                            }
-//                        }
-//                        if (gameState == 8) {
-//                            updateTileAndTokens();
-//                        } else if (gameState == 9) {
-//                            updateTileAndTokens();
-//                        }
-//
-//                        setGameState(2);
-//                    }
-//
-//
-//                    //place tile and token
-//
-//                }
-//                turn++;
-//            }
+        //overpopulation
+        if (checkOverpopulation(false) == 4)
+        {
+               checkOverpopulation(true);
+               setGameState(2);
+        }
+        else if (checkOverpopulation(false) == 3) {
+            if (gameState == 13)
+            {
+                checkOverpopulation(true);
+                setGameState(2);
+            }
+        }
+        panel.repaint();
+
+        //pinecones
+        if (currentPlayer.getPineCones() > 0)
+        {
+            if (gameState == 7)
+            {
+                while (gameState != 8 || gameState != 9)
+                {
+                    try {
+                        Thread.sleep((int) (1000));
+                    } catch (InterruptedException e) {
+                        System.out.println("Error in gamestate 8 and 9 sleep method = " + e.getMessage());
+                    }
+                }
+                if (gameState == 8) {
+                    updateTileAndTokens();
+                } else if (gameState == 9) {
+                    updateTileAndTokens();
+                }
+            }
+        }
+        panel.repaint();
+
+
     }
 
     public void createGame() throws IOException

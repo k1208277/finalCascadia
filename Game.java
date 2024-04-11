@@ -90,6 +90,7 @@ public class Game
             for(int i = 0; i < 4; i++)
             {
                 currentPlayer = players.get(i);
+                panel.repaint();
                 playerTurn(currentPlayer);
             }
             turn++;
@@ -118,8 +119,12 @@ public class Game
         //pinecones
         if (currentPlayer.getPineCones() > 0)
         {
+
             if (panel.getGameState() == 7)
             {
+                //prompt
+//                panel.repaint();
+                //wait for pinecone usage or tile and token, no specific order so is more complicated
                 while (panel.getGameState()  != 8 || panel.getGameState()  != 9)
                 {
                     try {

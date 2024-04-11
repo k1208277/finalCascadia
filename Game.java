@@ -292,7 +292,6 @@ public class Game
                 }
                 else {
                     ind = (int) (Math.random() * 5 + 1);
-                    st = starterTiles.remove(ind);
                 }
             }
 

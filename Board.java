@@ -4,7 +4,9 @@ import java.util.*;
 public class Board
 {
     private Tile startTile;
-    private int numTiles;
+    //  private int numTiles;
+
+    private int boardWidth, boardHeight;
 
 
     public Board(Tile t)
@@ -77,6 +79,27 @@ public class Board
             Tile temp = habitatTiles.get(i);
             ArrayList<Tile> group = new ArrayList<>();
             Queue<Tile> q = new LinkedList<>();
+            if (!temp.isChecked()){
+                q.add(temp);
+            }
+            while (!q.isEmpty()){
+                Tile ht = q.poll();
+                group.add(ht);
+                ht.setChecker(true);
+                for (int j = 0; j <= 5; j++){
+                    Tile t = ht.getAdjacent(i);
+                    if (t != null) {
+                        int otherBiome = j + 3;
+                        if (otherBiome > 5) {
+                            otherBiome -= 3;
+                        }
+                        if (ht.getHabitat(j) == t.getHabitat(otherBiome) && ht.getHabitat(j) == h && !t.isChecked()) {
+                            q.add(t);
+                        }
+                    }
+                }
+            }
+            max = Math.max(max, group.size());
         }
 
 
@@ -84,9 +107,54 @@ public class Board
     }
 
 
-    public int elkScore() {
+    public int elkScore() { //Scoring #2 - formations
+        ArrayList<Tile> allTiles = traverse();
+        ArrayList<Tile> allElk = new ArrayList<>();
+        for (int i = 0; i < allTiles.size(); i++){
+            if (allTiles.get(i).getAnimal() == 1){
+                allElk.add(allTiles.get(i));
+            }
+        }
+        int score = 0;
+        for (int i = 0; i < allElk.size(); i++){
+            Tile et = allElk.get(i);
+            if (!et.isChecked()){
+                if (et.getAdjacent(1)!= null && et.getAdjacent(2)!= null && et.getAdjacent(3)!= null && et.getAdjacent(1).getAnimal() == 1&& et.getAdjacent(2).getAnimal() == 1 && et.getAdjacent(3).getAnimal() == 1){
+                    if (!et.getAdjacent(1).isChecked() &&!et.getAdjacent(2).isChecked() && !et.getAdjacent(3).isChecked()) {
+                        et.getAdjacent(1).setChecker(true);
+                        et.getAdjacent(2).setChecker(true);
+                        et.getAdjacent(3).setChecker(true);
+                        et.setChecker(true);
+                        score += 13;
+                    }
+                }
+                else if (et.getAdjacent(1)!= null && et.getAdjacent(2)!= null && et.getAdjacent(1).getAnimal() == 1&& et.getAdjacent(2).getAnimal() == 1){
+                    if (!et.getAdjacent(1).isChecked() &&!et.getAdjacent(2).isChecked()) {
+                        et.getAdjacent(1).setChecker(true);
+                        et.getAdjacent(2).setChecker(true);
+                        et.setChecker(true);
+                        score += 9;
+                    }
+                }
+                else if (et.getAdjacent(2)!= null && et.getAdjacent(2).getAnimal() == 1){
+                    if (!et.getAdjacent(2).isChecked()) {
+                        et.getAdjacent(2).setChecker(true);
+                        et.setChecker(true);
+                        score += 5;
+                    }
+                }
+                else{
+                    et.setChecker(true);
+                    score +=2;
+                }
 
-        return 0;
+            }
+        }
+        for(int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
+
+        return score;
     }
     public int salmonScore() {
         ArrayList<Tile> allTiles = traverse();
@@ -172,6 +240,13 @@ public class Board
                 aloneHawks++;
             }
         }
+        for(int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
+        for(int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
+
         for(int i = 0; i < allTiles.size(); i++){
             allTiles.get(i).setChecker(false);
         }
@@ -266,4 +341,11 @@ public class Board
 
 
     }
+
+    public void setCoordinates(){
+        startTile.setXCoord((int)(boardWidth/ 2.46));
+        startTile.setXCoord((int)(boardHeight / 4.5));
+    }
+
+    public void setCoordinates(Tile tile, Tile prev, int orientation){}
 }

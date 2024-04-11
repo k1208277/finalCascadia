@@ -15,7 +15,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked;
     private ArrayList<Color> colors;
     private Game game;
-    //erica is shrot
     public CascadiaPanel(Game game)
     {
         this.game = game;

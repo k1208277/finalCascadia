@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class Game
 {
-    private int gameState;
+//    private int gameState;
     private ArrayList<Player> players;
     private Player currentPlayer;
     private int turn;
@@ -59,7 +59,7 @@ public class Game
         availableTokens = new Token[4];
 
         //create panel
-        panel = new CascadiaPanel();
+        panel = new CascadiaPanel(this);
 
         //Create all tiles and tokens
         try {
@@ -69,12 +69,11 @@ public class Game
         }
 
         //SetGameState
-        setGameState(0);
+        panel.setGameState(0);
     }
 
     public void play()
     {
-        //GAME LOOP
         //Shuffle tiles and tokens and remove extra tiles
         shuffleTiles();
         int totalTiles = players.size() * 20 + 3;
@@ -85,7 +84,7 @@ public class Game
         //Filling in the starting tiles and tokens
         updateTileAndTokens();
 
-        //turns
+        //player turn loop
         while (!checkGameEnd())
         {
             for(int i = 0; i < 4; i++)
@@ -105,13 +104,13 @@ public class Game
         if (checkOverpopulation(false) == 4)
         {
                checkOverpopulation(true);
-               setGameState(2);
+               panel.setGameState(2);
         }
         else if (checkOverpopulation(false) == 3) {
-            if (gameState == 13)
+            if (panel.getGameState() == 13)
             {
                 checkOverpopulation(true);
-                setGameState(2);
+                panel.setGameState(2);
             }
         }
         panel.repaint();
@@ -119,9 +118,9 @@ public class Game
         //pinecones
         if (currentPlayer.getPineCones() > 0)
         {
-            if (gameState == 7)
+            if (panel.getGameState() == 7)
             {
-                while (gameState != 8 || gameState != 9)
+                while (panel.getGameState()  != 8 || panel.getGameState()  != 9)
                 {
                     try {
                         Thread.sleep((int) (1000));
@@ -129,9 +128,9 @@ public class Game
                         System.out.println("Error in gamestate 8 and 9 sleep method = " + e.getMessage());
                     }
                 }
-                if (gameState == 8) {
+                if (panel.getGameState()  == 8) {
                     updateTileAndTokens();
-                } else if (gameState == 9) {
+                } else if (panel.getGameState()  == 9) {
                     updateTileAndTokens();
                 }
             }
@@ -243,14 +242,14 @@ public class Game
         }
     }
 
-    public int getGameState()
-    {
-        return gameState;
-    }
-    public void setGameState(int gs)
-    {
-        gameState = gs;
-    }
+//    public int getGameState()
+//    {
+//        return gameState;
+//    }
+//    public void setGameState(int gs)
+//    {
+//        gameState = gs;
+//    }
 
     public Player getCurrentPlayer()
     {

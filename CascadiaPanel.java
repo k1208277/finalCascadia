@@ -10,13 +10,15 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private PlayerPanel player;
     private MainMenuPanel start;
     private HashMap<String, BufferedImage> icons;
-    //private Game game;
+    private int gameState;
     private boolean gameStart, roundStart;
-    private boolean tileClicked, tokenClicked;
+    private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked;
     private ArrayList<Color> colors;
+    private Game game;
     //erica is shrot
-    public CascadiaPanel()
+    public CascadiaPanel(Game game)
     {
+        this.game = game;
         help = new HelpPanel();
         player = new PlayerPanel();
         start = new MainMenuPanel();
@@ -27,6 +29,13 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         colors.add(new Color(154, 225, 228));
         colors.add(new Color(255, 144, 173));
         colors.add(new Color(144, 219, 176));
+
+        //flags or indicators of whether a button has been clicked to send to wait methods
+        tileClicked = false;
+        tokenClicked = false;
+        twoPlayerCLicked = false;
+        threePlayerClicked = false;
+        fourPlayerClicked = false;
 
         try
         {
@@ -46,11 +55,20 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         addMouseListener(this);
     }
 
+    public int getGameState()
+    {
+        return gameState;
+    }
+    public void setGameState(int gs)
+    {
+        gameState = gs;
+    }
+
 //g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
     public void paint(Graphics g)
     {
         g.drawImage(icons.get("background"), 0, 0, getWidth(), getHeight(), null);
-        int s = game.getGameState();
+        int s = getGameState();
         //System.out.println(s);
         switch(s) {
             //main menu
@@ -85,7 +103,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 //        g.setColor(colors.get(game.getPlayerNum()));
         g.drawString("Player "+game.getPlayerNum()+"'s turn!", (int)(getWidth()/2.659), (int)(getHeight()/19.286));
         int x = 0; int y = 0;
-        switch(game.getGameState()) {
+        switch(getGameState()) {
             case 2 : {
                 x = (int)(getWidth()/2.954);
                 y =  (int)(getHeight()/10.693);
@@ -121,11 +139,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         int x = e.getX();
         int y = e.getY();
         System.out.println(x +" " +y);
-        switch(game.getGameState()) {
+        switch(getGameState())
+        {
             case 0 :
             {
                 if(start.stateChangeClick(x, y)) {
-                    game.setGameState(1);
+                    setGameState(1);
                 }
                 repaint();
                 break;
@@ -134,23 +153,57 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             {
                 int pat = start.playerAmountClick(x, y);
                 if(pat>0) {
+                    if (pat == 2)
+                        twoPlayerCLicked = true;
+                    else if (pat == 3)
+                        threePlayerClicked = true;
+                    else if (pat == 4)
+                        fourPlayerClicked = true;
                     game.setNumOfPlayers(pat);
-                    game.setGameState(2);
+                    setGameState(2);
                     repaint();
-                    game.play(game.getCurrentPlayer());
+                    game.play();
                 }
                 break;
             }
             case 13 :
             {
-               /* while () //player has not clicked on a tile
-                {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        System.out.println("Error in threat.sleep method = "+e.getMessage());
-                    }
-                }*/
+
+            }
+        }
+    }
+
+    public void waitForPlayerAmountClicked()
+    {
+        while (!twoPlayerCLicked && !threePlayerClicked && !fourPlayerClicked)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in waitForPlayerAmount method = "+e.getMessage());
+            }
+        }
+    }
+
+    public void waitForTileClicked()
+    {
+        while (!tileClicked) //player has not clicked on a tile
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in waitForPlayerAmount method = "+e.getMessage());
+            }
+        }
+    }
+    public void waitForTokenClicked()
+    {
+        while (!tokenClicked)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in waitForPlayerAmount method = "+e.getMessage());
             }
         }
     }

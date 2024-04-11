@@ -18,7 +18,7 @@ public class MainMenuPanel extends JPanel
         setWH(width, height);
         if(isVisible && !manual.isVisible()) {
             if(state == 0) {
-                drawBackround(g, icons, state);
+                drawBackground(g, icons, state);
             }
             else {
                 drawPlayerNumberOptions(g, icons, state);
@@ -26,7 +26,7 @@ public class MainMenuPanel extends JPanel
         }
         drawRules(g, icons);
     }
-    public void drawBackround(Graphics g, HashMap<String, BufferedImage> icons, int state) {
+    public void drawBackground(Graphics g, HashMap<String, BufferedImage> icons, int state) {
         if(state == 0) {
             g.drawImage(icons.get("title"), (int)(getWidth()/7.59), (int)(getHeight()/3.059), (int)(getWidth()/1.36), (int)(getHeight()/6.667), null);
             g.setColor(new Color(0, 0, 0, 127));

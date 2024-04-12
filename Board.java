@@ -26,7 +26,7 @@ public class Board
     }
 
 
-    public void placeTile(Tile t, Token a)
+    public void placeToken(Tile t, Token a)
     {
         t.setAnimal(a);
     }

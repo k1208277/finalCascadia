@@ -119,31 +119,84 @@ public class Game
         //pinecones
         if (currentPlayer.getPineCones() > 0)
         {
-
             if (panel.getGameState() == 7)
             {
                 //prompt
-//                panel.repaint();
-                //wait for pinecone usage or tile and token, no specific order so is more complicated
-                while (panel.getGameState()  != 8 || panel.getGameState()  != 9)
+                panel.repaint();
+                panel.waitForChooseTileOrPineconeClicked();
+
+                //Player clicked use pinecone
+                if (panel.getGameState() == 7)
                 {
-                    try {
-                        Thread.sleep((int) (1000));
-                    } catch (InterruptedException e) {
-                        System.out.println("Error in gamestate 8 and 9 sleep method = " + e.getMessage());
+                    //clear tokens
+                    //setPrompt to choose one of the options
+                    //panel.repaint();
+                    panel.waitForPinecone2options();
+                    if (panel.getGameState()  == 8)
+                    {
+                        //setPrompt - choose which tokens to clear
+                        //panel.repaint();
+                        panel.waitForOkClicked();
+                        updateTileAndTokens();
+                        regularPlayerTurn(currentPlayer); // will write later
+
                     }
+                    //choose a specific tile and token
+                    else if (panel.getGameState() == 9)
+                    {
+                        //setPrompt - choose a tile
+                        //panel.repaint();
+                        panel.waitForTileClicked(); //not sure about this cuz now we have two separate wait methods with tileClicked in it, but this is only for tile clicked, other is checks for tile clicked or pinecone use clicked
+                        //setPrompt - choose where to place the tile
+                        //getAvailableTileSpots()
+                        //panel.repaint(); - highlight available tiles
+                        //if (panel.getGameState() == 3)
+                        //waitForTilePlacement method will write later
+                        //find spot where player chose
+                        //setPrompt - RotateTile, press ok when done
+                        //panel.repaint();
+                        //waitForTileRotation? will write later
+                        //if (panel.getGameState() == 4)
+                        //left and right button action idk loop????
+                        panel.waitForOkClicked();
+                        //currentPlayer.getBoard().addTile(panel.getTileChosen()); i don't know how to put in the adjacent tiles yet in the parameter
+
+                        //setPrompt - choose a token
+                        //panel.repaint();
+                        panel.waitForTokenClicked();
+                        //setPrompt - choose where to place the token
+                        //getAvailableTokensSpots()
+                        //panel.repaint(); - highlight available tiles
+                        //find spot where player chose
+                        //setPrompt - choose a tile
+                        //if (panel.getGameState() == 4)
+                        //panel.repaint();
+                        //waitForTileRotation? will write later
+                        //currentPlayer.getBoard().addTile(panel.getTileChosen()); i don't know how to put in the adjacent tiles yet in the parameter
+
+                        updateTileAndTokens();
+                    }
+
                 }
-                if (panel.getGameState()  == 8) {
-                    updateTileAndTokens();
-                } else if (panel.getGameState()  == 9) {
-                    updateTileAndTokens();
+
+
+
+                if (panel.getGameState() == 3)
+                {
+                    //setPrompt
+                    //panel.repaint();
+
                 }
             }
         }
         panel.repaint();
+    }
 
+    public void regularPlayerTurn(Player currentPlayer)
+    {
 
     }
+
 
     public void createGame() throws IOException
     {
@@ -400,15 +453,6 @@ public class Game
             Thread.sleep((int) (seconds * 1000));
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
-        }
-    }
-
-    public void waitForTileClick(double seconds)
-    {
-        try {
-            Thread.sleep((int) (seconds * 1000));
-        } catch (InterruptedException e) {
-            System.out.println("Error in threat.sleep method = "+e.getMessage());
         }
     }
 

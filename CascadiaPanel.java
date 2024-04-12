@@ -12,8 +12,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private HashMap<String, BufferedImage> icons;
     private int gameState;
     private boolean gameStart, roundStart;
-    private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked;
+    private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked;
     private ArrayList<Color> colors;
+    private Tile tileChosen; // only for choosing tile to place to pass to player board to addTile()
+    private Token tokenChosen; // only for choosing token to place to pass to player board to set token to that tile;
     private Game game;
     public CascadiaPanel(Game game)
     {
@@ -35,6 +37,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         twoPlayerCLicked = false;
         threePlayerClicked = false;
         fourPlayerClicked = false;
+        usePineConesClicked = false;
+        chooseTileTokenClicked = false;
+        clearTokenClicked = false;
+
+        tileChosen = null;
+        tokenChosen = null;
 
         try
         {
@@ -63,7 +71,26 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         gameState = gs;
     }
 
-//g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
+    public Tile getTileChosen()
+    {
+        return tileChosen;
+    }
+    public void setTileChosen(Tile tile)
+    {
+        tileChosen = tile;
+    }
+
+    public Token getTokenChosen()
+    {
+        return tokenChosen;
+    }
+    public void setTokenChosen(Token token)
+    {
+        tokenChosen = token;
+    }
+
+
+    //g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
     public void paint(Graphics g)
     {
         g.drawImage(icons.get("background"), 0, 0, getWidth(), getHeight(), null);
@@ -184,17 +211,42 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
     }
 
-    public void waitForTileClicked()
+    public void waitForChooseTileOrPineconeClicked()
     {
-        while (!tileClicked) //player has not clicked on a tile
+        while (!tileClicked && !usePineConesClicked) //player has not clicked on a tile
         {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
-                System.out.println("Error in waitForPlayerAmount method = "+e.getMessage());
+                System.out.println("Error in tile or pinecone wait method = "+e.getMessage());
             }
         }
     }
+
+    public void waitForPinecone2options()
+    {
+        while (!chooseTileTokenClicked && !clearTokenClicked) //player has not clicked on a tile
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in pinecone options wait method = "+e.getMessage());
+            }
+        }
+    }
+
+    public void waitForTileClicked()
+    {
+        while (!tileClicked)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in choose tile wait method = "+e.getMessage());
+            }
+        }
+    }
+
     public void waitForTokenClicked()
     {
         while (!tokenClicked)
@@ -202,7 +254,19 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
-                System.out.println("Error in waitForPlayerAmount method = "+e.getMessage());
+                System.out.println("Error in choose token wait method = "+e.getMessage());
+            }
+        }
+    }
+
+    public void waitForOkClicked()
+    {
+        while (!okClicked)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in ok wait method = "+e.getMessage());
             }
         }
     }

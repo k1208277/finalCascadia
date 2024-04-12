@@ -56,6 +56,7 @@ public class MainMenuPanel extends JPanel
             g.setColor(new Color(0, 0, 0, 127));
             g.fillRect((int)(getWidth()/5.517), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
             g.fillRect((int)(getWidth()/2.406), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
+            //System.out.println(""+(int)(getWidth()/2.406)+", "+(int)(getHeight()/2)+", "+(int)(getWidth()/5.944)+", "+(int)(getHeight()/3.333));
             g.fillRect((int)(getWidth()/1.538), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
 
             g.setColor(Color.white);
@@ -100,12 +101,15 @@ public class MainMenuPanel extends JPanel
             g.fillRect((int)(getWidth()/2.406), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
             g.fillRect((int)(getWidth()/1.538), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
          */
-        if(y>=getHeight()/2 && y<= getHeight()/2+(int)(getHeight()/3.333) ) {
+        if (y >= getHeight() / 2 && y <= getHeight() / 2 + (int) (getHeight() / 3.333)) {
+            //System.out.println("reached");
             if(x>=(int)(getWidth()/5.517) && x<=(int)(getWidth()/5.517)+(int)(getWidth()/5.944) ) {
                 return 2;
             }
             else if(x>=(int)(getWidth()/2.406) && x<=(int)(getWidth()/2.406)+(int)(getWidth()/5.944)) {
+                //System.out.println("reached 3");
                 return 3;
+
             }
             else if(x>= (int)(getWidth()/1.538) && x<= (int)(getWidth()/1.538) +(int)(getWidth()/5.944)) {
                 return 4;

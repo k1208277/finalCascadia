@@ -169,6 +169,7 @@ public class Game
                         //panel.repaint(); - highlight available tiles
                         //find spot where player chose
                         //setPrompt - choose a tile
+
                         //if (panel.getGameState() == 4)
                         //panel.repaint();
                         //waitForTileRotation? will write later

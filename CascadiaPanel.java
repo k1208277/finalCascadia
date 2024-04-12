@@ -84,23 +84,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         gameState = gs;
     }
 
-    public Tile getTileChosen()
-    {
-        return tileChosen;
-    }
-    public void setTileChosen(Tile tile)
-    {
-        tileChosen = tile;
-    }
+    public Tile getTileChosen()  {    return tileChosen;  }
+    public void setTileChosen(Tile tile)  {   tileChosen = tile;  }
 
-    public Token getTokenChosen()
-    {
-        return tokenChosen;
-    }
-    public void setTokenChosen(Token token)
-    {
-        tokenChosen = token;
-    }
+    public Token getTokenChosen()   {       return tokenChosen;    }
+
+    public void setTokenChosen(Token token)  {   tokenChosen = token;  }
 
 
     //g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);

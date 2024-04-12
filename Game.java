@@ -268,7 +268,8 @@ public class Game
 
     public int getPlayerNum() {
         for(int i = 0; i<players.size(); i++) {
-            if(players.get(i).equals(currentPlayer)) {
+            Player temp = players.get(i);
+            if(temp.equals(currentPlayer)) {
                 return i;
             }
         }
@@ -304,7 +305,7 @@ public class Game
             players.get(i).getBoard().addTile(st.get(1), st.get(0), 4);
             players.get(i).getBoard().addTile(st.get(2), st.get(0), 3);
         }
-
+        System.out.println("reaches play");
 
     }
 
@@ -416,4 +417,12 @@ public class Game
     {
         return panel;
     }
+
+    public Tile[] getAvailableTiles() {
+        return availableTiles;
+    }
+    public Token[] getAvailableTokens(){
+        return availableTokens;
+    }
+
 }

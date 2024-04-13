@@ -17,18 +17,19 @@ public class Board
 
     public void addTile(Tile newTile, Tile adjTile, int orientation)
     {
-            ArrayList<Tile> traversal = traverse();
-            for (Tile t: traversal){
-                if (t == adjTile){
-                    t.getAdjacentTiles().set(orientation, newTile);
-                    break;
-                }
+
+        ArrayList<Tile> traversal = traverse();
+        for (Tile t: traversal){
+            if (t == adjTile){
+                t.getAdjacentTiles().set(orientation, newTile);
+                break;
             }
+        }
 
     }
 
 
-    public void placeTile(Tile t, Token a)
+    public void placeToken(Tile t, Token a)
     {
         t.setAnimal(a);
     }

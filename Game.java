@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class Game
 {
-    private int gameState;
+//    private int gameState;
     private ArrayList<Player> players;
     private Player currentPlayer;
     private int turn;
@@ -16,6 +16,7 @@ public class Game
     private ArrayList<Token> tokenDeck;
     private Tile[] availableTiles;
     private Token[] availableTokens;
+    private CascadiaPanel panel;
     //GameStates
     //0: main menu
     //1: choose player
@@ -57,6 +58,8 @@ public class Game
         availableTiles = new Tile[4];
         availableTokens = new Token[4];
 
+        //create panel
+        panel = new CascadiaPanel(this);
 
         //Create all tiles and tokens
         try {
@@ -66,12 +69,11 @@ public class Game
         }
 
         //SetGameState
-        setGameState(0);
+        panel.setGameState(0);
     }
 
     public void play()
     {
-        //GAME LOOP
         //Shuffle tiles and tokens and remove extra tiles
         shuffleTiles();
         int totalTiles = players.size() * 20 + 3;
@@ -82,65 +84,120 @@ public class Game
         //Filling in the starting tiles and tokens
         updateTileAndTokens();
 
-        //turns
-        while(checkGameEnd()) //Overall loop, all players have to reach 20 turns
+        //player turn loop
+        while (!checkGameEnd())
         {
-            for(int i = 0; i < players.size(); i++) //individual player turn loop
+            for(int i = 0; i < 4; i++)
             {
-                //Reset board
-                shuffleTokens();
-                updateTileAndTokens();
-                setCurrentPlayer(i);
-                setGameState(2);
-                waitForSeconds(1);
-
-                //overpopulation
-                if (checkOverpopulation(false) == 4) {
-                    checkOverpopulation(true);
-                    setGameState(2);
-                }
-                else if (checkOverpopulation(false) == 3) {
-                    if(gameState == 13)
-                    {
-                      checkOverpopulation(true);
-                      setGameState(2);
-                    }
-                }
-
-                //pinecones
-                if(currentPlayer.getPineCones() > 0)
-                {
-                    if (gameState == 7)
-                    {
-                        while (gameState != 8 || gameState != 9)
-                        {
-                            try {
-                                Thread.sleep((int) (1000));
-                            } catch (InterruptedException e) {
-                                System.out.println("Error in gamestate 8 and 9 sleep method = "+e.getMessage());
-                            }
-                        }
-                        if (gameState == 8)
-                        {
-                            updateTileAndTokens();
-                        }
-                        else if (gameState == 9)
-                        {
-                            updateTileAndTokens();
-                        }
-
-                        setGameState(2);
-                    }
-
-                }
-
-                //place tile and token
-
+                currentPlayer = players.get(i);
+                panel.repaint();
+                playerTurn(currentPlayer);
             }
             turn++;
         }
         getLeaderBoard();
     }
+
+
+    public void playerTurn(Player currentPlayer)
+    {
+        //overpopulation
+        if (checkOverpopulation(false) == 4)
+        {
+               checkOverpopulation(true);
+               panel.setGameState(2);
+        }
+        else if (checkOverpopulation(false) == 3) {
+            if (panel.getGameState() == 13)
+            {
+                checkOverpopulation(true);
+                panel.setGameState(2);
+            }
+        }
+        panel.repaint();
+
+        //pinecones
+        if (currentPlayer.getPineCones() > 0)
+        {
+            if (panel.getGameState() == 7)
+            {
+                //prompt
+                panel.repaint();
+                panel.waitForChooseTileOrPineconeClicked();
+
+                //Player clicked use pinecone
+                if (panel.getGameState() == 7)
+                {
+                    //clear tokens
+                    //setPrompt to choose one of the options
+                    //panel.repaint();
+                    panel.waitForPinecone2options();
+                    if (panel.getGameState()  == 8)
+                    {
+                        //setPrompt - choose which tokens to clear
+                        //panel.repaint();
+                        panel.waitForOkClicked();
+                        updateTileAndTokens();
+                        regularPlayerTurn(currentPlayer); // will write later
+
+                    }
+                    //choose a specific tile and token
+                    else if (panel.getGameState() == 9)
+                    {
+                        //setPrompt - choose a tile
+                        //panel.repaint();
+                        panel.waitForTileClicked(); //not sure about this cuz now we have two separate wait methods with tileClicked in it, but this is only for tile clicked, other is checks for tile clicked or pinecone use clicked
+                        //setPrompt - choose where to place the tile
+                        //getAvailableTileSpots()
+                        //panel.repaint(); - highlight available tiles
+                        //if (panel.getGameState() == 3)
+                        //waitForTilePlacement method will write later
+                        //find spot where player chose
+                        //setPrompt - RotateTile, press ok when done
+                        //panel.repaint();
+                        //waitForTileRotation? will write later
+                        //if (panel.getGameState() == 4)
+                        //left and right button action idk loop????
+                        panel.waitForOkClicked();
+                        //currentPlayer.getBoard().addTile(panel.getTileChosen()); i don't know how to put in the adjacent tiles yet in the parameter
+
+                        //setPrompt - choose a token
+                        //panel.repaint();
+                        panel.waitForTokenClicked();
+                        //setPrompt - choose where to place the token
+                        //getAvailableTokensSpots()
+                        //panel.repaint(); - highlight available tiles
+                        //find spot where player chose
+                        //setPrompt - choose a tile
+
+                        //if (panel.getGameState() == 4)
+                        //panel.repaint();
+                        //waitForTileRotation? will write later
+                        //currentPlayer.getBoard().addTile(panel.getTileChosen()); i don't know how to put in the adjacent tiles yet in the parameter
+
+                        updateTileAndTokens();
+                    }
+
+                }
+
+
+
+                if (panel.getGameState() == 3)
+                {
+                    //setPrompt
+                    //panel.repaint();
+
+                }
+            }
+        }
+        panel.repaint();
+    }
+
+    public void regularPlayerTurn(Player currentPlayer)
+    {
+
+    }
+
 
     public void createGame() throws IOException
     {
@@ -169,11 +226,8 @@ public class Game
             }
             catch(Exception E)
             {
-//                System.out.print("Error in tile image number");
-//                for (int i = 0; i < a.length; i++)
-//                    System.out.print(a[i] + " ");
-//                System.out.println(" "+ a.length);
-//                System.out.println("Error in tile image number "+ a[5]);
+                System.out.print("Error in tile image number");
+                System.out.println("Error in tile image number "+ a[5]);
             }
 
         }
@@ -247,14 +301,14 @@ public class Game
         }
     }
 
-    public int getGameState()
-    {
-        return gameState;
-    }
-    public void setGameState(int gs)
-    {
-        gameState = gs;
-    }
+//    public int getGameState()
+//    {
+//        return gameState;
+//    }
+//    public void setGameState(int gs)
+//    {
+//        gameState = gs;
+//    }
 
     public Player getCurrentPlayer()
     {
@@ -268,7 +322,8 @@ public class Game
 
     public int getPlayerNum() {
         for(int i = 0; i<players.size(); i++) {
-            if(players.get(i).equals(currentPlayer)) {
+            Player temp = players.get(i);
+            if(temp.equals(currentPlayer)) {
                 return i;
             }
         }
@@ -297,7 +352,6 @@ public class Game
                 }
                 else {
                     ind = (int) (Math.random() * 5 + 1);
-                    st = starterTiles.remove(ind);
                 }
             }
 
@@ -305,8 +359,8 @@ public class Game
             players.get(i).getBoard().addTile(st.get(1), st.get(0), 4);
             players.get(i).getBoard().addTile(st.get(2), st.get(0), 3);
         }
+        System.out.println("reaches play");
 
-        play();
     }
 
 
@@ -404,12 +458,16 @@ public class Game
         }
     }
 
-    public void waitForTileClick(double seconds)
+    public CascadiaPanel getPanel()
     {
-        try {
-            Thread.sleep((int) (seconds * 1000));
-        } catch (InterruptedException e) {
-            System.out.println("Error in threat.sleep method = "+e.getMessage());
-        }
+        return panel;
     }
+
+    public Tile[] getAvailableTiles() {
+        return availableTiles;
+    }
+    public Token[] getAvailableTokens(){
+        return availableTokens;
+    }
+
 }

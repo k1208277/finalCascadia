@@ -184,6 +184,15 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
     }
     public void drawScoringCards(Graphics g) {
+        g.setColor(new Color(0,0,0,102));
+        g.fillRect((int)(getWidth()/83.478), (int)(getHeight()/49.091), (int)(getWidth()/8.24), (int)(getHeight()/1.044));
+        g.setColor(Color.white);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+        g2.drawRect((int)(getWidth()/39.184), (int)(getHeight()/30), (int)(getWidth()/10.267), (int)(getHeight()/17.143));
+        g.setColor(Color.white);
+        g.setFont(new Font("he", 1, (int)(getHeight()/28.8)));
+        g.drawString("Help", (int)(getWidth()/17.778), (int)(getHeight()/13.846));
 
     }
     public void drawShiftButtons(Graphics g) {

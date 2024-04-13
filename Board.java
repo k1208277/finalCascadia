@@ -13,14 +13,17 @@ public class Board
     }
 
 
-    public void addTile(Tile newTile, Tile adjTile, int orientation)
+    public void addTile(Tile newTile, Tile adjTile, int sideNum) //orientation is the side number of the adjacentTile -> newTile
     {
 
         ArrayList<Tile> traversal = traverse();
         for (Tile t: traversal){
             if (t == adjTile){
-                t.getAdjacentTiles().set(orientation, newTile);
-                setCoordinates(newTile, adjTile, orientation);
+                t.getAdjacentTiles().set(sideNum, newTile);
+                int temp = sideNum + 3;
+                if (temp > 5) temp -= 6;
+                newTile.getAdjacentTiles().set(temp, adjTile);
+                setCoordinates(newTile, adjTile, sideNum);
                 break;
             }
         }
@@ -275,16 +278,44 @@ public class Board
     }
 
     public void setCoordinates(Tile tile, Tile prev, int orientation){
-        if (orientation == 1){
-            tile.setYCoord(prev.getYCoord() - (int)(boardWidth / 8.64));
+        if (orientation == 0){
+            tile.setYCoord(prev.getYCoord() - (int)(boardHeight / 8.64));
             tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 27.04));
         }
-        if (orientation == 2){
-            tile.setYCoord(prev.getYCoord() - (int)(boardWidth / 8.64));
+        if (orientation == 1){
+            tile.setYCoord(prev.getYCoord() - (int)(boardHeight/ 8.64));
             tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 27.04));
         }
-        if (orientation == 3){
+        if (orientation == 2){
             tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 13.52));
         }
+        if (orientation == 3){
+            tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 27.04));
+            tile.setYCoord(prev.getYCoord() + (int)(boardHeight/ 8.64));
+        }
+        if (orientation == 4){
+            tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 27.04));
+            tile.setYCoord(prev.getYCoord() + (int)(boardHeight / 8.64));
+        }
+        if (orientation == 5){
+            tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 13.52));
+        }
+    }
+
+    public HashMap<Tile, ArrayList<Integer>> allNullTiles(){
+        ArrayList<Tile> allTiles = traverse();
+        HashMap<Tile, ArrayList<Integer>> nullMap = new HashMap<>();
+        for (Tile t: allTiles){
+            ArrayList<Integer> nullSideNum = new ArrayList<>();
+            for (int i = 0; i <= 5; i++){
+                if (t.getAdjacent(i) == null){
+                    nullSideNum.add(i);
+                }
+            }
+            if(!nullSideNum.isEmpty()){
+                nullMap.put(t, nullSideNum);
+            }
+        }
+        return nullMap;
     }
 }

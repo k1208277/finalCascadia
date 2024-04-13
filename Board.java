@@ -284,7 +284,7 @@ public class Board
             tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 27.04));
         }
         if (orientation == 3){
-            tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 13.4));
+            tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 13.52));
         }
     }
 }

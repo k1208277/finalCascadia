@@ -14,11 +14,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private int gameState;
     private boolean gameStart, roundStart;
     private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked, throwAwayClicked;
+    private boolean nextPlayerClicked;
     private boolean tilePlaced, tokenPlaced;
     private ArrayList<Color> colors;
-    private Tile tileChosen; // only for choosing tile to place to pass to player board to addTile()
+    private int tileChosenNum; // only for choosing tile to place to pass to player board to addTile()
     private Tile tileTokenPlacement; //only for mouseclicker when player has clicked on it to add a token to it
-    private Token tokenChosen; // only for choosing token to place to pass to player board to set token to that tile;
+    private int tokenChosenNum; // only for choosing token to place to pass to player board to set token to that tile;
     private Game game;
     //erica is shrot
     public CascadiaPanel(Game game)
@@ -48,9 +49,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         clearTokenClicked = false;
         okClicked = false;
         throwAwayClicked = false;
+        nextPlayerClicked = false;
 
-        tileChosen = null;
-        tokenChosen = null;
+        tileChosenNum = -1;
+        tokenChosenNum = -1;
         tileTokenPlacement = null;
         tilePlaced = false;
         tokenPlaced = false;
@@ -99,12 +101,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         gameState = gs;
     }
 
-    public Tile getTileChosen()  {    return tileChosen;  }
-    public void setTileChosen(Tile tile)  {   tileChosen = tile;  }
+    public int getTileChosenNum()  {    return tileChosenNum;  }
+    public void setTileChosenNum(int tileNum)  {   tileChosenNum = tileNum;  }
 
-    public Token getTokenChosen()   {       return tokenChosen;    }
+    public int getTokenChosenNum()   {       return tokenChosenNum;    }
 
-    public void setTokenChosen(Token token)  {   tokenChosen = token;  }
+    public void setTokenChosenNum(int tokenNum)  {   tokenChosenNum = tokenNum;  }
 
     public Tile getTileForTokenPlacementChosen()   {       return tileTokenPlacement;    }
 
@@ -381,6 +383,18 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public void waitForTokenPlacedOrThrowAway()
     {
         while (!tokenPlaced && !throwAwayClicked)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in tokenPlaced method = "+e.getMessage());
+            }
+        }
+    }
+
+    public void waitForNextPlayer()
+    {
+        while (!nextPlayerClicked)
         {
             try {
                 Thread.sleep(100);

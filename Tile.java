@@ -16,6 +16,7 @@ public class Tile
         possibleAnimals = new ArrayList<Integer>();
         adjacentTiles = new ArrayList<Tile>();
 
+        isKeyStone = isKey;
 
         habitats.add(hab1); habitats.add(hab2); habitats.add(hab2); habitats.add(hab2); habitats.add(hab1); habitats.add(hab1);
         if (animal1 != 0)
@@ -40,6 +41,7 @@ public class Tile
         return adjacentTiles;
     }
 
+    public boolean isKeyStone()   {return isKeyStone;}
     public Tile getAdjacent(int i){
         return adjacentTiles.get(i);
     }

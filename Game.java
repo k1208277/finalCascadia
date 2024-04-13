@@ -359,6 +359,8 @@ public class Game
         return -1;
     }
 
+    public ArrayList<Player> getPlayers() {return players;}
+
     public void setNumOfPlayers(int x)
     {
         //Create Number of players

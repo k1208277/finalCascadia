@@ -94,4 +94,9 @@ public class Tile
         ifTraversed = b;
     }
 
+    public boolean isClicked(int width, int height, int sizeWidth, int sizeHeight) {
+
+        return false;
+    }
+
 }

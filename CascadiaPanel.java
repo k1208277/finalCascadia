@@ -10,7 +10,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private PlayerPanel player;
     private MainMenuPanel start;
     private HashMap<String, BufferedImage> icons;
-    private HashMap<Integer, BufferedImage> tokenImages;
+    private HashMap<Integer, BufferedImage> tokenImages, scoringCards;
     private int gameState;
     private boolean gameStart, roundStart;
     private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked, throwAwayClicked;
@@ -29,6 +29,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         start = new MainMenuPanel();
         icons = new HashMap<String, BufferedImage>();
         tokenImages = new HashMap<Integer, BufferedImage>();
+        scoringCards = new HashMap<Integer, BufferedImage>();
         //game = new Game();
         colors = new ArrayList<Color>();
         colors.add(new Color(255, 243, 188));
@@ -63,6 +64,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             icons.put("right", ImageIO.read(CascadiaPanel.class.getResource("/Images/right.png")));
             icons.put("left", ImageIO.read(CascadiaPanel.class.getResource("/Images/left.png")));
             icons.put("exit", ImageIO.read(CascadiaPanel.class.getResource("/Images/exit.png")));
+            icons.put("pinecone", ImageIO.read(CascadiaPanel.class.getResource("/Images/pinecone.png")));
             //Elk = 1
             //Salmon = 2
             //Hawk = 3
@@ -73,6 +75,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             tokenImages.put(3, ImageIO.read(CascadiaPanel.class.getResource("/Tokens/hawk token.png")));
             tokenImages.put(4, ImageIO.read(CascadiaPanel.class.getResource("/Tokens/fox token.png")));
             tokenImages.put(5, ImageIO.read(CascadiaPanel.class.getResource("/Tokens/bear token.png")));
+
+            scoringCards.put(0, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/elk - lines card.png")));
+            scoringCards.put(1, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/fish - long run card.png")));
+            scoringCards.put(2, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/hawk - solidarity card.png")));
+            scoringCards.put(3, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/fox - nearby animals card.png")));
+            scoringCards.put(4, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/bear - mating pairs card.png")));
         }
         catch(Exception e)
         {
@@ -181,7 +189,20 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
     }
     public void drawPlayerIcons(Graphics g) {
+        g.setColor(new Color(0,0,0,102));
+        g.fillRect((int)(getWidth()/1.328), (int)(getHeight()/49.091), (int)(getWidth()/4.286), (int)(getHeight()/1.044));
+        g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.693), (int)(getHeight()/1.196), (int)(getWidth()/18.113), (int)(getHeight()/12.706), null);
+        g.setColor(Color.white);
+        g.setFont(new Font("h", 1, 66));
+        g.drawString("X "/*+game.getCurrentPlayer().getPineCones()*/, (int)(getWidth()/1.526), (int)(getHeight()/1.108));
 
+        g.setColor(Color.white);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+        for(int i = 0; i<game.getPlayers().size()-1; i++) {
+            g2.drawRect((int)(getWidth()/1.306), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/4.788), (int)(getHeight()/5.023));
+            g.drawImage(icons.get("open"), (int)(getWidth()/1.06), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/32.542), (int)(getHeight()/18.305), null);
+        }
     }
     public void drawScoringCards(Graphics g) {
         g.setColor(new Color(0,0,0,102));
@@ -189,11 +210,13 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.setColor(Color.white);
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke((int)(getHeight()/270)));
-        g2.drawRect((int)(getWidth()/39.184), (int)(getHeight()/30), (int)(getWidth()/10.267), (int)(getHeight()/17.143));
+        g2.drawRect((int)(getWidth()/41.739), (int)(getHeight()/30), (int)(getWidth()/10.105), (int)(getHeight()/17.143));
         g.setColor(Color.white);
         g.setFont(new Font("he", 1, (int)(getHeight()/28.8)));
-        g.drawString("Help", (int)(getWidth()/17.778), (int)(getHeight()/13.846));
-
+        g.drawString("Help", (int)(getWidth()/18.78), (int)(getHeight()/13.846));
+        for(int i = 0; i<5; i++) {
+            g.drawImage(scoringCards.get(i), (int)(getWidth()/41.739), (int)(getHeight()/10.286)+i*(int)(getHeight()/5.714), (int)(getWidth()/10.105), (int)(getHeight()/5.967), null);
+        }
     }
     public void drawShiftButtons(Graphics g) {
 

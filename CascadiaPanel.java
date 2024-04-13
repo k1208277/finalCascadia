@@ -139,7 +139,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.setColor(new Color(0, 0, 0, 102));
         g.fillRect((int)(getWidth()/6.76), (int)(getHeight()/49.09), (int)(getWidth()/1.692), (int)(getHeight()/13.17));
         g.setFont(new Font("he", 1, (int)(getHeight()/28.8)));
-        g.setColor(colors.get(game.getPlayerNum()));
+        //g.setColor(colors.get(game.getPlayerNum()));
         g.drawString("Player "+game.getPlayerNum()+"'s turn!", (int)(getWidth()/2.659), (int)(getHeight()/19.286));
         int x = 0; int y = 0;
         switch(getGameState()) {
@@ -160,21 +160,39 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             g.drawImage(tokenImages.get(game.getAvailableTokens()[i].getAnimal()), (int)(getWidth()/6.038)+i*(getWidth()/15), (int)(getHeight()/1.12), (int)(getWidth()/25.946), (int)(getHeight()/14.595), null);
         }
         g.setColor(Color.white);
-        //g.setFont(new Font("h", 1, ))
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+        g.setFont(new Font("h", 1, (int)(getHeight()/31.697)));
+        //System.out.println((int)(getHeight()/31.697));
+        /*
         if(game.getCurrentPlayer().getPineCones()>0) {
-            g.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.251), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
+            g2.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.251), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
+            g.drawString("Use pinecones", (int)(getWidth()/2.261), (int)(getHeight()/1.186));
         }
         if(game.checkOverpopulation(false) == 3) {
-            g.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.121), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
+            g2.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.121), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
+            g.drawString("Clear tokens", (int)(getWidth()/2.22), (int)(getHeight()/1.069));
         }
+
+         */
     }
     public void drawPlayerBoard(Graphics g) {
-
+        g.setColor(new Color(0, 0, 0, 153));
+        g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
     }
     public void drawPlayerIcons(Graphics g) {
 
     }
     public void drawScoringCards(Graphics g) {
+        g.setColor(new Color(0,0,0,102));
+        g.fillRect((int)(getWidth()/83.478), (int)(getHeight()/49.091), (int)(getWidth()/8.24), (int)(getHeight()/1.044));
+        g.setColor(Color.white);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+        g2.drawRect((int)(getWidth()/39.184), (int)(getHeight()/30), (int)(getWidth()/10.267), (int)(getHeight()/17.143));
+        g.setColor(Color.white);
+        g.setFont(new Font("he", 1, (int)(getHeight()/28.8)));
+        g.drawString("Help", (int)(getWidth()/17.778), (int)(getHeight()/13.846));
 
     }
     public void drawShiftButtons(Graphics g) {
@@ -185,7 +203,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public void drawHighlights(Graphics g) {
         switch(getGameState())  {
             case 2 : {
-                g.setColor(colors.get(game.getPlayerNum()));
+                //g.setColor(colors.get(game.getPlayerNum()));
                 g.setColor(Color.yellow);
                 /*
                 int[] xC = new int[6];

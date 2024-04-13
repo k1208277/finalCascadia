@@ -61,6 +61,7 @@ public class MainMenuPanel extends JPanel
 
             g.setColor(Color.white);
             Graphics2D g2 = (Graphics2D)g;
+            g2.setStroke(new BasicStroke((int)(getHeight()/270)));
             g2.drawRect((int)(getWidth()/5.517), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
             g2.drawRect((int)(getWidth()/2.406), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
             g2.drawRect((int)(getWidth()/1.538), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));

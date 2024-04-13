@@ -119,82 +119,90 @@ public class Game
         //pinecones
         if (currentPlayer.getPineCones() > 0)
         {
+            panel.waitForChooseTileOrPineconeClicked(); //after this line, player will have either clicked on a tile or chosen to use a pinecone
+
+            //Chose to use pinecone
             if (panel.getGameState() == 7)
             {
-                //prompt
+                //panel.setPrompt() - choose one of the options below
                 panel.repaint();
-                panel.waitForChooseTileOrPineconeClicked();
+                panel.waitForPinecone2options();
 
-                //Player clicked use pinecone
-                if (panel.getGameState() == 7)
-                {
-                    //clear tokens
-                    //setPrompt to choose one of the options
+                //clear tokens
+                if (panel.getGameState() == 8) {
+                    //setPrompt - choose which tokens to clear
                     //panel.repaint();
-                    panel.waitForPinecone2options();
-                    if (panel.getGameState()  == 8)
-                    {
-                        //setPrompt - choose which tokens to clear
-                        //panel.repaint();
-                        panel.waitForOkClicked();
-                        updateTileAndTokens();
-                        regularPlayerTurn(currentPlayer); // will write later
+                    panel.waitForOkClicked();
+                    updateTileAndTokens();
+                    regularPlayerTurn(currentPlayer); // will write later
+                }
+                //choose a specific tile and token
+                else if (panel.getGameState() == 9) {
+                    //setPrompt - choose a tile
+                    //panel.repaint();
+                    panel.waitForTileClicked(); //not sure about this cuz now we have two separate wait methods with tileClicked in it, but this is only for tile clicked, other is checks for tile clicked or pinecone use clicked
 
-                    }
-                    //choose a specific tile and token
-                    else if (panel.getGameState() == 9)
-                    {
-                        //setPrompt - choose a tile
-                        //panel.repaint();
-                        panel.waitForTileClicked(); //not sure about this cuz now we have two separate wait methods with tileClicked in it, but this is only for tile clicked, other is checks for tile clicked or pinecone use clicked
+                    if (panel.getGameState() == 3) {
+                        //placement
                         //setPrompt - choose where to place the tile
-                        //getAvailableTileSpots()
-                        //panel.repaint(); - highlight available tiles
-                        //if (panel.getGameState() == 3)
-                        //waitForTilePlacement method will write later
-                        //find spot where player chose
-                        //setPrompt - RotateTile, press ok when done
                         //panel.repaint();
-                        //waitForTileRotation? will write later
-                        //if (panel.getGameState() == 4)
-                        //left and right button action idk loop????
-                        panel.waitForOkClicked();
-                        //currentPlayer.getBoard().addTile(panel.getTileChosen()); i don't know how to put in the adjacent tiles yet in the parameter
+                        panel.waitForTilePlaced(); //in mouselistener, once player has clicked where to place it, will have to set tilePlaced to true and gamestate to 4
+                        panel.repaint();
 
-                        //setPrompt - choose a token
+                        //rotation
+                        //setPrompt - Rotate tile! press ok when done
                         //panel.repaint();
-                        panel.waitForTokenClicked();
-                        //setPrompt - choose where to place the token
-                        //getAvailableTokensSpots()
-                        //panel.repaint(); - highlight available tiles
-                        //find spot where player chose
-                        //setPrompt - choose a tile
-
-                        //if (panel.getGameState() == 4)
-                        //panel.repaint();
-                        //waitForTileRotation? will write later
-                        //currentPlayer.getBoard().addTile(panel.getTileChosen()); i don't know how to put in the adjacent tiles yet in the parameter
-
-                        updateTileAndTokens();
+                        if (panel.getGameState() == 4)
+                        {
+                            panel.waitForOkClicked();
+                            panel.repaint();
+//                            currentPlayer.getBoard().addTile(panel.getTileChosen()); //i don't know how to put in the adjacent tiles yet in the parameter
+                        }
                     }
-
-                }
-
-
-
-                if (panel.getGameState() == 3)
-                {
-                    //setPrompt
+                    //find spot where player chose
+                    //setPrompt - RotateTile, press ok when done
                     //panel.repaint();
+                    //waitForTileRotation? will write later
+                    //if (panel.getGameState() == 4)
+                    //left and right button action idk loop????
+                    panel.waitForOkClicked();
+                    //currentPlayer.getBoard().addTile(panel.getTileChosen()); i don't know how to put in the adjacent tiles yet in the parameter
 
+                    //setPrompt - choose a token
+                    //panel.repaint();
+                    panel.waitForTokenClicked();
+                    //setPrompt - choose where to place the token
+                    //getAvailableTokensSpots()
+                    //panel.repaint(); - highlight available tiles
+                    //find spot where player chose
+                    //setPrompt - choose a tile
+                    //if (panel.getGameState() == 4)
+                    //panel.repaint();
+                    //waitForTileRotation? will write later
+                    //currentPlayer.getBoard().addTile(panel.getTileChosen()); i don't know how to put in the adjacent tiles yet in the parameter
+
+                    updateTileAndTokens();
                 }
+
+
             }
+            //Chose a tile - regular gamemode
+            else
+                regularPlayerTurn(currentPlayer);
+
         }
+        panel.waitForTileClicked();
+        regularPlayerTurn(currentPlayer);
+
         panel.repaint();
     }
 
     public void regularPlayerTurn(Player currentPlayer)
     {
+        //setPrompt - choose where to place the tile
+        //panel.repaint();
+
+
 
     }
 

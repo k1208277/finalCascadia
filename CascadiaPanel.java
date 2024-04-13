@@ -14,6 +14,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private int gameState;
     private boolean gameStart, roundStart;
     private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked;
+    private boolean tilePlaced, tokenPlaced;
     private ArrayList<Color> colors;
     private Tile tileChosen; // only for choosing tile to place to pass to player board to addTile()
     private Token tokenChosen; // only for choosing token to place to pass to player board to set token to that tile;
@@ -46,6 +47,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
         tileChosen = null;
         tokenChosen = null;
+        tilePlaced = false;
+        tokenPlaced = false;
 
         try
         {
@@ -128,7 +131,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.setColor(new Color(0, 0, 0, 102));
         g.fillRect((int)(getWidth()/6.76), (int)(getHeight()/49.09), (int)(getWidth()/1.692), (int)(getHeight()/13.17));
         g.setFont(new Font("he", 1, (int)(getHeight()/28.8)));
-        //g.setColor(colors.get(game.getPlayerNum()));
+        g.setColor(colors.get(game.getPlayerNum()));
         g.drawString("Player "+game.getPlayerNum()+"'s turn!", (int)(getWidth()/2.659), (int)(getHeight()/19.286));
         int x = 0; int y = 0;
         switch(getGameState()) {
@@ -148,6 +151,14 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             g.drawImage(game.getAvailableTiles()[i].getImage(), (int)(getWidth()/6.316)+i*(int)(getWidth()/14.884), (int)(getHeight()/1.289), (int)(getWidth()/19.01), (int)(getHeight()/9.231), null);
             g.drawImage(tokenImages.get(game.getAvailableTokens()[i].getAnimal()), (int)(getWidth()/6.038)+i*(getWidth()/15), (int)(getHeight()/1.12), (int)(getWidth()/25.946), (int)(getHeight()/14.595), null);
         }
+        g.setColor(Color.white);
+        //g.setFont(new Font("h", 1, ))
+        if(game.getCurrentPlayer().getPineCones()>0) {
+            g.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.251), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
+        }
+        if(game.checkOverpopulation(false) == 3) {
+            g.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.121), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
+        }
     }
     public void drawPlayerBoard(Graphics g) {
 
@@ -166,7 +177,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public void drawHighlights(Graphics g) {
         switch(getGameState())  {
             case 2 : {
-                //g.setColor(colors.get(game.getPlayerNum()));
+                g.setColor(colors.get(game.getPlayerNum()));
                 g.setColor(Color.yellow);
                 /*
                 int[] xC = new int[6];
@@ -186,7 +197,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 g.fillPolygon(xC, yC, 6);
                  */
                 for(int i = 0; i< 4; i++) {
-                    g.fillOval((int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()));
+                    g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
                 }
             }
         }
@@ -302,6 +313,30 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 System.out.println("Error in ok wait method = "+e.getMessage());
+            }
+        }
+    }
+
+    public void waitForTilePlaced()
+    {
+        while (!tilePlaced)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in tilePlaced method = "+e.getMessage());
+            }
+        }
+    }
+
+    public void waitForTokenPlaced()
+    {
+        while (!tokenPlaced)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in tokenPlaced method = "+e.getMessage());
             }
         }
     }

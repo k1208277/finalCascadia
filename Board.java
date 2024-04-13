@@ -5,7 +5,7 @@ public class Board
 {
     private Tile startTile;
     private int numTiles;
-
+    private int boardWidth, boardHeight;
 
     public Board(Tile t)
     {
@@ -20,6 +20,7 @@ public class Board
         for (Tile t: traversal){
             if (t == adjTile){
                 t.getAdjacentTiles().set(orientation, newTile);
+                setCoordinates(newTile, adjTile, orientation);
                 break;
             }
         }
@@ -266,5 +267,24 @@ public class Board
         return score;
 
 
+    }
+
+    public void setCoordinates(){
+        startTile.setXCoord((int)(boardWidth/ 2.46));
+        startTile.setXCoord((int)(boardHeight / 4.5));
+    }
+
+    public void setCoordinates(Tile tile, Tile prev, int orientation){
+        if (orientation == 1){
+             tile.setYCoord(prev.getYCoord() - (int)(boardWidth / 8.64));
+             tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 27.04));
+        }
+        if (orientation == 2){
+            tile.setYCoord(prev.getYCoord() - (int)(boardWidth / 8.64));
+            tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 27.04));
+        }
+        if (orientation == 3){
+            tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 13.4));
+        }
     }
 }

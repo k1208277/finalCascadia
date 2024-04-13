@@ -14,6 +14,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private int gameState;
     private boolean gameStart, roundStart;
     private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked;
+    private boolean tilePlaced, tokenPlaced;
     private ArrayList<Color> colors;
     private Tile tileChosen; // only for choosing tile to place to pass to player board to addTile()
     private Token tokenChosen; // only for choosing token to place to pass to player board to set token to that tile;
@@ -46,6 +47,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
         tileChosen = null;
         tokenChosen = null;
+        tilePlaced = false;
+        tokenPlaced = false;
 
         try
         {
@@ -302,6 +305,30 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 System.out.println("Error in ok wait method = "+e.getMessage());
+            }
+        }
+    }
+
+    public void waitForTilePlaced()
+    {
+        while (!tilePlaced)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in tilePlaced method = "+e.getMessage());
+            }
+        }
+    }
+
+    public void waitForTokenPlaced()
+    {
+        while (!tokenPlaced)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in tokenPlaced method = "+e.getMessage());
             }
         }
     }

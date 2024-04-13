@@ -276,8 +276,8 @@ public class Board
 
     public void setCoordinates(Tile tile, Tile prev, int orientation){
         if (orientation == 1){
-             tile.setYCoord(prev.getYCoord() - (int)(boardWidth / 8.64));
-             tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 27.04));
+            tile.setYCoord(prev.getYCoord() - (int)(boardWidth / 8.64));
+            tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 27.04));
         }
         if (orientation == 2){
             tile.setYCoord(prev.getYCoord() - (int)(boardWidth / 8.64));

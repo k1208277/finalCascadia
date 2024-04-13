@@ -24,6 +24,8 @@ public class Game
     //3: choose tile placement
     //4: choose tile orientation
     //5: choose tile token is placed/throwaway
+    //14: Tile/token is placed
+    //15: tile/token is thrownaway
     //6: confirm and go to next player
     //7: choose pinecone options
     //8: choose tokens to clear
@@ -32,6 +34,7 @@ public class Game
     //11: playerPanel
     //12: end game
     //13: overpopulation choice to remove
+
 
 
 
@@ -142,6 +145,7 @@ public class Game
                     //panel.repaint();
                     panel.waitForTileClicked(); //not sure about this cuz now we have two separate wait methods with tileClicked in it, but this is only for tile clicked, other is checks for tile clicked or pinecone use clicked
 
+                    //tile orientation
                     if (panel.getGameState() == 3) {
                         //placement
                         //setPrompt - choose where to place the tile
@@ -156,21 +160,38 @@ public class Game
                         {
                             panel.waitForOkClicked();
                             panel.repaint();
-//                            currentPlayer.getBoard().addTile(panel.getTileChosen()); //i don't know how to put in the adjacent tiles yet in the parameter
+                            //connecting the tile
+                            for (int i = 0; i < 6; i++)
+                            {
+//                                if (panel.getTileChosen())
+//                                    currentPlayer.getBoard().addTile(panel.getTileChosen());  //WIll DO LATER CUZ IDK RN
+                            }
+
                         }
                     }
-                    //find spot where player chose
-                    //setPrompt - RotateTile, press ok when done
-                    //panel.repaint();
-                    //waitForTileRotation? will write later
-                    //if (panel.getGameState() == 4)
-                    //left and right button action idk loop????
-                    panel.waitForOkClicked();
-                    //currentPlayer.getBoard().addTile(panel.getTileChosen()); i don't know how to put in the adjacent tiles yet in the parameter
 
                     //setPrompt - choose a token
                     //panel.repaint();
                     panel.waitForTokenClicked();
+                    //place token
+                    if (panel.getGameState() == 5)
+                    {
+                        //setPrompt - choose is where to place the token or throw away
+                        //panel.repaint();
+                        panel.waitForTokenPlacedOrThrowAway();
+                        //chose to keep and place
+                        if (panel.getGameState() == 14) {
+                            panel.getTileForTokenPlacementChosen().setAnimal(panel.getTokenChosen());
+                            panel.repaint();
+                        }
+
+                        //thrown away
+                        else if (panel.getGameState() == 15)
+                        {
+                            tokenDeck.add(panel.getTokenChosen());
+                            panel.repaint();
+                        }
+                    }
                     //setPrompt - choose where to place the token
                     //getAvailableTokensSpots()
                     //panel.repaint(); - highlight available tiles

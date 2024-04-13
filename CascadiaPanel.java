@@ -13,10 +13,11 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private HashMap<Integer, BufferedImage> tokenImages;
     private int gameState;
     private boolean gameStart, roundStart;
-    private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked;
+    private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked, throwAwayClicked;
     private boolean tilePlaced, tokenPlaced;
     private ArrayList<Color> colors;
     private Tile tileChosen; // only for choosing tile to place to pass to player board to addTile()
+    private Tile tileTokenPlacement; //only for mouseclicker when player has clicked on it to add a token to it
     private Token tokenChosen; // only for choosing token to place to pass to player board to set token to that tile;
     private Game game;
     //erica is shrot
@@ -44,9 +45,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         usePineConesClicked = false;
         chooseTileTokenClicked = false;
         clearTokenClicked = false;
+        okClicked = false;
+        throwAwayClicked = false;
 
         tileChosen = null;
         tokenChosen = null;
+        tileTokenPlacement = null;
         tilePlaced = false;
         tokenPlaced = false;
 
@@ -93,6 +97,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public Token getTokenChosen()   {       return tokenChosen;    }
 
     public void setTokenChosen(Token token)  {   tokenChosen = token;  }
+
+    public Tile getTileForTokenPlacementChosen()   {       return tileTokenPlacement;    }
+
+    public void setTileForTokenPlacement(Tile tile)  {   tileTokenPlacement = tile;  }
 
 
     //g.drawImage(icons.get(""), (int)(getWidth()), (int)(getHeight()), (int)(getWidth()), (int)(getHeight()), null);
@@ -329,9 +337,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
     }
 
-    public void waitForTokenPlaced()
+    public void waitForTokenPlacedOrThrowAway()
     {
-        while (!tokenPlaced)
+        while (!tokenPlaced && !throwAwayClicked)
         {
             try {
                 Thread.sleep(100);
@@ -340,4 +348,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
         }
     }
+
+
 }

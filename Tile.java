@@ -96,9 +96,32 @@ public class Tile
         ifTraversed = b;
     }
 
-    public boolean isClicked(int width, int height, int sizeWidth, int sizeHeight) {
-
+    public boolean isClicked(int x, int y, int width, int height, int sizeWidth, int sizeHeight) {
+        if(x>=xCoord && x<=xCoord+width && y>=yCoord && y<=yCoord+height) {
+            if(y>=yCoord+(int)(height/4.074) && y<=yCoord+height-(int)(height/4.074)) {
+                return true;
+            }
+            double totalArea = area(xCoord, yCoord+(int)(height/4.074), xCoord+width/2, yCoord, xCoord+width, yCoord+(int)(height/4.074));
+            double a1 = area(xCoord, yCoord-(int)(height/4.074), xCoord+width/2, yCoord, x, y);
+            double a2 = area(xCoord, yCoord-(int)(height/4.074), x, y, xCoord+width, yCoord-(int)(height/4.074));
+            double a3 = area(x, y, xCoord+width/2, yCoord, xCoord+width, yCoord-(int)(height/4.074));
+            if(a1+a2+a3==totalArea) {
+                return true;
+            }
+            totalArea = area(xCoord, yCoord+(int)(height/1.325), xCoord+width/2, yCoord+height, xCoord+width, yCoord+(int)(1.325));
+            a1 = area(xCoord, yCoord+(int)(height/1.325), xCoord+width/2, yCoord+height, x, y);
+            a2 = area(xCoord, yCoord+(int)(height/1.325), x, y, xCoord+width, yCoord+(int)(1.325));
+            a3 = area(x, y, xCoord+width/2, yCoord+height, xCoord+width, yCoord+(int)(1.325));
+            if(a1+a2+a3==totalArea) {
+                return true;
+            }
+            return false;
+        }
         return false;
+    }
+    public double area(int x1, int y1, int x2, int y2, int x3, int y3)
+    {
+        return Math.abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
     }
 
 }

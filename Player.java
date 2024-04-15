@@ -2,7 +2,21 @@ import java.util.*;
 public class Player
 {
     private int numOfPineCones, totalHabitatScore;
-    private int[] score; //score[0] = total score of habitats, rest is each animal score
+    private int[] score;
+    /*
+    score[0] is total score
+    score[1] is bear score
+    score[2] is elk score
+    score[3] is salmon score
+    score[4] is hawk score
+    score[5] is fox score
+    score[6] is
+
+
+
+
+
+     */
     private Board board;
 
     public Player(Board b)

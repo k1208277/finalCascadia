@@ -10,6 +10,17 @@ public class Tile
     private int orientation, xCoord, yCoord;
     private boolean isKeyStone, ifTraversed;
     private BufferedImage image;
+
+    private boolean emptyTile;
+
+    public Tile(){
+        adjacentTiles = new ArrayList<>();
+        for (int i = 0; i <= 5; i++){
+            adjacentTiles.add(null);
+        }
+        emptyTile = true;
+    }
+
     public Tile(int hab1, int hab2, int animal1, int animal2, int animal3, int x, int y, boolean isKey, BufferedImage b) //animal habitats
     {
         habitats = new ArrayList<Integer>();
@@ -35,6 +46,9 @@ public class Tile
         for (int i = 0; i <= 5; i++){
             adjacentTiles.add(null);
         }
+
+
+        emptyTile = false;
     }
 
     public ArrayList<Tile> getAdjacentTiles(){
@@ -124,4 +138,7 @@ public class Tile
         return Math.abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
     }
 
+    public boolean isEmptyTile(){
+        return emptyTile;
+    }
 }

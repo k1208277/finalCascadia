@@ -7,16 +7,19 @@ public class Board
     private int numTiles;
     private int boardWidth, boardHeight;
 
-    public Board(Tile t)
+    public Board(Tile t) //three more Tile constructors?
     {
         startTile = t;
+        for (int i = 0; i <= 5; i++){
+            addTile(new Tile(), startTile,i);
+        }
     }
 
 
     public void addTile(Tile newTile, Tile adjTile, int sideNum) //orientation is the side number of the adjacentTile -> newTile
     {
 
-        ArrayList<Tile> traversal = traverse();
+       /* ArrayList<Tile> traversal = traverse();
         for (Tile t: traversal){
             if (t == adjTile){
                 t.getAdjacentTiles().set(sideNum, newTile);
@@ -26,8 +29,12 @@ public class Board
                 setCoordinates(newTile, adjTile, sideNum);
                 break;
             }
-        }
-
+        }*/
+        adjTile.getAdjacentTiles().set(sideNum, newTile);
+        int temp = sideNum + 3;
+        if (temp > 5) temp -= 6;
+        newTile.getAdjacentTiles().set(temp, adjTile);
+        setCoordinates(newTile, adjTile, sideNum);
     }
 
 
@@ -67,6 +74,7 @@ public class Board
         }
         return traversal;
     }
+
     public int getHabitatScore(int h) {
         ArrayList<Tile> allTiles = traverse();
         ArrayList<Tile> habitatTiles = new ArrayList<Tile>();
@@ -82,6 +90,27 @@ public class Board
             Tile temp = habitatTiles.get(i);
             ArrayList<Tile> group = new ArrayList<>();
             Queue<Tile> q = new LinkedList<>();
+            if (!temp.isChecked()){
+                q.add(temp);
+            }
+            while (!q.isEmpty()){
+                Tile ht = q.poll();
+                group.add(ht);
+                ht.setChecker(true);
+                for (int j = 0; j <= 5; j++){
+                    Tile t = ht.getAdjacent(i);
+                    if (t != null) {
+                        int otherBiome = j + 3;
+                        if (otherBiome > 5) {
+                            otherBiome -= 3;
+                        }
+                        if (ht.getHabitat(j) == t.getHabitat(otherBiome) && ht.getHabitat(j) == h && !t.isChecked()) {
+                            q.add(t);
+                        }
+                    }
+                }
+            }
+            max = Math.max(max, group.size());
         }
 
 
@@ -89,9 +118,55 @@ public class Board
     }
 
 
-    public int elkScore() {
 
-        return 0;
+    public int elkScore() { //Scoring #2 - formations
+            ArrayList<Tile> allTiles = traverse();
+            ArrayList<Tile> allElk = new ArrayList<>();
+            for (int i = 0; i < allTiles.size(); i++){
+                if (allTiles.get(i).getAnimal() == 1){
+                    allElk.add(allTiles.get(i));
+                }
+            }
+            int score = 0;
+            for (int i = 0; i < allElk.size(); i++){
+                Tile et = allElk.get(i);
+                if (!et.isChecked()){
+                    if (et.getAdjacent(1)!= null && et.getAdjacent(2)!= null && et.getAdjacent(3)!= null && et.getAdjacent(1).getAnimal() == 1&& et.getAdjacent(2).getAnimal() == 1 && et.getAdjacent(3).getAnimal() == 1){
+                        if (!et.getAdjacent(1).isChecked() &&!et.getAdjacent(2).isChecked() && !et.getAdjacent(3).isChecked()) {
+                            et.getAdjacent(1).setChecker(true);
+                            et.getAdjacent(2).setChecker(true);
+                            et.getAdjacent(3).setChecker(true);
+                            et.setChecker(true);
+                            score += 13;
+                        }
+                    }
+                    else if (et.getAdjacent(1)!= null && et.getAdjacent(2)!= null && et.getAdjacent(1).getAnimal() == 1&& et.getAdjacent(2).getAnimal() == 1){
+                        if (!et.getAdjacent(1).isChecked() &&!et.getAdjacent(2).isChecked()) {
+                            et.getAdjacent(1).setChecker(true);
+                            et.getAdjacent(2).setChecker(true);
+                            et.setChecker(true);
+                            score += 9;
+                        }
+                    }
+                    else if (et.getAdjacent(2)!= null && et.getAdjacent(2).getAnimal() == 1){
+                        if (!et.getAdjacent(2).isChecked()) {
+                            et.getAdjacent(2).setChecker(true);
+                            et.setChecker(true);
+                            score += 5;
+                        }
+                    }
+                    else{
+                        et.setChecker(true);
+                        score +=2;
+                    }
+
+                }
+            }
+            for(int i = 0; i < allTiles.size(); i++){
+                allTiles.get(i).setChecker(false);
+            }
+
+            return score;
     }
     public int salmonScore() {
         ArrayList<Tile> allTiles = traverse();
@@ -274,7 +349,7 @@ public class Board
 
     public void setCoordinates(){
         startTile.setXCoord((int)(boardWidth/ 2.46));
-        startTile.setXCoord((int)(boardHeight / 4.5));
+        startTile.setYCoord((int)(boardHeight / 4.5));
     }
 
     public void setCoordinates(Tile tile, Tile prev, int orientation){
@@ -319,3 +394,19 @@ public class Board
         return nullMap;
     }
 }
+/*
+random method - when a tile is placed on the board, all of its null tiles become adjacent, empty tiles
+Tile t;
+
+for (int i = 0; i <= 5; i++){
+   if (t.getAdjacent(i) == null){
+   (Board).addTile(new Tile(), t, i);
+    }
+ }
+
+
+
+
+
+
+ */

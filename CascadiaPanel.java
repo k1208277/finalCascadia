@@ -104,7 +104,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public int getTileChosenNum()  {    return tileChosenNum;  }
     public void setTileChosenNum(int tileNum)  {   tileChosenNum = tileNum;  }
 
-    public int getTokenChosenNum()   {       return tokenChosenNum;    }
+    public int getTokenChosenNum()   {  return tokenChosenNum;  }
 
     public void setTokenChosenNum(int tokenNum)  {   tokenChosenNum = tokenNum;  }
 
@@ -141,6 +141,14 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 drawScoringCards(g);
                 drawShiftButtons(g);
                 drawButtons(g);
+            }
+            case 3:
+            {
+
+            }
+            case 7:
+            {
+
             }
         }
     }
@@ -225,7 +233,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
     }
     public void shift(int i){}
-    public void drawButtons(Graphics g) {}
+    public void drawButtons(Graphics g)
+    {
+
+    }
     public void drawHighlights(Graphics g) {
         switch(getGameState())  {
             case 2 : {
@@ -277,12 +288,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             {
                 int pat = start.playerAmountClick(x, y);
                 if(pat>0) {
-                    if (pat == 2)
-                        twoPlayerCLicked = true;
-                    else if (pat == 3)
-                        threePlayerClicked = true;
-                    else if (pat == 4)
-                        fourPlayerClicked = true;
+//                    if (pat == 2)
+//                        twoPlayerCLicked = true;
+//                    else if (pat == 3)
+//                        threePlayerClicked = true;
+//                    else if (pat == 4)
+//                        fourPlayerClicked = true;
                     game.setNumOfPlayers(pat);
                     setGameState(2);
                     repaint();
@@ -290,10 +301,124 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 }
                 break;
             }
-            case 13 :
+            case 2:
             {
+                if(x <= getWidth()) //coordinates for use pinecone button
+                {
+                    usePineConesClicked = true;
+                    setGameState(7);
+                }
+                else {
+                    for (int i = 0; i < 4; i++) {
+                        if (game.getAvailableTiles()[i].isClicked(x, y, (int) (getWidth() / 19.01), (int) (getHeight() / 9.231), getWidth(), getHeight())) {
+                            tileChosenNum = i;
+                            tileClicked = true;
+                            setGameState(3);
+                        }
+                    }
+                }
+            }
+            case 3: //choose tile placement
+            {
+                //chose where to place the tile on highlight available tiles
+                //code
+                tilePlaced = true;
+                setGameState(4);
+            }
+            case 4:
+            {
+                //left button clicked
+                //rotate tile 60 degrees left
+                //shift habitats leftwards in arraylist
+                //repaint();
+
+                //right button clicked
+                //rotate tile 60 degrees right
+                //shift habitats rightwards in arraylist
+                //repaint();
+
+                if (x <= getWidth()/*ok button coordinates */)
+                {
+                    okClicked = true;
+                    setGameState(5);
+                }
+            }
+            case 5: //choose token placement or throw away
+            {
+                //token is thrown away
+                if (x <= getWidth()) //throw away button clicked coordinates
+                {
+                    throwAwayClicked = true;
+                    tileTokenPlacement = null;
+                }
+                else if (x<=getWidth())//tile coordinates that they chose to place the tile
+                {
+                    //token is placed on the tile they chose
+                    tokenPlaced = true;
+                    //get traversal of player tiles and use isClicked to see if player clicked on tile
+                }
+                setGameState(6);
+            }
+            case 6: //check if next player button is clicked
+            {
+                if (x <= getWidth()) //coordinates for clicking next turn button
+                    nextPlayerClicked = true;
 
             }
+            case 7: //use pinecone button
+            {
+                if (x <= getWidth()) // coordinates for clear token button
+                {
+                    clearTokenClicked = true;
+                    setGameState(8);
+                }
+                else if (x <= getWidth()) // coordinates for specific tile and token button
+                {
+                    chooseTileTokenClicked = true;
+                    setGameState(9);
+                }
+
+            }
+            case 8: //clear tokens
+            {
+                ArrayList<Token> temp = new ArrayList<Token>();
+                for(int i = 0; i<4; i++) {
+                    if (Math.pow((x - (int)(getWidth()/6.038)+i*(getWidth()/15)-((int)(getWidth()/25.946)/2)), 2) + Math.pow((y - (int)(getHeight()/1.12)-((int)(getWidth()/25.946))/2), 2) <= Math.pow(((int)(getWidth()/25.946))/2, 2))
+                    {
+                        game.getTokenDeck().add(game.getAvailableTokens()[i]);
+                        game.getAvailableTokens()[i] = null;
+                    }
+                }
+                if (x <= getWidth()) // ok button clicked coordinates
+                {
+                    okClicked = true;
+                    setGameState(6);
+                }
+            }
+            case 9: //choose specific tile and token
+            {
+                //Check which tile and token has been clicked
+                for(int i = 0; i<4; i++) {
+                    if (Math.pow((x - (int)(getWidth()/6.038)+i*(getWidth()/15)-((int)(getWidth()/25.946)/2)), 2) + Math.pow((y - (int)(getHeight()/1.12)-((int)(getWidth()/25.946))/2), 2) <= Math.pow(((int)(getWidth()/25.946))/2, 2))
+                    {
+                        tokenChosenNum = i;
+                        tokenClicked = true;
+                    }
+                    else if (game.getAvailableTiles()[i].isClicked(x, y, (int)(getWidth()/19.01), (int)(getHeight()/9.231), getWidth(), getHeight())){
+                        tileChosenNum = i;
+                        tileClicked = true;
+
+                    }
+                }
+                //Check if ok button clicked
+                if(x<=getWidth()/*OkButton coordinates*/) {
+                    okClicked = true;
+                    setGameState(3);
+                }
+            }
+            case 10: {}
+            case 11: {}
+            case 12: {}
         }
     }
 

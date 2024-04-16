@@ -112,7 +112,7 @@ public class Tile
 
 
     //there is an issue with is clicked, smth with the math idk
-    public boolean isClicked(int x, int y, int width, int height, int sizeWidth, int sizeHeight) {
+    public boolean isClicked(int x, int y, int width, int height) {
         if(x>=xCoord && x<=xCoord+width && y>=yCoord && y<=yCoord+height) {
             if(y>=yCoord+(int)(height/4.074) && y<=yCoord+height-(int)(height/4.074)) {
                 return true;
@@ -139,6 +139,10 @@ public class Tile
     {
         return Math.abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
     }
+    public boolean isClicked(int adj, int x, int y, int width, int height) {
+        return false;
+    }
+
 
     public boolean isEmptyTile(){
         return emptyTile;

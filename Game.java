@@ -150,6 +150,10 @@ public class Game
                         //setPrompt - choose a tile or clear tokens
                         panel.repaint();
                         panel.waitForChooseTileOrClearTokens();
+                    }
+                }
+            }
+            panel.repaint();
 
 
 
@@ -185,6 +189,7 @@ public class Game
             panel.repaint();
         }
     }
+
 
     public void pinecone2OptionsTurn(Player currentPlayer)
     {
@@ -322,11 +327,7 @@ public class Game
         }
     }
 
-                        //
-                    }
-                }
-            }
-            panel.repaint();
+
 
     public void createGame() throws IOException
     {

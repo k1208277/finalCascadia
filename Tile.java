@@ -110,6 +110,8 @@ public class Tile
         ifTraversed = b;
     }
 
+
+    //there is an issue with is clicked, smth with the math idk
     public boolean isClicked(int x, int y, int width, int height, int sizeWidth, int sizeHeight) {
         if(x>=xCoord && x<=xCoord+width && y>=yCoord && y<=yCoord+height) {
             if(y>=yCoord+(int)(height/4.074) && y<=yCoord+height-(int)(height/4.074)) {

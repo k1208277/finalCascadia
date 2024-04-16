@@ -381,11 +381,23 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             case 2:
             {
+                //pinecones clicked
                 if(x <= getWidth() && game.getCurrentPlayer().getPineCones() > 0) //coordinates for use pinecone button
                 {
                     usePineConesClicked = true;
                     setGameState(7);
                 }
+
+
+                //clear tokens button clicked              IDK ABOUT THIS NOT SURE
+                else if (game.checkOverpopulation(false) == 3 && x <= getWidth()) //coordinates for clear token button
+                {
+                    clearTokenClicked = true;
+                    setGameState(8);
+                }
+
+
+                //tile clicked
                 else {
                     for (int i = 0; i < 4; i++) {
                         if (game.getAvailableTiles()[i].isClicked(x, y, (int) (getWidth() / 19.01), (int) (getHeight() / 9.231), getWidth(), getHeight())) {
@@ -624,5 +636,16 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
     }
 
+    public void waitForChooseTileOrClearTokens()
+    {
+        while (!tileClicked && !clearTokenClicked)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in tokenPlaced method = "+e.getMessage());
+            }
+        }
+    }
 
 }

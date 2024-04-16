@@ -112,11 +112,30 @@ public class Game
         //overpopulation
         if (panel.getGameState() == 2)
         {
-            if (checkOverpopulation(false) == 4) {
-                checkOverpopulation(true);
-            } else if (checkOverpopulation(false) == 3) {
-                if (panel.getGameState() == 13) {
+            //IDK ABOUT THIS NOT  SURE
+            if (checkOverpopulation(false) == 4)
+                while (checkOverpopulation(false) == 4) {
                     checkOverpopulation(true);
+                }
+
+            else if (checkOverpopulation(false) == 3) {
+                while (checkOverpopulation(false) == 3)
+                {
+                    //setPrompt - choose a tile or clear tokens
+                    panel.repaint();
+                    panel.waitForChooseTileOrClearTokens();
+                    //clear tokens
+                    if (panel.getGameState() == 8) {
+                        //setPrompt - choose which tokens to clear
+                        //panel.repaint();
+                        panel.waitForOkClicked();
+                        updateTileAndTokens();
+                        regularPlayerTurn(currentPlayer); // will write later
+                    }
+                    else
+                    {
+
+                    }
                 }
             }
             panel.repaint();

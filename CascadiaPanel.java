@@ -678,9 +678,21 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
     }
 
+    public void waitForChooseTileOrClearTokensOrUsePinecones()
+    {
+        while (!tileClicked && !clearTokenClicked && !usePineConesClicked)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Error in tokenPlaced method = "+e.getMessage());
+            }
+        }
+    }
+
     public void waitForChooseTileOrClearTokens()
     {
-        while (!tileClicked && !clearTokenClicked)
+        while (!tileClicked && !clearTokenClicked && !usePineConesClicked)
         {
             try {
                 Thread.sleep(100);

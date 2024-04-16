@@ -120,114 +120,48 @@ public class Game
             else if (checkOverpopulation(false) == 3) {
                 while (checkOverpopulation(false) == 3)
                 {
-                    //setPrompt - choose a tile or clear tokens
-                    panel.repaint();
-                    panel.waitForChooseTileOrClearTokens();
-                    //clear tokens
-                    if (panel.getGameState() == 8) {
-                        //setPrompt - choose which tokens to clear
-                        //panel.repaint();
-                        panel.waitForOkClicked();
-                        updateTileAndTokens();
-                        regularPlayerTurn(currentPlayer); // will write later
+                    //has pinecones and can also clear tokens
+                    if (currentPlayer.getPineCones() > 0)
+                    {
+                        //setPrompt - choose a tile or clear tokens or use pinecones
+                        panel.repaint();
+                        panel.waitForChooseTileOrClearTokensOrUsePinecones();
+
+                        //clear tokens
+                        if (panel.getGameState() == 8) {
+                            //setPrompt - choose which tokens to clear
+                            //panel.repaint();
+                            panel.waitForOkClicked();
+                            updateTileAndTokens();
+                            regularPlayerTurn(currentPlayer); // will write later
+                        }
+
+                        //use pinecones
+                        else if (panel.getGameState() == 7)
+                            pinecone2OptionsTurn(currentPlayer);
+
+                        //chose to click on the tile
+                        else
+                            regularPlayerTurn(currentPlayer);
                     }
+                    //does not have pinecones but can still clear tokens
                     else
                     {
-
-                    }
-                }
-            }
-            panel.repaint();
+                        //setPrompt - choose a tile or clear tokens
+                        panel.repaint();
+                        panel.waitForChooseTileOrClearTokens();
 
 
-            //pinecones
+
+            //use pinecones path
             if (currentPlayer.getPineCones() > 0)
             {
                 panel.waitForChooseTileOrPineconeClicked(); //after this line, player will have either clicked on a tile or chosen to use a pinecone
 
                 //Chose to use pinecone
                 if (panel.getGameState() == 7)
-                {
-                    //panel.setPrompt() - choose one of the options below
-                    panel.repaint();
-                    panel.waitForPinecone2options();
+                    pinecone2OptionsTurn(currentPlayer);
 
-                    //clear tokens
-                    if (panel.getGameState() == 8) {
-                        //setPrompt - choose which tokens to clear
-                        //panel.repaint();
-                        panel.waitForOkClicked();
-                        updateTileAndTokens();
-                        regularPlayerTurn(currentPlayer); // will write later
-                    }
-
-                    //choose a specific tile and token
-                    else if (panel.getGameState() == 9) {
-                        //setPrompt - choose a tile
-                        //panel.repaint();
-                        panel.waitForTileClicked();
-                        chosenTile = availableTiles[panel.getTileChosenNum()];
-
-                        //setPrompt - choose a token
-                        //panel.repaint();
-                        panel.waitForTokenClicked();
-                        chosenToken = availableTokens[panel.getTokenChosenNum()];
-
-                        //setPrompt - click ok to confirm
-                        //panel.repaint();
-                        panel.waitForOkClicked();
-
-                        //tile placement
-                        if (panel.getGameState() == 3) {
-                            //placement
-                            //setPrompt - choose where to place the tile
-                            //panel.repaint();
-                            panel.waitForTilePlaced(); //in mouselistener, once player has clicked where to place it, will have to set tilePlaced to true and gamestate to 4
-                            panel.repaint();
-
-                            //rotation/orientation
-                            //setPrompt - Rotate tile! press ok when done
-                            //panel.repaint();
-                            if (panel.getGameState() == 4) {
-                                panel.waitForOkClicked();
-                                panel.repaint();
-                                //connecting the tile
-//                            for (int i = 0; i < 6; i++)
-//                            {
-////                                if (chosenTile)
-////                                    currentPlayer.getBoard().addTile(chosenTile);  //WIll DO LATER CUZ IDK RN
-//                            }
-
-                            }
-                        }
-
-                        //place token
-                        //setPrompt - choose is where to place the token or throw away
-                        //panel.repaint(); - will highlight available tokens
-                        panel.waitForTokenPlacedOrThrowAway();
-                        //chose to keep and place or throw away
-                        if (panel.getGameState() == 5)
-                        {
-                            if(panel.getTileForTokenPlacementChosen() !=null) {
-                                panel.getTileForTokenPlacementChosen().setAnimal(chosenToken);
-                                //award pinecones
-                                if (panel.getTileForTokenPlacementChosen().isKeyStone())
-                                    currentPlayer.addPineCone();
-                            }
-                            else {
-                                tokenDeck.add(chosenToken); //adds the chosen token back to token deck
-                                availableTokens[panel.getTokenChosenNum()] = null; //sets that same spot in available tokens to empty
-                            }
-                            panel.repaint();
-                        }
-
-                    }
-
-                    //panel.setPrompt() - Confirm turn end and click next player to go the next turn
-                    panel.repaint();
-                    panel.waitForNextPlayer();
-
-                }
                 //has pinecones but chose regular game turn
                 else {
                     //already chose a tile
@@ -237,6 +171,7 @@ public class Game
                 }
 
             }
+
             else
             {
                 //Does not have pinecones and does regular game turn
@@ -250,6 +185,90 @@ public class Game
             panel.repaint();
         }
     }
+
+    public void pinecone2OptionsTurn(Player currentPlayer)
+    {
+        //panel.setPrompt() - choose one of the options below
+        panel.repaint();
+        panel.waitForPinecone2options();
+
+        //clear tokens
+        if (panel.getGameState() == 8) {
+            //setPrompt - choose which tokens to clear
+            //panel.repaint();
+            panel.waitForOkClicked();
+            updateTileAndTokens();
+            regularPlayerTurn(currentPlayer); // will write later
+        }
+
+        //choose a specific tile and token
+        else if (panel.getGameState() == 9) {
+            //setPrompt - choose a tile
+            //panel.repaint();
+            panel.waitForTileClicked();
+            chosenTile = availableTiles[panel.getTileChosenNum()];
+
+            //setPrompt - choose a token
+            //panel.repaint();
+            panel.waitForTokenClicked();
+            chosenToken = availableTokens[panel.getTokenChosenNum()];
+
+            //setPrompt - click ok to confirm
+            //panel.repaint();
+            panel.waitForOkClicked();
+
+            //tile placement
+            if (panel.getGameState() == 3) {
+                //placement
+                //setPrompt - choose where to place the tile
+                //panel.repaint();
+                panel.waitForTilePlaced(); //in mouselistener, once player has clicked where to place it, will have to set tilePlaced to true and gamestate to 4
+                panel.repaint();
+
+                //rotation/orientation
+                //setPrompt - Rotate tile! press ok when done
+                //panel.repaint();
+                if (panel.getGameState() == 4) {
+                    panel.waitForOkClicked();
+                    panel.repaint();
+                    //connecting the tile
+//                            for (int i = 0; i < 6; i++)
+//                            {
+////                                if (chosenTile)
+////                                    currentPlayer.getBoard().addTile(chosenTile);  //WIll DO LATER CUZ IDK RN
+//                            }
+
+                }
+            }
+
+            //place token
+            //setPrompt - choose is where to place the token or throw away
+            //panel.repaint(); - will highlight available tokens
+            panel.waitForTokenPlacedOrThrowAway();
+            //chose to keep and place or throw away
+            if (panel.getGameState() == 5)
+            {
+                if(panel.getTileForTokenPlacementChosen() !=null) {
+                    panel.getTileForTokenPlacementChosen().setAnimal(chosenToken);
+                    //award pinecones
+                    if (panel.getTileForTokenPlacementChosen().isKeyStone())
+                        currentPlayer.addPineCone();
+                }
+                else {
+                    tokenDeck.add(chosenToken); //adds the chosen token back to token deck
+                    availableTokens[panel.getTokenChosenNum()] = null; //sets that same spot in available tokens to empty
+                }
+                panel.repaint();
+            }
+
+        }
+
+        //panel.setPrompt() - Confirm turn end and click next player to go the next turn
+        panel.repaint();
+        panel.waitForNextPlayer();
+
+    }
+
 
     public void regularPlayerTurn(Player currentPlayer)
     {
@@ -303,6 +322,11 @@ public class Game
         }
     }
 
+                        //
+                    }
+                }
+            }
+            panel.repaint();
 
     public void createGame() throws IOException
     {
@@ -387,7 +411,7 @@ public class Game
             img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "5b.png"));
             starterTiles.get(5).add(new Tile(3, 3, 2, 1, 5, -999, -999, false, img));
             img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "5c.png"));
-            starterTiles.get(5).add(new Tile(1, 4, 3, 4, 0, -999, -999, false, img));
+            starterTiles.get(5).add(new Tile(4, 1, 3, 4, 0, -999, -999, false, img));
             starterTiles.get(5).get(1).rotateRight();
             starterTiles.get(5).get(2).rotateLeft();
         }

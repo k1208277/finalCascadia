@@ -393,6 +393,9 @@ public class Board
         }
         return nullMap;
     }
+
+    public Tile getStartTile() {return startTile;}
+
 }
 /*
 random method - when a tile is placed on the board, all of its null tiles become adjacent, empty tiles

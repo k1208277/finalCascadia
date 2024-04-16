@@ -283,6 +283,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
                 g.setColor(Color.white);
                 g.drawString("x "+game.getPlayers().get(e).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
+
                 e++;
 
         }
@@ -305,8 +306,29 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     }
     public void drawShiftButtons(Graphics g)
     {
-        //g.drawImage(icons.get("arrow"), );
-
+        g.setColor(Color.white);
+        //if(gameState == 4 || gameState == 8 || gameState == 9) {
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+            g2.drawRect((int)(getWidth()/1.176), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4));
+            g.setFont(new Font("h", 1, 24));
+            g.drawString("OK", (int)(getWidth()/1.166), (int)(getHeight()/1.195));
+       // }
+        //else {
+          //  g.fillRect((int)(getWidth()/1.176), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4));
+        //}
+        g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401), (int)(getWidth()/25.6), (int)(getHeight()/14.4), null);
+//        rotateImage(g, icons.get("arrow"), (int)(getWidth()/1.118), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4), 90);
+//        rotateImage(g, icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.153), (int)(getWidth()/25.6), (int)(getHeight()/14.4), 180);
+        int[] xp = {(int)(getWidth()/1.117), (int)(getWidth()/1.076), (int)(getWidth()/1.117)};
+        int[] yp = {(int)(getHeight()/1.26), (int)(getHeight()/1.212), (int)(getHeight()/1.26)+(int)(getHeight()/14.4)};
+        g.fillPolygon(xp, yp, 3);
+        xp = new int[]{(int) (getWidth() / 1.176), (int) (getWidth() / 1.15), (int) (getWidth() / 1.124)};
+        yp = new int[]{(int)(getHeight()/1.145), (int)(getHeight()/1.065), (int)(getHeight()/1.145)};
+        g.fillPolygon(xp, yp, 3);
+        xp = new int[]{(int) (getWidth() / 1.235), (int) (getWidth() / 1.184), (int) (getWidth() / 1.184)};
+        yp = new int[]{(int)(getHeight()/1.212), (int)(getHeight()/1.26), (int)(getHeight()/1.26)+(int)(getHeight()/14.4)};
+        g.fillPolygon(xp, yp, 3);
     }
     public void shift(int i)
     {
@@ -325,9 +347,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
-// Drawing the rotated image at the required drawing locations
-
-        g2d.drawImage(op.filter(image, null), x, y, width, height,null);
+        if(degree%180 == 0 || degree%90==0) {
+            g2d.drawImage(op.filter(image, null), x, y, width, height,null);
+        }
+        else {
+            g2d.drawImage(op.filter(image, null), x, y, (int)(width*1.26), (int)(height*1.11),null);
+        }
     }
     public void drawHighlights(Graphics g) {
         switch(getGameState())  {

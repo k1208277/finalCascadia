@@ -141,7 +141,7 @@ public class Tile
     }
     public boolean isClicked(int adj, int x, int y, int width, int height)
     {
-        switch
+//        switch
 
         return false;
     }

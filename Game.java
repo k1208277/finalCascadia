@@ -133,7 +133,6 @@ public class Game
                             //panel.repaint();
                             panel.waitForOkClicked();
                             updateTileAndTokens();
-                            regularPlayerTurn(currentPlayer); // will write later
                         }
 
                         //use pinecones
@@ -150,6 +149,18 @@ public class Game
                         //setPrompt - choose a tile or clear tokens
                         panel.repaint();
                         panel.waitForChooseTileOrClearTokens();
+
+                        //clear tokens
+                        if (panel.getGameState() == 8) {
+                            //setPrompt - choose which tokens to clear
+                            //panel.repaint();
+                            panel.waitForOkClicked();
+                            updateTileAndTokens();
+                        }
+
+                        //chose to click on the tile
+                        else
+                            regularPlayerTurn(currentPlayer);
                     }
                 }
             }

@@ -254,6 +254,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public void drawPlayerBoard(Graphics g) {
         g.setColor(new Color(0, 0, 0, 153));
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
+        ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
+        for(int i = 0; i<temp.size(); i++) {
+            rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int)(getWidth()/13.714), (int)(getHeight()/6.545), 60*temp.get(i).getOrientation());
+        }
     }
 
     public void drawPlayerIcons(Graphics g) {
@@ -307,16 +311,16 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public void drawShiftButtons(Graphics g)
     {
         g.setColor(Color.white);
-        //if(gameState == 4 || gameState == 8 || gameState == 9) {
+        if(gameState == 4 || gameState == 8 || gameState == 9) {
             Graphics2D g2 = (Graphics2D)g;
             g2.setStroke(new BasicStroke((int)(getHeight()/270)));
             g2.drawRect((int)(getWidth()/1.176), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4));
             g.setFont(new Font("h", 1, 24));
             g.drawString("OK", (int)(getWidth()/1.166), (int)(getHeight()/1.195));
-       // }
-        //else {
-          //  g.fillRect((int)(getWidth()/1.176), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4));
-        //}
+        }
+        else {
+           g.fillRect((int)(getWidth()/1.176), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4));
+        }
         g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401), (int)(getWidth()/25.6), (int)(getHeight()/14.4), null);
 //        rotateImage(g, icons.get("arrow"), (int)(getWidth()/1.118), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4), 90);
 //        rotateImage(g, icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.153), (int)(getWidth()/25.6), (int)(getHeight()/14.4), 180);
@@ -354,6 +358,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             g2d.drawImage(op.filter(image, null), x, y, (int)(width*1.26), (int)(height*1.11),null);
         }
     }
+
     public void drawHighlights(Graphics g) {
         switch(getGameState())  {
             case 2 : {

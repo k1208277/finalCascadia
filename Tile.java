@@ -141,9 +141,162 @@ public class Tile
     }
     public boolean isClicked(int adj, int x, int y, int width, int height)
     {
-//        switch
+      switch(adj)
+      {
+          case 0:
+          {
+              if(x>=xCoord - width && x<=xCoord && y>=yCoord + height && y<=yCoord+height * 2) {
+                  if(y>=yCoord+height+(int)(height/4.074) && y<=yCoord+2*height-(int)(height/4.074)) {
+                      return true;
+                  }
+                  double totalArea = area(xCoord-width, yCoord+(int)(height/4.074)+height, xCoord+width/2 - width, yCoord+height, xCoord, yCoord+height+(int)(height/4.074));
+                  double a1 = area(xCoord-width, yCoord-(int)(height/4.074)+height, xCoord+width/2-width, yCoord+height, x, y);
+                  double a2 = area(xCoord-width, yCoord-(int)(height/4.074)+height, x, y, xCoord, yCoord-(int)(height/4.074)+height);
+                  double a3 = area(x, y, xCoord+width/2-width, yCoord+height, xCoord, yCoord-(int)(height/4.074))+height;
+                  if(a1+a2+a3==totalArea) {
+                      return true;
+                  }
+                  totalArea = area(xCoord-width, yCoord+(int)(height/1.325)+height, xCoord+width/2-width, yCoord, xCoord, yCoord+(int)(1.325)+height);
+                  a1 = area(xCoord-width, yCoord+(int)(height/1.325)+height, xCoord+width/2-width, yCoord+height*2, x, y);
+                  a2 = area(xCoord-width, yCoord+(int)(height/1.325)+height, x, y, xCoord, yCoord+(int)(1.325)+height);
+                  a3 = area(x, y, xCoord+width/2-width, yCoord+height*2, xCoord, yCoord+(int)(1.325)+height);
+                  if(a1+a2+a3==totalArea) {
+                      return true;
+                  }
+                  return false;
+              }
+              return false;
+          }
+          case 1:
+          {
+//              if(x>=xCoord && x<=xCoord+width && y>=yCoord && y<=yCoord+height) {
+//                  if(y>=yCoord+(int)(height/4.074) && y<=yCoord+height-(int)(height/4.074)) {
+//                      return true;
+//                  }
+//                  double totalArea = area(xCoord, yCoord+(int)(height/4.074), xCoord+width/2, yCoord, xCoord+width, yCoord+(int)(height/4.074));
+//                  double a1 = area(xCoord, yCoord-(int)(height/4.074), xCoord+width/2, yCoord, x, y);
+//                  double a2 = area(xCoord, yCoord-(int)(height/4.074), x, y, xCoord+width, yCoord-(int)(height/4.074));
+//                  double a3 = area(x, y, xCoord+width/2, yCoord, xCoord+width, yCoord-(int)(height/4.074));
+//                  if(a1+a2+a3==totalArea) {
+//                      return true;
+//                  }
+//                  totalArea = area(xCoord, yCoord+(int)(height/1.325), xCoord+width/2, yCoord+height, xCoord+width, yCoord+(int)(1.325));
+//                  a1 = area(xCoord, yCoord+(int)(height/1.325), xCoord+width/2, yCoord+height, x, y);
+//                  a2 = area(xCoord, yCoord+(int)(height/1.325), x, y, xCoord+width, yCoord+(int)(1.325));
+//                  a3 = area(x, y, xCoord+width/2, yCoord+height, xCoord+width, yCoord+(int)(1.325));
+//                  if(a1+a2+a3==totalArea) {
+//                      return true;
+//                  }
+//                  return false;
+//              }
+//              return false;
+//              }
+          }
+          case 2:
+          {
+                if(x >= xCoord + width && x <= xCoord + width * 2 && y >= yCoord && y <= yCoord)
+                {
+                    if(y>=yCoord+(int)(height/4.074) && y<=yCoord+height-(int)(height/4.074))
+                    {
+                        return true;
+                    }
 
-        return false;
+                    double totalArea = area(xCoord + width, yCoord+(int)(height/4.074), xCoord+width/2 + width, yCoord, xCoord+width*2, yCoord+(int)(height/4.074));
+                    double a1 = area(xCoord + width, yCoord-(int)(height/4.074), xCoord+width/2 + width, yCoord, x, y);
+                    double a2 = area(xCoord +width, yCoord-(int)(height/4.074), x, y, xCoord+width*2, yCoord-(int)(height/4.074));
+                    double a3 = area(x, y, xCoord+width/2 + width, yCoord, xCoord+width*2, yCoord-(int)(height/4.074));
+                    if(a1+a2+a3==totalArea) {
+                        return true;
+                    }
+
+                    totalArea = area(xCoord + width, yCoord+(int)(height/1.325), xCoord+width/2 + width, yCoord+height, xCoord+width*2, yCoord+(int)(1.325));
+                    a1 = area(xCoord + width, yCoord+(int)(height/1.325), xCoord+width/2 + width, yCoord+height, x, y);
+                    a2 = area(xCoord + width, yCoord+(int)(height/1.325), x, y, xCoord+width*2, yCoord+(int)(1.325));
+                    a3 = area(x, y, xCoord+width/2 + width, yCoord+height, xCoord+width*2, yCoord+(int)(1.325));
+                    if(a1+a2+a3==totalArea) {
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+          }
+          case 3:
+          {
+//              if(x>=xCoord && x<=xCoord+width && y>=yCoord && y<=yCoord+height) {
+//                  if(y>=yCoord+(int)(height/4.074) && y<=yCoord+height-(int)(height/4.074)) {
+//                      return true;
+//                  }
+//                  double totalArea = area(xCoord, yCoord+(int)(height/4.074), xCoord+width/2, yCoord, xCoord+width, yCoord+(int)(height/4.074));
+//                  double a1 = area(xCoord, yCoord-(int)(height/4.074), xCoord+width/2, yCoord, x, y);
+//                  double a2 = area(xCoord, yCoord-(int)(height/4.074), x, y, xCoord+width, yCoord-(int)(height/4.074));
+//                  double a3 = area(x, y, xCoord+width/2, yCoord, xCoord+width, yCoord-(int)(height/4.074));
+//                  if(a1+a2+a3==totalArea) {
+//                      return true;
+//                  }
+//                  totalArea = area(xCoord, yCoord+(int)(height/1.325), xCoord+width/2, yCoord+height, xCoord+width, yCoord+(int)(1.325));
+//                  a1 = area(xCoord, yCoord+(int)(height/1.325), xCoord+width/2, yCoord+height, x, y);
+//                  a2 = area(xCoord, yCoord+(int)(height/1.325), x, y, xCoord+width, yCoord+(int)(1.325));
+//                  a3 = area(x, y, xCoord+width/2, yCoord+height, xCoord+width, yCoord+(int)(1.325));
+//                  if(a1+a2+a3==totalArea) {
+//                      return true;
+//                  }
+//                  return false;
+//              }
+//              return false;
+//              }
+          }
+          case 4:
+          {
+//              if(x>=xCoord && x<=xCoord+width && y>=yCoord && y<=yCoord+height) {
+//                  if(y>=yCoord+(int)(height/4.074) && y<=yCoord+height-(int)(height/4.074)) {
+//                      return true;
+//                  }
+//                  double totalArea = area(xCoord, yCoord+(int)(height/4.074), xCoord+width/2, yCoord, xCoord+width, yCoord+(int)(height/4.074));
+//                  double a1 = area(xCoord, yCoord-(int)(height/4.074), xCoord+width/2, yCoord, x, y);
+//                  double a2 = area(xCoord, yCoord-(int)(height/4.074), x, y, xCoord+width, yCoord-(int)(height/4.074));
+//                  double a3 = area(x, y, xCoord+width/2, yCoord, xCoord+width, yCoord-(int)(height/4.074));
+//                  if(a1+a2+a3==totalArea) {
+//                      return true;
+//                  }
+//                  totalArea = area(xCoord, yCoord+(int)(height/1.325), xCoord+width/2, yCoord+height, xCoord+width, yCoord+(int)(1.325));
+//                  a1 = area(xCoord, yCoord+(int)(height/1.325), xCoord+width/2, yCoord+height, x, y);
+//                  a2 = area(xCoord, yCoord+(int)(height/1.325), x, y, xCoord+width, yCoord+(int)(1.325));
+//                  a3 = area(x, y, xCoord+width/2, yCoord+height, xCoord+width, yCoord+(int)(1.325));
+//                  if(a1+a2+a3==totalArea) {
+//                      return true;
+//                  }
+//                  return false;
+//              }
+//              return false;
+//              }
+          }
+          case 5:
+          {
+              if(x>=xCoord - width && x<=xCoord && y>=yCoord && y<=yCoord+height) {
+                  if(y>=yCoord+(int)(height/4.074) && y<=yCoord+height-(int)(height/4.074)) {
+                      return true;
+                  }
+                  double totalArea = area(xCoord - width, yCoord+(int)(height/4.074), xCoord+width/2 - width, yCoord, xCoord, yCoord+(int)(height/4.074));
+                  double a1 = area(xCoord - width, yCoord-(int)(height/4.074), xCoord+width/2 - width, yCoord, x, y);
+                  double a2 = area(xCoord - width, yCoord-(int)(height/4.074), x, y, xCoord, yCoord-(int)(height/4.074));
+                  double a3 = area(x, y, xCoord+width/2 - width, yCoord, xCoord, yCoord-(int)(height/4.074));
+                  if(a1+a2+a3==totalArea) {
+                      return true;
+                  }
+                  totalArea = area(xCoord - width, yCoord+(int)(height/1.325), xCoord+width/2 - width, yCoord+height, xCoord, yCoord+(int)(1.325));
+                  a1 = area(xCoord - width, yCoord+(int)(height/1.325), xCoord+width/2 - width, yCoord+height, x, y);
+                  a2 = area(xCoord - width, yCoord+(int)(height/1.325), x, y, xCoord, yCoord+(int)(1.325));
+                  a3 = area(x, y, xCoord+width/2 - width, yCoord+height, xCoord, yCoord+(int)(1.325));
+                  if(a1+a2+a3==totalArea) {
+                      return true;
+                  }
+                  return false;
+              }
+              return false;
+          }
+      }
+
+      return false;
     }
 
 

@@ -255,8 +255,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.setColor(new Color(0, 0, 0, 153));
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
         ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
+        game.getCurrentPlayer().getBoard().setBoardWidthandHeight(getWidth(), getHeight());
+        game.getCurrentPlayer().getBoard().setCoordinates();
         for(int i = 0; i<temp.size(); i++) {
-            rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int)(getWidth()/13.714), (int)(getHeight()/6.545), 60*temp.get(i).getOrientation());
+            if(temp.get(i).getImage() != null) {
+                rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * temp.get(i).getOrientation());
+            }
         }
     }
 
@@ -364,8 +368,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             case 2 : {
                 g.setColor(colors.get(game.getPlayerNum()));
                 //g.setColor(Color.yellow);
-                /*
-                int[] xC = new int[6];
+/*
+                int[] xC = {(int)(getWidth()/5.408), (int)(getWidth()/6.531),(int)(getWidth()/6.621), (int)(getWidth()/5.408)};
                 xC[0] = (int)(getWidth()/5.408);
                 xC[1] = (int)(getWidth()/6.531);
                 xC[2] = (int)(getWidth()/6.621);
@@ -380,7 +384,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 yC[4] = (int)(getWidth()/1.253);
                 yC[5] = (int)(getWidth()/1.159);
                 g.fillPolygon(xC, yC, 6);
-                 */
+*/
                 for(int i = 0; i< 4; i++) {
                     g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
                 }

@@ -396,6 +396,11 @@ public class Board
 
     public Tile getStartTile() {return startTile;}
 
+    public void setBoardWidthandHeight(int w, int h) {
+        boardWidth = w;
+        boardHeight = h;
+    }
+
 }
 /*
 random method - when a tile is placed on the board, all of its null tiles become adjacent, empty tiles

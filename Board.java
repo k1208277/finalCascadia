@@ -7,12 +7,16 @@ public class Board
     private int numTiles;
     private int boardWidth, boardHeight;
 
-    public Board(Tile t) //three more Tile constructors?
+    public Board(Tile t1, Tile t2, Tile t3) //three more Tile constructors?
     {
-        startTile = t;
-        for (int i = 0; i <= 5; i++){
+        startTile = t1;
+        /*for (int i = 0; i <= 5; i++){
             addTile(new Tile(), startTile,i);
-        }
+        }*/
+        addTile(t2, t1, 4); //:
+        addTile(t3, t1, 3);
+        addTile(t2, t3, 6);
+
     }
 
 

@@ -7,9 +7,11 @@ public class Board
     private int numTiles;
     private int boardWidth, boardHeight;
 
-    public Board(Tile t1, Tile t2, Tile t3) //three more Tile constructors?
+    public Board(Tile t1, Tile t2, Tile t3, int w, int h) //three more Tile constructors?
     {
+        setBoardWidthandHeight(w, h);
         startTile = t1;
+        setCoordinatesOfStartTile1();
         /*for (int i = 0; i <= 5; i++){
             addTile(new Tile(), startTile,i);
         }*/
@@ -318,13 +320,8 @@ public class Board
             case 3: return 18;
             default: return 25;
         }
-
-
-
-
-
-
     }
+
     public int foxScore() {
         ArrayList<Tile> allTiles = traverse();
         ArrayList<Tile> allFoxes = new ArrayList<>();
@@ -351,7 +348,7 @@ public class Board
 
     }
 
-    public void setCoordinates(){
+    public void setCoordinatesOfStartTile1(){
         startTile.setXCoord((int)(boardWidth/ 2.46));
         startTile.setYCoord((int)(boardHeight / 4.5));
     }

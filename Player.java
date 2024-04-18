@@ -10,12 +10,8 @@ public class Player {
     score[4] is hawk score
     score[5] is fox score
     score[6] is
-
-
-
-
-
      */
+    
     private Board board;
 
     public Player(Board b) {

@@ -262,7 +262,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
         ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
         game.getCurrentPlayer().getBoard().setBoardWidthandHeight(getWidth(), getHeight());
-        game.getCurrentPlayer().getBoard().setCoordinates();
+//        game.getCurrentPlayer().getBoard().setCoordinates();
         for(int i = 0; i<temp.size(); i++) {
             if(temp.get(i).getImage() != null) {
                 rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * temp.get(i).getOrientation());
@@ -398,6 +398,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
     }
 
+
+
     public void mouseClicked(MouseEvent e) {    }
     public void mouseEntered(MouseEvent e) {    }
     public void mouseExited(MouseEvent e) {    }
@@ -469,8 +471,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             case 3: //choose tile placement
             {
-                //chose where to place the tile on highlight available tiles
-                //code
+                HashMap<Tile, ArrayList<Integer>> tilesWithAvailableSpots = game.getCurrentPlayer().getBoard().allNullTiles();
+                for (int i = 0; i < tilesWithAvailableSpots.size(); i++)
+                {
+//                    if (tilesWithAvailableSpots.keySet(). ==)
+                }
+
                 tilePlaced = true;
                 setGameState(4);
                 repaint();

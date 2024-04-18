@@ -508,7 +508,7 @@ public class Game
                 }
             }
 
-            players.add(new Player(new Board(st.get(0), st.get(1), st.get(2))));
+            players.add(new Player(new Board(st.get(0), st.get(1), st.get(2), panel.getWidth(), panel.getHeight())));
 //            players.get(i).getBoard().addTile(st.get(1), st.get(0), 4);
 //            players.get(i).getBoard().addTile(st.get(2), st.get(0), 3);
         }

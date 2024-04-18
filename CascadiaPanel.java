@@ -160,7 +160,13 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 4: {
-
+                drawPrompt(g, "Choose your tile orientation! Click ok to confirm");
+                drawOptions(g);
+                drawPlayerBoard(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 5: {

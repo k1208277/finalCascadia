@@ -15,7 +15,7 @@ public class Board
         }*/
         addTile(t2, t1, 4); //:
         addTile(t3, t1, 3);
-        addTile(t2, t3, 6);
+        addTile(t2, t3, 5);
 
     }
 
@@ -372,7 +372,7 @@ public class Board
             tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 27.04));
             tile.setYCoord(prev.getYCoord() + (int)(boardHeight/ 8.64));
         }
-        if (orientation == 4){
+        if (orientation == 4){                                                                                 // BOARD WITH IS 0
             tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 27.04));
             tile.setYCoord(prev.getYCoord() + (int)(boardHeight / 8.64));
         }

@@ -238,8 +238,15 @@ public class Game
                 //placement
                 //setPrompt - choose where to place the tile
                 //panel.repaint();
-                panel.waitForTilePlaced(); //in mouselistener, once player has clicked where to place it, will have to set tilePlaced to true and gamestate to 4
+                panel.waitForTilePlaced();//in mouselistener, once player has clicked where to place it, will have to set tilePlaced to true and gamestate to 4
                 panel.repaint();
+                //connecting the tile
+//                            for (int i = 0; i < 6; i++)
+//                            {
+////                                if (chosenTile)
+////                                    currentPlayer.getBoard().addTile(chosenTile);  //WIll DO LATER CUZ IDK RN
+//                            }
+
 
                 //rotation/orientation
                 //setPrompt - Rotate tile! press ok when done
@@ -247,12 +254,7 @@ public class Game
                 if (panel.getGameState() == 4) {
                     panel.waitForOkClicked();
                     panel.repaint();
-                    //connecting the tile
-//                            for (int i = 0; i < 6; i++)
-//                            {
-////                                if (chosenTile)
-////                                    currentPlayer.getBoard().addTile(chosenTile);  //WIll DO LATER CUZ IDK RN
-//                            }
+
 
                 }
             }

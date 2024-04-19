@@ -472,10 +472,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             case 3: //choose tile placement
             {
                 HashMap<Tile, ArrayList<Integer>> tilesWithAvailableSpots = game.getCurrentPlayer().getBoard().allNullTiles();
-                for (int i = 0; i < tilesWithAvailableSpots.size(); i++)
-                {
-//                    if (tilesWithAvailableSpots.keySet(). ==)
-                }
+//                Iterator<Set<>>
+//                    if (tilesWithAvailableSpots.get() ==)
+
 
                 tilePlaced = true;
                 setGameState(4);

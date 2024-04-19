@@ -369,7 +369,7 @@ public class Board
             tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 27.04));
             tile.setYCoord(prev.getYCoord() + (int)(boardHeight/ 8.64));
         }
-        if (orientation == 4){                                                                                 // BOARD WITH IS 0
+        if (orientation == 4){
             tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 27.04));
             tile.setYCoord(prev.getYCoord() + (int)(boardHeight / 8.64));
         }

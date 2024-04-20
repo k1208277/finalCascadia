@@ -336,6 +336,7 @@ public class Board
             TreeSet<Integer> uniques = new TreeSet<>();
             for (int j = 0; j <= 5; j++){
                 uniques.add(ft.getAdjacent(j).getAnimal());
+                uniques.remove(0);
             }
             score += uniques.size();
         }
@@ -402,6 +403,52 @@ public class Board
         boardHeight = h;
     }
 
+    public void updateTileCoords(){
+        startTile.setXCoord((int)(boardWidth/ 2.46));
+        startTile.setYCoord((int)(boardHeight / 4.5));
+        Queue<Tile> q = new LinkedList<>();
+        q.add(startTile);
+        startTile.setChecker(true);
+        while (!q.isEmpty()){
+            Tile tile = q.poll();
+
+            for (int i = 0; i <= 5; i++){
+                Tile t = tile.getAdjacent(i);
+                if (t != null && !t.isChecked()) {
+                    if (i == 0) {
+                        t.setYCoord(tile.getYCoord() - (int) (boardHeight / 8.64));
+                        t.setXCoord(tile.getXCoord() - (int) (boardWidth / 27.04));
+                    }
+                    if (i == 1) {
+                        t.setYCoord(tile.getYCoord() - (int) (boardHeight / 8.64));
+                        t.setXCoord(tile.getXCoord() + (int) (boardWidth / 27.04));
+                    }
+                    if (i == 2) {
+                        t.setXCoord(tile.getXCoord() + (int) (boardWidth / 13.52));
+                    }
+                    if (i == 3) {
+                        t.setXCoord(tile.getXCoord() + (int) (boardWidth / 27.04));
+                        t.setYCoord(tile.getYCoord() + (int) (boardHeight / 8.64));
+                    }
+                    if (i == 4) {
+                        t.setXCoord(tile.getXCoord() - (int) (boardWidth / 27.04));
+                        t.setYCoord(tile.getYCoord() + (int) (boardHeight / 8.64));
+                    }
+                    if (i == 5) {
+                        t.setXCoord(tile.getXCoord() - (int) (boardWidth / 13.52));
+                    }
+                    t.setChecker(true);
+                    q.add(t);
+                }
+            }
+        }
+        ArrayList<Tile> traversal = traverse();
+        for (int i = 0; i < traversal.size(); i++){
+            traversal.get(i).setChecker(false);
+        }
+
+    }
+
 }
 /*
 random method - when a tile is placed on the board, all of its null tiles become adjacent, empty tiles
@@ -412,7 +459,6 @@ for (int i = 0; i <= 5; i++){
    (Board).addTile(new Tile(), t, i);
     }
  }
-
 
 
 

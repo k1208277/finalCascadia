@@ -141,6 +141,8 @@ public class Tile
     {
         return Math.abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
     }
+
+
     public boolean ifNullTileClicked(int adj, int x, int y, int width, int height)
     {
         switch(adj)

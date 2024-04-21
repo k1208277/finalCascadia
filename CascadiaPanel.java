@@ -236,9 +236,11 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/1.34), (int)(getWidth()/1.69), (int)(getHeight()/4.337));
         drawHighlights(g);
         for(int i = 0; i<game.getAvailableTiles().length; i++) {
-            g.drawImage(game.getAvailableTiles()[i].getImage(), (int)(getWidth()/6.316)+i*(int)(getWidth()/14.884), (int)(getHeight()/1.289), (int)(getWidth()/19.01), (int)(getHeight()/9.231), null);
-            game.getAvailableTiles()[i].setXCoord((int)(getWidth()/6.316)+i*(int)(getWidth()/14.884));
-            game.getAvailableTiles()[i].setYCoord((int)(getHeight()/1.289));
+            g.drawImage(game.getAvailableTiles()[i].getImage(), (int)(getWidth()/6.316)+i*(int)(getWidth()/14.95), (int)(getHeight()/1.289), (int)(getWidth()/19.01), (int)(getHeight()/9.231), null);
+            if(gameState==2) {
+                game.getAvailableTiles()[i].setXCoord((int)(getWidth()/6.316)+i*(int)(getWidth()/14.95));
+                game.getAvailableTiles()[i].setYCoord((int)(getHeight()/1.289));
+            }
             g.drawImage(tokenImages.get(game.getAvailableTokens()[i].getAnimal()), (int)(getWidth()/6.038)+i*(getWidth()/15), (int)(getHeight()/1.12), (int)(getWidth()/25.946), (int)(getHeight()/14.595), null);
         }
         g.setColor(Color.white);
@@ -247,17 +249,18 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.setFont(new Font("h", 1, (int)(getHeight()/31.697)));
         //System.out.println((int)(getHeight()/31.697));
 
-        //pinecones
-        if(game.getCurrentPlayer().getPineCones()>0) {
-            g2.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.251), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
-            g.drawString("Use pinecones", (int)(getWidth()/2.261), (int)(getHeight()/1.186));
+        if(gameState==2) {
+            //pinecones
+            if (game.getCurrentPlayer().getPineCones() > 0) {
+                g2.drawRect((int) (getWidth() / 2.333), (int) (getHeight() / 1.251), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652));
+                g.drawString("Use pinecones", (int) (getWidth() / 2.261), (int) (getHeight() / 1.186));
+            }
+            //3 of the same pinecones
+            if (game.checkOverpopulation(false) == 3) {
+                g2.drawRect((int) (getWidth() / 2.333), (int) (getHeight() / 1.121), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652));
+                g.drawString("Clear tokens", (int) (getWidth() / 2.22), (int) (getHeight() / 1.069));
+            }
         }
-        //3 of the same pinecones
-        if(game.checkOverpopulation(false) == 3) {
-            g2.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.121), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
-            g.drawString("Clear tokens", (int)(getWidth()/2.22), (int)(getHeight()/1.069));
-        }
-
 
     }
 
@@ -384,20 +387,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.setColor(colors.get(game.getPlayerNum()));
         switch(getGameState())  {
             case 2 : {
-
-                //g.setColor(Color.yellow);
-
-                //int[] xC = {354, 295, 295, 354, 413, 413};
-                //int[] xC = {(int)(getWidth()/5.424), (int)(getWidth()/6.508), (int)(getWidth()/6.508), (int)(getWidth()/5.424), (int)(getWidth()/4.638), (int)(getWidth()/4.638)};
-                //int[] yC = {628, 662, 732, 766, 732, 662};
-                //int[] yC = {(int)(getHeight()/1.306), (int)(getHeight()/1.306)+(int)(getHeight()/30.857), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/7.777), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/30.857)};
-                //System.out.println(getWidth() +", "+ getHeight());
-                //System.out.println((int)(getHeight()/1.306)+", "+((int)(getHeight()/1.306)-(int)(getHeight()/30.857))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/10.286))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/7.777))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/30.857))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/10.286)));
-                //g.fillPolygon(xC, yC, 6);
-                //int[] xc = {60, 50, 50, 60, 70, 70};
-                //int[] yc = {60, 70, 80, 90, 80, 70};
-                //g.fillPolygon(xc, yc, 6);
-
                 for(int i = 0; i< 4; i++) {
                     int[] xC = {(int)(getWidth()/5.424), (int)(getWidth()/6.508), (int)(getWidth()/6.508), (int)(getWidth()/5.424), (int)(getWidth()/4.638), (int)(getWidth()/4.638)};
                     int[] yC = {(int)(getHeight()/1.306), (int)(getHeight()/1.306)+(int)(getHeight()/30.857), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/7.777), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/30.857)};
@@ -425,6 +414,33 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     }
                     if(i == tokenChosenNum) {
                         g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
+                    }
+                }
+                HashMap<Tile, ArrayList<Integer>> map = game.getCurrentPlayer().getBoard().allNullTiles();
+                Iterator<Tile> it = map.keySet().iterator();
+                while(it.hasNext()) {
+                    ArrayList<Integer> temp = map.get(it.next());
+                    for(int i = 0; i<temp.size(); i++) {
+                        switch (temp.get(i)) {
+                            case 0 : {
+
+                            }
+                            case 1 : {
+
+                            }
+                            case 2 : {
+
+                            }
+                            case 3 : {
+
+                            }
+                            case 4 : {
+
+                            }
+                            case 5 : {
+
+                            }
+                        }
                     }
                 }
                 break;

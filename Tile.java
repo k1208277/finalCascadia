@@ -120,9 +120,10 @@ public class Tile
                 return true;
             }
             double totalArea = area(xCoord, yCoord+(int)(height/4.074), xCoord+width/2, yCoord, xCoord+width, yCoord+(int)(height/4.074));
-            double a1 = area(xCoord, yCoord-(int)(height/4.074), xCoord+width/2, yCoord, x, y);
-            double a2 = area(xCoord, yCoord-(int)(height/4.074), x, y, xCoord+width, yCoord-(int)(height/4.074));
-            double a3 = area(x, y, xCoord+width/2, yCoord, xCoord+width, yCoord-(int)(height/4.074));
+
+            double a1 = area(xCoord, yCoord+(int)(height/4.074), xCoord+width/2, yCoord, x, y);
+            double a2 = area(xCoord, yCoord+(int)(height/4.074), x, y, xCoord+width, yCoord+(int)(height/4.074));
+            double a3 = area(x, y, xCoord+width/2, yCoord, xCoord+width, yCoord+(int)(height/4.074));
             if(a1+a2+a3==totalArea) {
                 return true;
             }

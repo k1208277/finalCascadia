@@ -231,7 +231,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
         g.drawString(prompt, x, y);
     }
-    public void drawOptions(Graphics g) { //available tiles and tokens and pinecones
+    public void drawOptions(Graphics g) {
         g.setColor(new Color(0, 0, 0, 102));
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/1.34), (int)(getWidth()/1.69), (int)(getHeight()/4.337));
         drawHighlights(g);
@@ -388,27 +388,25 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 //g.setColor(Color.yellow);
 
                 //int[] xC = {354, 295, 295, 354, 413, 413};
-                int[] xC = {(int)(getWidth()/5.424), (int)(getWidth()/6.508), (int)(getWidth()/6.508), (int)(getWidth()/5.424), (int)(getWidth()/4.638), (int)(getWidth()/4.638)};
-                //xC[0] = (int)(getWidth()/5.408);
-                //xC[1] = (int)(getWidth()/6.531);
-                //xC[2] = (int)(getWidth()/6.621);
-                //xC[3] = (int)(getWidth()/5.408);
-                //xC[4] = (int)(getWidth()/4.638);
-                //xC[5] = (int)(getWidth()/4.638);
+                //int[] xC = {(int)(getWidth()/5.424), (int)(getWidth()/6.508), (int)(getWidth()/6.508), (int)(getWidth()/5.424), (int)(getWidth()/4.638), (int)(getWidth()/4.638)};
                 //int[] yC = {628, 662, 732, 766, 732, 662};
-                int[] yC = {(int)(getWidth()/1.304), (int)(getWidth()/1.251), (int)(getWidth()/1.159), (int)(getWidth()/1.117), (int)(getWidth()/1.159), (int)(getWidth()/1.251)};
-                //yC[0] = (int)(getWidth()/1.306);
-                //yC[1] = (int)(getWidth()/1.253);
-                //yC[2] = (int)(getWidth()/1.159);
-                //yC[3] = (int)(getWidth()/1.117);
-                //yC[4] = (int)(getWidth()/1.253);
-                //yC[5] = (int)(getWidth()/1.159);
-                g.fillPolygon(xC, yC, 6);
-                int[] xc = {60, 50, 50, 60, 70, 70};
-                int[] yc = {60, 70, 80, 90, 80, 70};
-                g.fillPolygon(xc, yc, 6);
+                //int[] yC = {(int)(getHeight()/1.306), (int)(getHeight()/1.306)+(int)(getHeight()/30.857), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/7.777), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/30.857)};
+                //System.out.println(getWidth() +", "+ getHeight());
+                //System.out.println((int)(getHeight()/1.306)+", "+((int)(getHeight()/1.306)-(int)(getHeight()/30.857))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/10.286))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/7.777))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/30.857))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/10.286)));
+                //g.fillPolygon(xC, yC, 6);
+                //int[] xc = {60, 50, 50, 60, 70, 70};
+                //int[] yc = {60, 70, 80, 90, 80, 70};
+                //g.fillPolygon(xc, yc, 6);
 
                 for(int i = 0; i< 4; i++) {
+                    int[] xC = {(int)(getWidth()/5.424), (int)(getWidth()/6.508), (int)(getWidth()/6.508), (int)(getWidth()/5.424), (int)(getWidth()/4.638), (int)(getWidth()/4.638)};
+                    int[] yC = {(int)(getHeight()/1.306), (int)(getHeight()/1.306)+(int)(getHeight()/30.857), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/7.777), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/30.857)};
+                    if(i>0) {
+                        for(int e = 0; e<6; e++) {
+                            xC[e] = xC[e]+i*(getWidth()/15);
+                        }
+                    }
+                    g.fillPolygon(xC, yC, 6);
                     g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
                 }
                 break;
@@ -416,7 +414,14 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             case 3: {
                 for(int i = 0; i<4; i++) {
                     if (i==tileChosenNum) {
-
+                        int[] xC = {(int)(getWidth()/5.424), (int)(getWidth()/6.508), (int)(getWidth()/6.508), (int)(getWidth()/5.424), (int)(getWidth()/4.638), (int)(getWidth()/4.638)};
+                        int[] yC = {(int)(getHeight()/1.306), (int)(getHeight()/1.306)+(int)(getHeight()/30.857), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/7.777), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/30.857)};
+                        if(i>0) {
+                            for(int e = 0; e<6; e++) {
+                                xC[e] = xC[e]+i*(getWidth()/15);
+                            }
+                        }
+                        g.fillPolygon(xC, yC, 6);
                     }
                     if(i == tokenChosenNum) {
                         g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));

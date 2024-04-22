@@ -311,6 +311,52 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public void drawPlayerBoard(Graphics g) {
         g.setColor(new Color(0, 0, 0, 153));
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
+        if(gameState==3) {
+            g.setColor(colors.get(game.getPlayerNum()));
+            HashMap<Tile, ArrayList<Integer>> map = game.getCurrentPlayer().getBoard().allNullTiles();
+            Iterator<Tile> it = map.keySet().iterator();
+            while(it.hasNext()) {
+                Tile t = it.next();
+                ArrayList<Integer> temp = map.get(t);
+                int[] xc = new int[6];
+                int[] yc = new int[6];
+                for(int i = 0; i<temp.size(); i++) {
+                    switch (temp.get(i)) {
+                        case 0 : {
+                            xc = new int[]{t.getXCoord(), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord(), t.getXCoord() - (int) (getWidth() / 27.428), t.getXCoord() - (int) (getWidth() / 27.428)};
+                            yc = new int[]{t.getYCoord()-(int)(getHeight()/8.675), t.getYCoord()-(int)(getHeight()/12.857), t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord(), t.getYCoord()-(int)(getHeight()/12.857)};
+                            break;
+                        }//(int) (getWidth() / 13.714), (int) (getHeight() / 6.545)
+                        case 1 : {
+                            xc = new int[]{t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/27.428)};
+                            yc = new int[]{t.getYCoord()-(int)(getHeight()/8.675), t.getYCoord()-(int)(getHeight()/12.857), t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord(), t.getYCoord()-(int)(getHeight()/12.857)};
+                            break;
+                        }
+                        case 2 : {
+                            xc = new int[]{t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+2*(int)(getWidth()/13.714), t.getXCoord()+2*(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)};
+                            yc = new int[]{t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()-(int)(getHeight()/26.667)};
+                            break;
+                        }
+                        case 3 : {
+                            xc = new int[]{t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/27.428)};
+                            yc = new int[]{t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)};
+                            break;
+                        }
+                        case 4 : {
+                            xc = new int[]{t.getXCoord(), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord(), t.getXCoord() - (int) (getWidth() / 27.428), t.getXCoord() - (int) (getWidth() / 27.428)};
+                            yc = new int[]{t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)};
+                            break;
+                        }
+                        case 5 : {
+                            xc = new int[]{t.getXCoord()-(int)(getWidth()/27.428), t.getXCoord(), t.getXCoord(), t.getXCoord()-(int)(getWidth()/27.428), t.getXCoord()-(int)(getWidth()/13.714), t.getXCoord()-(int)(getWidth()/13.714)};
+                            yc = new int[]{t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/26.667)};
+                            break;
+                        }
+                    }
+                    g.fillPolygon(xc, yc, 6);
+                }
+            }
+        }
         ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
         game.getCurrentPlayer().getBoard().setBoardWidthandHeight(getWidth(), getHeight());
 //        game.getCurrentPlayer().getBoard().setCoordinates();
@@ -464,34 +510,11 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
                     }
                 }
-                HashMap<Tile, ArrayList<Integer>> map = game.getCurrentPlayer().getBoard().allNullTiles();
-                Iterator<Tile> it = map.keySet().iterator();
-                while(it.hasNext()) {
-                    ArrayList<Integer> temp = map.get(it.next());
-                    for(int i = 0; i<temp.size(); i++) {
-                        switch (temp.get(i)) {
-                            case 0 : {
 
-                            }
-                            case 1 : {
-
-                            }
-                            case 2 : {
-
-                            }
-                            case 3 : {
-
-                            }
-                            case 4 : {
-
-                            }
-                            case 5 : {
-
-                            }
-                        }
-                    }
-                }
                 break;
+            }
+            case 4:{
+
             }
         }
     }

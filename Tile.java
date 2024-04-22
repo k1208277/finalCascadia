@@ -11,15 +11,16 @@ public class Tile
     private boolean isKeyStone, ifTraversed;
     private BufferedImage image;
 
-    private boolean emptyTile;
+    //private boolean emptyTile;
 
+    /*
     public Tile(){
         adjacentTiles = new ArrayList<>();
         for (int i = 0; i <= 5; i++){
             adjacentTiles.add(null);
         }
         emptyTile = true;
-    }
+    }*/
 
     public Tile(int hab1, int hab2, int animal1, int animal2, int animal3, int x, int y, boolean isKey, BufferedImage b) //animal habitats
     {
@@ -48,7 +49,7 @@ public class Tile
         }
 
 
-        emptyTile = false;
+       // emptyTile = false;
     }
 
     public ArrayList<Tile> getAdjacentTiles(){
@@ -120,7 +121,6 @@ public class Tile
                 return true;
             }
             double totalArea = area(xCoord, yCoord+(int)(height/4.074), xCoord+width/2, yCoord, xCoord+width, yCoord+(int)(height/4.074));
-
             double a1 = area(xCoord, yCoord+(int)(height/4.074), xCoord+width/2, yCoord, x, y);
             double a2 = area(xCoord, yCoord+(int)(height/4.074), x, y, xCoord+width, yCoord+(int)(height/4.074));
             double a3 = area(x, y, xCoord+width/2, yCoord, xCoord+width, yCoord+(int)(height/4.074));
@@ -154,17 +154,18 @@ public class Tile
                     if(y>=yCoord+(int)(height/4.074)-height+(int)(height/4.125) && y<=yCoord+height-(int)(height/4.074)-height+(int)(height/4.125)) {
                         return true;
                     }
-                    double totalArea = area(xCoord-width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), xCoord+width/2-width/2, yCoord-height+(int)(height/4.125), xCoord+width-width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
-                    double a1 = area(xCoord-width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), xCoord+width/2-width/2, yCoord-height+(int)(height/4.125), x, y);
-                    double a2 = area(xCoord-width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), x, y, xCoord+width-width/2, yCoord-(int)(height/4.074)-height+(int)(height/4.125));
-                    double a3 = area(x, y, xCoord+width/2-width/2, yCoord-height+(int)(height/4.125), xCoord+width-width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
+//
+                    double totalArea = area(xCoord-width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), xCoord, yCoord-height+(int)(height/4.125), xCoord+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
+                    double a1 = area(xCoord-width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), xCoord, yCoord-height+(int)(height/4.125), x, y);
+                    double a2 = area(xCoord-width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), x, y, xCoord+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
+                    double a3 = area(x, y, xCoord, yCoord-height+(int)(height/4.125), xCoord+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
                     if(a1+a2+a3==totalArea) {
                         return true;
                     }
-                    totalArea = area(xCoord-width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), xCoord+width/2-width/2, yCoord+height-height+(int)(height/4.125), xCoord+width-width/2, yCoord+(int)(1.325)-height+40);
-                    a1 = area(xCoord-width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), xCoord+width/2-width/2, yCoord+height-height+(int)(height/4.125), x, y);
-                    a2 = area(xCoord-width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), x, y, xCoord+width-width/2, yCoord+(int)(1.325)-height+(int)(height/4.125));
-                    a3 = area(x, y, xCoord+width/2-width/2, yCoord+height-height+(int)(height/4.125), xCoord+width-width/2, yCoord+(int)(1.325)-height+(int)(height/4.125));
+                    totalArea = area(xCoord-width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), xCoord, yCoord+(int)(height/4.125), xCoord+width/2, yCoord+(int)(1.325)-height+(int)(height/4.125));
+                    a1 = area(xCoord-width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), xCoord, yCoord+(int)(height/4.125), x, y);
+                    a2 = area(xCoord-width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), x, y, xCoord+width/2, yCoord+(int)(1.325)-height+(int)(height/4.125));
+                    a3 = area(x, y, xCoord, yCoord+(int)(height/4.125), xCoord+width/2, yCoord+(int)(1.325)-height+(int)(height/4.125));
                     if(a1+a2+a3==totalArea) {
                         return true;
                     }
@@ -178,17 +179,17 @@ public class Tile
                     if(y>=yCoord+(int)(height/4.074)-height+(int)(height/4.125) && y<=yCoord+height-(int)(height/4.074)-height+(int)(height/4.125)) {
                         return true;
                     }
-                    double totalArea = area(xCoord+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), xCoord+width/2+width/2, yCoord-height+(int)(height/4.125), xCoord+width+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
-                    double a1 = area(xCoord+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), xCoord+width/2+width/2, yCoord-height+(int)(height/4.125), x, y);
-                    double a2 = area(xCoord+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), x, y, xCoord+width+width/2, yCoord-(int)(height/4.074)-height+(int)(height/4.125));
-                    double a3 = area(x, y, xCoord+width/2+width/2, yCoord-height+(int)(height/4.125), xCoord+width+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
+                    double totalArea = area(xCoord+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), xCoord+width, yCoord-height+(int)(height/4.125), xCoord+width/2+width, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
+                    double a1 = area(xCoord+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), xCoord+width, yCoord-height+(int)(height/4.125), x, y);
+                    double a2 = area(xCoord+width/2, yCoord+(int)(height/4.074)-height+(int)(height/4.125), x, y, xCoord+width/2+width, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
+                    double a3 = area(x, y, xCoord+width, yCoord-height+(int)(height/4.125), xCoord+width/2+width, yCoord+(int)(height/4.074)-height+(int)(height/4.125));
                     if(a1+a2+a3==totalArea) {
                         return true;
                     }
-                    totalArea = area(xCoord+width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), xCoord+width/2+width/2, yCoord+height-height+(int)(height/4.125), xCoord+width+width/2, yCoord+(int)(1.325)-height+(int)(height/4.125));
-                    a1 = area(xCoord+width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), xCoord+width/2+width/2, yCoord+height-height+(int)(height/4.125), x, y);
-                    a2 = area(xCoord+width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), x, y, xCoord+width+width/2, yCoord+(int)(1.325)-height+(int)(height/4.125));
-                    a3 = area(x, y, xCoord+width/2+width/2, yCoord+height-height+(int)(height/4.125), xCoord+width+width/2, yCoord+(int)(1.325)-height+(int)(height/4.125));
+                    totalArea = area(xCoord+width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), xCoord+width, yCoord+(int)(height/4.125), xCoord+width/2+width, yCoord+(int)(1.325)-height+(int)(height/4.125));
+                    a1 = area(xCoord+width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), xCoord+width, yCoord+(int)(height/4.125), x, y);
+                    a2 = area(xCoord+width/2, yCoord+(int)(height/1.325)-height+(int)(height/4.125), x, y, xCoord+width/2+width, yCoord+(int)(1.325)-height+(int)(height/4.125));
+                    a3 = area(x, y, xCoord+width, yCoord+(int)(height/4.125), xCoord+width/2+width, yCoord+(int)(1.325)-height+(int)(height/4.125));
                     if(a1+a2+a3==totalArea) {
                         return true;
                     }
@@ -301,7 +302,7 @@ public class Tile
     }
 
 
-    public boolean isEmptyTile(){
+    /*public boolean isEmptyTile(){
         return emptyTile;
-    }
+    }*/
 }

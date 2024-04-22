@@ -154,7 +154,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             case 3:
             {
-                drawPrompt(g, "Choose where to place the tile!");
+                drawPrompt(g, "Choose placement of tile!");
                 drawOptions(g);
                 drawPlayerBoard(g);
                 drawPlayerIcons(g);
@@ -164,7 +164,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 4: {
-                drawPrompt(g, "Choose your tile orientation! Click ok to confirm");
+                drawPrompt(g, "Rotate tile! Press OK when done!");
                 drawOptions(g);
                 drawPlayerBoard(g);
                 drawPlayerIcons(g);
@@ -174,7 +174,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 5: {
-                drawPrompt(g, "Choose your tile orientation! Click ok to confirm");
+                drawPrompt(g, "Press tile to place a token on!");
                 drawOptions(g);
                 drawPlayerBoard(g);
                 drawPlayerIcons(g);
@@ -184,20 +184,44 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 6: {
-
+                drawPrompt(g, "Confirm and go to next player!");
+                drawOptions(g);
+                drawPlayerBoard(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 7: {
-
+                drawPrompt(g, "Choose an option");
+                drawOptions(g);
+                drawPlayerBoard(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 8: {
-
+                drawPrompt(g, "Choose animal tokens to clear! Press OK when done!");
+                drawOptions(g);
+                drawPlayerBoard(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 9:
             {
-
+                drawPrompt(g, "Choose a specific tile and token! Press OK when done!");
+                drawOptions(g);
+                drawPlayerBoard(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 10:
@@ -226,38 +250,44 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.drawString("Player "+game.getPlayerNum()+"'s turn!", (int)(getWidth()/2.659), (int)(getHeight()/19.286));
         int x = 0; int y = 0;
         switch(getGameState()) {
-            case 2 : {
+            case 2 : { //choose tile
                 x = (int)(getWidth()/2.954);
                 y =  (int)(getHeight()/10.693);
                 break;
             }
-            case 3 : {
-
-
+            case 3 : {//choose tile placement
+                x = (int)(getWidth()/3.009);
+                y =  (int)(getHeight()/10.800);
                 break;
             }
-            case 4 : {
-
+            case 4 : {//choose tile orientation
+                x = (int)(getWidth()/3.282);
+                y =  (int)(getHeight()/10.800);
                 break;
             }
-            case 5 : {
-
+            case 5 : {//choose token placement
+                x = (int)(getWidth()/3.028);
+                y =  (int)(getHeight()/10.800);
                 break;
             }
-            case 6 : {
-
+            case 6 : {//replace tile and next turn
+                x = (int)(getWidth()/3.200);
+                y =  (int)(getHeight()/10.800);
                 break;
             }
-            case 7 : {
-
+            case 7 : {//choose pinecone options
+                x = (int)(getWidth()/2.767);
+                y =  (int)(getHeight()/10.800);
                 break;
             }
-            case 8 : {
-
+            case 8 : {//choose tokens to clear
+                x = (int)(getWidth()/4.384);
+                y =  (int)(getHeight()/10.800);
                 break;
             }
-            case 9 : {
-
+            case 9 : {//choose specific tile and token
+                x = (int)(getWidth()/4.561);
+                y =  (int)(getHeight()/10.800);
                 break;
             }
             case 10 : {
@@ -280,7 +310,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/1.34), (int)(getWidth()/1.69), (int)(getHeight()/4.337));
         drawHighlights(g);
         for(int i = 0; i<game.getAvailableTiles().length; i++) {
-            g.drawImage(game.getAvailableTiles()[i].getImage(), (int)(getWidth()/6.316)+i*(int)(getWidth()/14.95), (int)(getHeight()/1.289), (int)(getWidth()/19.01), (int)(getHeight()/9.231), null);
+            if(game.getAvailableTiles()[i] != null) {
+                g.drawImage(game.getAvailableTiles()[i].getImage(), (int)(getWidth()/6.316)+i*(int)(getWidth()/14.95), (int)(getHeight()/1.289), (int)(getWidth()/19.01), (int)(getHeight()/9.231), null);
+            }
             if(gameState==2) {
                 game.getAvailableTiles()[i].setXCoord((int)(getWidth()/6.316)+i*(int)(getWidth()/14.95));
                 game.getAvailableTiles()[i].setYCoord((int)(getHeight()/1.289));
@@ -609,12 +641,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         game.getCurrentPlayer().getBoard().setBoardWidthandHeight(getWidth(), getHeight());
                         if (temp.ifNullTileClicked(nullSidesOfTile.get(j), x, y, (int) (getWidth() / 13.714), (int) (getHeight() / 6.545)))
                         {
-                            System.out.println("Tile chosen's adjacent tiles: "+ getChosenTile().getAdjacentTiles());
-                            System.out.println("Tile chosen's x and y: ("+ getChosenTile().getXCoord() +", "+ getChosenTile().getYCoord() +")");
+//                            System.out.println("Tile chosen's adjacent tiles: "+ getChosenTile().getAdjacentTiles());
+//                            System.out.println("Tile chosen's x and y: ("+ getChosenTile().getXCoord() +", "+ getChosenTile().getYCoord() +")");
 
                             game.getCurrentPlayer().getBoard().addTile(getChosenTile(), temp, nullSidesOfTile.get(j));
-
-
                         }
                     }
                 }

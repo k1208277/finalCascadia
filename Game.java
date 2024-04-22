@@ -239,6 +239,7 @@ public class Game
                 //setPrompt - choose where to place the tile
                 //panel.repaint();
                 panel.waitForTilePlaced();//in mouselistener, once player has clicked where to place it, will have to set tilePlaced to true and gamestate to 4
+                availableTiles[panel.getTileChosenNum()] = null;
                 panel.repaint();
 
 
@@ -291,6 +292,7 @@ public class Game
             panel.repaint();
 
             panel.waitForTilePlaced(); //in mouselistener, once player has clicked where to place it, will have to set tilePlaced to true and gamestate to 4
+            availableTiles[panel.getTileChosenNum()] = null;
             panel.repaint();
 
             //rotation/orientation
@@ -613,5 +615,24 @@ public class Game
     public Token[] getAvailableTokens(){
         return availableTokens;
     }
+    public void bonuses(){
+        HashMap<Integer, ArrayList<Integer>> bonus = new HashMap<>(); //bonuses for habitats
+        for (int i = 0; i < players.size(); i++){
+            bonus.put(i, new ArrayList<>());
+        }
+        ArrayList<Integer> playerScores = new ArrayList<>();
+        for (int i = 0; i < players.size(); i++){
+            playerScores.add(players.get(i).getBoard().getHabitatScore(1));
+        }
+        int maxScore = 0;
+        for(int x: playerScores){
+            maxScore = Math.max(x, maxScore);
+        }
+        //ArrayList<Integer> temp= new ArrayList<>();
+        //
 
+        
+
+
+    }
 }

@@ -174,7 +174,13 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 5: {
-
+                drawPrompt(g, "Choose your tile orientation! Click ok to confirm");
+                drawOptions(g);
+                drawPlayerBoard(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 6: {
@@ -226,6 +232,44 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 3 : {
+
+
+                break;
+            }
+            case 4 : {
+
+                break;
+            }
+            case 5 : {
+
+                break;
+            }
+            case 6 : {
+
+                break;
+            }
+            case 7 : {
+
+                break;
+            }
+            case 8 : {
+
+                break;
+            }
+            case 9 : {
+
+                break;
+            }
+            case 10 : {
+
+                break;
+            }
+            case 11 : {
+
+                break;
+            }
+            case 12 : {
+
                 break;
             }
         }
@@ -338,6 +382,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 g2.drawRect((int)(getWidth()/1.306), (int)(getHeight()/1.444), (int)(getWidth()/12.715), (int)(getHeight()/11.739));
                 g2.drawRect((int)(getWidth()/1.116), (int)(getHeight()/1.444), (int)(getWidth()/12.715), (int)(getHeight()/11.739));
                 g.setFont(new Font("h", 1, 20));
+                g.drawString("Rotate", (int)(getWidth()/1.276), (int)(getHeight()/1.378));
+                g.drawString("Left", (int)(getWidth()/1.263), (int)(getHeight()/1.315));
+                g.drawString("Rotate", (int)(getWidth()/1.095), (int)(getHeight()/1.383));
+                g.drawString("Right", (int)(getWidth()/1.088), (int)(getHeight()/1.319));
 
             }
         }
@@ -525,7 +573,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             case 3: //choose tile placement
             {
                 HashMap<Tile, ArrayList<Integer>> tilesWithNullSides = game.getCurrentPlayer().getBoard().allNullTiles();
-                Iterator<Tile> iter = tilesWithNullSides.keySet().iterator(); //all tiles
+                Set<Tile> set= tilesWithNullSides.keySet();
+                Iterator<Tile> iter = set.iterator(); //all tiles
+
 
                 while (iter.hasNext())
                 {
@@ -533,12 +583,17 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     ArrayList<Integer> nullSidesOfTile = tilesWithNullSides.get(temp); //each tile's null sides
                     for (int j = 0; j < nullSidesOfTile.size(); j++)
                     {
-                        if (temp.getAdjacentTiles().get(j).ifNullTileClicked(nullSidesOfTile.get(j), x, y, (int) (getWidth() / 13.714), (int) (getHeight() / 6.545)))
+                        game.getCurrentPlayer().getBoard().setBoardWidthandHeight(getWidth(), getHeight());
+                        if (temp.ifNullTileClicked(nullSidesOfTile.get(j), x, y, (int) (getWidth() / 13.714), (int) (getHeight() / 6.545)))
                         {
+                            System.out.println("Tile chosen's adjacent tiles: "+ getChosenTile().getAdjacentTiles());
+                            System.out.println("Tile chosen's x and y: ("+ getChosenTile().getXCoord() +", "+ getChosenTile().getYCoord() +")");
+
                             game.getCurrentPlayer().getBoard().addTile(getChosenTile(), temp, nullSidesOfTile.get(j));
+
+
                         }
                     }
-                    iter.next();
                 }
 
                 tilePlaced = true;

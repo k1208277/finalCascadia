@@ -364,6 +364,7 @@ public class Board
         }
         if (orientation == 2){
             tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 13.52));
+            tile.setYCoord(prev.getYCoord());
         }
         if (orientation == 3){
             tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 27.04));
@@ -375,6 +376,7 @@ public class Board
         }
         if (orientation == 5){
             tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 13.52));
+            tile.setYCoord(prev.getYCoord());
         }
     }
 

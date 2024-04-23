@@ -337,7 +337,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 g.drawString("Clear tokens", (int) (getWidth() / 2.22), (int) (getHeight() / 1.069));
             }
         }
-        if(gameState==5) {
+        if(gameState==5 || gameState==6) {
             g2.drawRect((int) (getWidth() / 1.731), (int) (getHeight() / 1.325), (int) (getWidth() / 6.906), (int) (getHeight() / 15.652));
         }
     }
@@ -730,7 +730,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             case 6: //check if next player button is clicked
             {
-                if (x <= getWidth()) //coordinates for clicking next turn button
+                if (x>= (int) (getWidth() / 1.731) && x<=(int) (getWidth() / 1.731) +(int) (getWidth() / 6.906) && y>= (int) (getHeight() / 1.325) && y<=(int) (getHeight() / 1.325)+(int) (getHeight() / 15.652)) //coordinates for clicking next turn button
                     nextPlayerClicked = true;
 
             }

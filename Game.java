@@ -63,6 +63,7 @@ public class Game
         tileChose = null;
         tokenChose = null;
         alreadyTookTurn = false;
+        turn = 0;
 
         //create panel
         panel = new CascadiaPanel(this);
@@ -91,11 +92,11 @@ public class Game
         updateTileAndTokens();
 
         //player turn loop
-        while (!checkGameEnd())
+        while (checkGameEnd())
         {
             for(int i = 0; i < 4; i++)
             {
-                currentPlayer = players.get(i);
+//                currentPlayer = players.get(i);
                 updateTileAndTokens();
                 panel.setGameState(2);
                 panel.repaint();
@@ -664,8 +665,8 @@ public class Game
         for(int x: playerScores){
             maxScore = Math.max(x, maxScore);
         }
-        //ArrayList<Integer> temp= new ArrayList<>();
-        //
+        ArrayList<Integer> temp= new ArrayList<>();
+//        for
 
         
 

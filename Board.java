@@ -380,9 +380,15 @@ public class Board
         }
     }
 
-    public void updateTileCoords(){
-        startTile.setXCoord((int)(boardWidth/ 2.46));
-        startTile.setYCoord((int)(boardHeight / 4.5));
+    public void updateTileCoords(int x, int y, int width, int height){
+        ArrayList<Tile> allTiles = traverse();
+        for(int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
+
+        setBoardWidthandHeight(width, height);
+        startTile.setXCoord((int)(x));
+        startTile.setYCoord((int)(y));
         Queue<Tile> q = new LinkedList<>();
         q.add(startTile);
         startTile.setChecker(true);
@@ -402,6 +408,7 @@ public class Board
                     }
                     if (i == 2) {
                         t.setXCoord(tile.getXCoord() + (int) (boardWidth / 13.52));
+                        t.setYCoord(tile.getYCoord());
                     }
                     if (i == 3) {
                         t.setXCoord(tile.getXCoord() + (int) (boardWidth / 27.04));
@@ -413,6 +420,7 @@ public class Board
                     }
                     if (i == 5) {
                         t.setXCoord(tile.getXCoord() - (int) (boardWidth / 13.52));
+                        t.setYCoord(tile.getYCoord());
                     }
                     t.setChecker(true);
                     q.add(t);

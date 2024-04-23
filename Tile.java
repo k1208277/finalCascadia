@@ -47,7 +47,7 @@ public class Tile
         for (int i = 0; i <= 5; i++){
             adjacentTiles.add(null);
         }
-
+        ifTraversed = false;
 
        // emptyTile = false;
     }

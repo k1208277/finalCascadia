@@ -650,7 +650,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     repaint();
                     game.play();
                 }
-                repaint();
+
                 break;
             }
             case 2:
@@ -687,7 +687,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         }
                     }
                 }
-                repaint();
+
                 break;
             }
             case 3: //choose tile placement
@@ -717,7 +717,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
                 tilePlaced = true;
                 setGameState(4);
-                repaint();
                 break;
             }
             case 4: //tile orientation
@@ -742,7 +741,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     okClicked = true;
                     setGameState(5);
                 }
-                repaint();
+
                 break;
             }
             case 5: //choose token placement or throw away
@@ -778,18 +777,18 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         }
                     }
                 }
-                repaint();
+
                 break;
             }
             case 6: //check if next player button is clicked
             {
                 if (x>= (int) (getWidth() / 1.731) && x<=(int) (getWidth() / 1.731) +(int) (getWidth() / 6.906) && y>= (int) (getHeight() / 1.325) && y<=(int) (getHeight() / 1.325)+(int) (getHeight() / 15.652)){ //coordinates for clicking next turn button
                     nextPlayerClicked = true;
-                    game.setCurrentPlayer((game.getPlayerNum()+1)%game.getPlayers().size());
+                    //game.setCurrentPlayer((game.getPlayerNum()+1)%game.getPlayers().size());
                 }
-                game.updateTileAndTokens();
-                setGameState(2);
-                repaint();
+//                game.updateTileAndTokens();
+//                setGameState(2);
+//                repaint();
                 break;
             }
             case 7: //use pinecone button
@@ -804,7 +803,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     chooseTileTokenClicked = true;
                     setGameState(9);
                 }
-                repaint();
+
                 break;
             }
             case 8: //clear tokens
@@ -825,7 +824,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     okClicked = true;
                     setGameState(6);
                 }
-                repaint();
+
                 break;
             }
             case 9: //choose specific tile and token
@@ -850,7 +849,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     okClicked = true;
                     setGameState(3);
                 }
-                repaint();
+
                 break;
             }
             case 10: {}

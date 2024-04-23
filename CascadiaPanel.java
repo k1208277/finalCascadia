@@ -367,6 +367,13 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
         if(gameState==5 || gameState==6) {
             g2.drawRect((int) (getWidth() / 1.731), (int) (getHeight() / 1.325), (int) (getWidth() / 6.906), (int) (getHeight() / 15.652));
+            g.setFont(new Font("", 1, 26));
+            if(gameState==5) {
+                g.drawString("Throw away", (int)(getWidth()/1.67), (int)(getHeight()/1.254));
+            }
+            else {
+                g.drawString("Next player", (int)(getWidth()/1.654), (int)(getHeight()/1.254));
+            }
         }
     }
 

@@ -767,6 +767,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                                     tileTokenPlacement = t;
                                     tileTokenPlacement.setAnimal(chosenToken);
                                     tokenPlaced = true;
+                                    if(tileTokenPlacement.isKeyStone())
+                                    {
+                                        game.getCurrentPlayer().addPineCone();
+                                    }
                                     setGameState(6);
                                     repaint();
                                 }

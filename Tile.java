@@ -253,7 +253,6 @@ public class Tile
                     if(y>=yCoord+(int)(height/4.074)+height-(int)(height/4.125) && y<=yCoord+height-(int)(height/4.074)+height-(int)(height/4.125)) {
                         return true;
                     }
-                    //top triangle
                     double totalArea = area(xCoord-width/2, yCoord+(int)(height/4.074)+height-(int)(height/4.125), xCoord, yCoord+height-(int)(height/4.125), xCoord+width/2, yCoord+(int)(height/4.074)+height-(int)(height/4.125));
                     double a1 = area(xCoord-width/2, yCoord+(int)(height/4.074)+height-(int)(height/4.125), xCoord, yCoord+height-(int)(height/4.125), x, y);
                     double a2 = area(xCoord-width/2, yCoord+(int)(height/4.074)+height-(int)(height/4.125), x, y, xCoord+width/2, yCoord+(int)(height/4.074)+height-(int)(height/4.125));
@@ -261,7 +260,6 @@ public class Tile
                     if(a1+a2+a3==totalArea) {
                         return true;
                     }
-                    //bottom triangle
                     totalArea = area(xCoord-width/2, yCoord+(int)(height/1.325)+height-(int)(height/4.125), xCoord+width/2-width/2, yCoord+height+height-(int)(height/4.125), xCoord+width-width/2, yCoord+(int)(1.325)+height-(int)(height/4.125));
                     a1 = area(xCoord-width/2, yCoord+(int)(height/1.325)+height-(int)(height/4.125), xCoord+width/2-width/2, yCoord+height+height-(int)(height/4.125), x, y);
                     a2 = area(xCoord-width/2, yCoord+(int)(height/1.325)+height-(int)(height/4.125), x, y, xCoord+width-width/2, yCoord+(int)(1.325)+height-(int)(height/4.125));

@@ -711,6 +711,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
                             game.getCurrentPlayer().getBoard().addTile(getChosenTile(), temp, nullSidesOfTile.get(j));
                         }
+                        //THIS NEEDS TO BE A LOOP OR SOMETHING TO ENSURE THE TILE CAN BE PLACED WHEN CLICKED IN A RANDOM PLACE
                     }
                 }
 
@@ -780,8 +781,11 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             {
                 if (x>= (int) (getWidth() / 1.731) && x<=(int) (getWidth() / 1.731) +(int) (getWidth() / 6.906) && y>= (int) (getHeight() / 1.325) && y<=(int) (getHeight() / 1.325)+(int) (getHeight() / 15.652)){ //coordinates for clicking next turn button
                     nextPlayerClicked = true;
+                    game.setCurrentPlayer((game.getPlayerNum()+1)%game.getPlayers().size());
                 }
-
+                game.updateTileAndTokens();
+                setGameState(2);
+                repaint();
                 break;
             }
             case 7: //use pinecone button

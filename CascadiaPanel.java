@@ -24,6 +24,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private Tile chosenTile;
     private Token chosenToken;
     private Game game;
+    private int shiftX, shiftY;
     //erica is shrot
     public CascadiaPanel(Game game)
     {
@@ -381,10 +382,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     }
 
     public void drawPlayerBoard(Graphics g) {
+        System.out.println(game.getCurrentPlayer().getBoard().traverse());
+      //  game.getCurrentPlayer().getBoard().updateTileCoords((int)(getWidth()/2.46), (int)(getHeight()/4.5), getWidth(), getHeight());
+        System.out.println(game.getCurrentPlayer().getBoard().traverse());
         g.setColor(new Color(0, 0, 0, 153));
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
         if(gameState==3) {
-            g.setColor(colors.get(game.getPlayerNum()));
             HashMap<Tile, ArrayList<Integer>> map = game.getCurrentPlayer().getBoard().allNullTiles();
             Iterator<Tile> it = map.keySet().iterator();
             while(it.hasNext()) {
@@ -406,7 +409,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         }
                         case 2 : {
                             xc = new int[]{t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+2*(int)(getWidth()/13.714), t.getXCoord()+2*(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)};
-                            yc = new int[]{t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()-(int)(getHeight()/26.667)};
+                            yc = new int[]{t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/26.667)};
                             break;
                         }
                         case 3 : {
@@ -425,7 +428,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                             break;
                         }
                     }
+                    g.setColor(colors.get(game.getPlayerNum()));
                     g.fillPolygon(xc, yc, 6);
+                    g.setColor(Color.black);
+                    g.drawPolygon(xc, yc, 6);
                 }
             }
         }

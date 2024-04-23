@@ -79,7 +79,9 @@ public class Tile
         animal = t;
     }
 
+    public ArrayList<Integer> getPossibleAnimals(){return possibleAnimals;}
     public int getAnimal(){ return animal.getAnimal();}
+    public boolean hasAnimal(){ return animal != null;}
     public int getHabitat(int habitat)
     {
         return habitats.get(habitat);

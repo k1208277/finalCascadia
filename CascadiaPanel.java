@@ -337,7 +337,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 g.drawString("Clear tokens", (int) (getWidth() / 2.22), (int) (getHeight() / 1.069));
             }
         }
-
+        if(gameState==5) {
+            g2.drawRect((int) (getWidth() / 1.731), (int) (getHeight() / 1.325), (int) (getWidth() / 6.906), (int) (getHeight() / 15.652));
+        }
     }
 
     public void drawPlayerBoard(Graphics g) {
@@ -395,7 +397,18 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         for(int i = 0; i<temp.size(); i++) {
             if(temp.get(i).getImage() != null) {
                 rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * temp.get(i).getOrientation());
+                if(temp.get(i).hasAnimal()) {
+                    g.drawImage(tokenImages.get(temp.get(i).getAnimal()), temp.get(i).getXCoord()+(int)(getWidth()/106.667), temp.get(i).getYCoord()+(int)(getHeight()/37.241), (int)(getWidth()/18.462), (int)(getHeight()/10.385), null);
+                }
             }
+        }
+        if(gameState==4) {
+            g.setColor(colors.get(game.getPlayerNum()));
+            int[] xc = {chosenTile.getXCoord()+(int)(getWidth()/27.428), chosenTile.getXCoord()+(int)(getWidth()/13.714), chosenTile.getXCoord()+(int)(getWidth()/13.714), chosenTile.getXCoord()+(int)(getWidth()/27.428), chosenTile.getXCoord(), chosenTile.getXCoord()};
+            int[] yc = {chosenTile.getYCoord(), chosenTile.getYCoord()+(int)(getHeight()/26.667), chosenTile.getYCoord()+(int)(getHeight()/8.675), chosenTile.getYCoord()+(int)(getHeight()/6.545), chosenTile.getYCoord()+(int)(getHeight()/8.675), chosenTile.getYCoord()+(int)(getHeight()/26.667)};
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+            g2.drawPolygon(xc, yc, 6);
         }
     }
 
@@ -546,7 +559,18 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 4:{
-
+                for(int i = 0; i<4; i++) {
+                    if(i == tokenChosenNum) {
+                        g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
+                    }
+                }
+            }
+            case 5:{
+                for(int i = 0; i<4; i++) {
+                    if(i == tokenChosenNum) {
+                        g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
+                    }
+                }
             }
         }
     }
@@ -682,19 +706,26 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             case 5: //choose token placement or throw away
             {
                 //token is thrown away
-                if (x <= getWidth()) //throw away button clicked coordinates
+
+                if (x>= (int) (getWidth() / 1.731) && x<=(int) (getWidth() / 1.731) +(int) (getWidth() / 6.906) && y>= (int) (getHeight() / 1.325) && y<=(int) (getHeight() / 1.325)+(int) (getHeight() / 15.652)) //throw away button clicked coordinates
                 {
                     throwAwayClicked = true;
                     tileTokenPlacement = null;
                 }
-                else if (x<=getWidth())//tile coordinates that they chose to place the tile
-                {
-                    //token is placed on the tile they chose
-                    tokenPlaced = true;
-                    //get traversal of player tiles and use isClicked to see if player clicked on tile
+                //get traversal of player tiles and use isClicked to see if player clicked on tile
+                ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
+                for(Tile t:temp) {
+                    if(t.isClicked(x, y, (int) (getWidth() / 13.714), (int) (getHeight() / 6.545))) {
+                        //token is placed on the tile they chose if animal matches
+                        for(int i:t.getPossibleAnimals()) {
+                            if(i==chosenToken.getAnimal()) {
+                                tokenPlaced = true;
+                                setGameState(6);
+                                repaint();
+                            }
+                        }
+                    }
                 }
-                setGameState(6);
-                repaint();
                 break;
             }
             case 6: //check if next player button is clicked

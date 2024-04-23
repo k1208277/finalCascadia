@@ -41,6 +41,8 @@ public class Board
         if (temp > 5) temp -= 6;
         newTile.getAdjacentTiles().set(temp, adjTile);
         setCoordinates(newTile, adjTile, sideNum);
+
+
     }
 
 

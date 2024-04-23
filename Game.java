@@ -91,6 +91,8 @@ public class Game
         //Filling in the starting tiles and tokens
         updateTileAndTokens();
 
+
+
         //player turn loop
         while (checkGameEnd())
         {

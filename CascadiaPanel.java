@@ -74,6 +74,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             icons.put("exit", ImageIO.read(CascadiaPanel.class.getResource("/Images/exit.png")));
             icons.put("pinecone", ImageIO.read(CascadiaPanel.class.getResource("/Images/pinecone.png")));
             icons.put("arrow", ImageIO.read(CascadiaPanel.class.getResource("/Images/arrow.png")));
+            icons.put("b2", ImageIO.read(CascadiaPanel.class.getResource("/Images/background2.png")));
 
             //Elk = 1
             //Salmon = 2
@@ -170,9 +171,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             //main layout - player chooses options
             case 2 : {
+                drawPlayerBoard(g);
                 drawPrompt(g, "Choose a tile and token!");
                 drawOptions(g);
-                drawPlayerBoard(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -181,9 +182,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             case 3:
             {
+                drawPlayerBoard(g);
                 drawPrompt(g, "Choose placement of tile!");
                 drawOptions(g);
-                drawPlayerBoard(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -191,9 +192,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 4: {
+                drawPlayerBoard(g);
                 drawPrompt(g, "Rotate tile! Press OK when done!");
                 drawOptions(g);
-                drawPlayerBoard(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -201,9 +202,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 5: {
+                drawPlayerBoard(g);
                 drawPrompt(g, "Press tile to place a token on!");
                 drawOptions(g);
-                drawPlayerBoard(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -211,9 +212,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 6: {
+                drawPlayerBoard(g);
                 drawPrompt(g, "Confirm and go to next player!");
                 drawOptions(g);
-                drawPlayerBoard(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -221,9 +222,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 7: {
+                drawPlayerBoard(g);
                 drawPrompt(g, "Choose an option");
                 drawOptions(g);
-                drawPlayerBoard(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -231,9 +232,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 8: {
+                drawPlayerBoard(g);
                 drawPrompt(g, "Choose animal tokens to clear! Press OK when done!");
                 drawOptions(g);
-                drawPlayerBoard(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -242,9 +243,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             case 9:
             {
+                drawPlayerBoard(g);
                 drawPrompt(g, "Choose a specific tile and token! Press OK when done!");
                 drawOptions(g);
-                drawPlayerBoard(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -410,12 +411,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         }
                         case 3 : {
                             xc = new int[]{t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/27.428)};
-                            yc = new int[]{t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)};
+                            yc = new int[]{t.getYCoord()+(int)(getHeight()/8.71), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/8.71), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)};
                             break;
                         }
                         case 4 : {
                             xc = new int[]{t.getXCoord(), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord(), t.getXCoord() - (int) (getWidth() / 27.428), t.getXCoord() - (int) (getWidth() / 27.428)};
-                            yc = new int[]{t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)};
+                            yc = new int[]{t.getYCoord()+(int)(getHeight()/8.71), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/8.71), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)};
                             break;
                         }
                         case 5 : {
@@ -447,6 +448,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             g2.setStroke(new BasicStroke((int)(getHeight()/270)));
             g2.drawPolygon(xc, yc, 6);
         }
+        g.drawImage(icons.get("b2"), 0, 0, getWidth(), getHeight(), null);
     }
 
     public void drawPlayerIcons(Graphics g) {
@@ -504,8 +506,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             Graphics2D g2 = (Graphics2D)g;
             g2.setStroke(new BasicStroke((int)(getHeight()/270)));
             g2.drawRect((int)(getWidth()/1.176), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4));
-            g.setFont(new Font("h", 1, 24));
-            g.drawString("OK", (int)(getWidth()/1.166), (int)(getHeight()/1.195));
+            g.setFont(new Font("h", 1, 26));
+            g.drawString("OK", (int)(getWidth()/1.168), (int)(getHeight()/1.195));
             if(gameState == 4) {
                 g2.drawRect((int)(getWidth()/1.306), (int)(getHeight()/1.444), (int)(getWidth()/12.715), (int)(getHeight()/11.739));
                 g2.drawRect((int)(getWidth()/1.116), (int)(getHeight()/1.444), (int)(getWidth()/12.715), (int)(getHeight()/11.739));

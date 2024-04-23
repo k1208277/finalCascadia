@@ -13,7 +13,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private HashMap<String, BufferedImage> icons;
     private HashMap<Integer, BufferedImage> tokenImages, scoringCards;
     private int gameState;
-    private boolean gameStart, roundStart;
     private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked, throwAwayClicked;
     private boolean nextPlayerClicked;
     private boolean tilePlaced, tokenPlaced;
@@ -25,6 +24,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private Tile chosenTile;
     private Token chosenToken;
     private Game game;
+    private int shiftX, shiftY;
     //erica is shrot
     public CascadiaPanel(Game game)
     {
@@ -75,6 +75,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             icons.put("exit", ImageIO.read(CascadiaPanel.class.getResource("/Images/exit.png")));
             icons.put("pinecone", ImageIO.read(CascadiaPanel.class.getResource("/Images/pinecone.png")));
             icons.put("arrow", ImageIO.read(CascadiaPanel.class.getResource("/Images/arrow.png")));
+            icons.put("b2", ImageIO.read(CascadiaPanel.class.getResource("/Images/background2.png")));
 
             //Elk = 1
             //Salmon = 2
@@ -99,6 +100,34 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         }
 
         addMouseListener(this);
+    }
+
+    public void resetGameFlags()
+    {
+        tileClicked = false;
+        tokenClicked = false;
+        usePineConesClicked = false;
+        chooseTileTokenClicked = false;
+        clearTokenClicked = false;
+        okClicked = false;
+        throwAwayClicked = false;
+        nextPlayerClicked = false;
+
+        tileChosenNum = -1;
+        tokenChosenNum = -1;
+        tileTokenPlacement = null;
+        tilePlaced = false;
+        tokenPlaced = false;
+        tempClearedTokens[0] = null;
+        tempClearedTokens[1] = null;
+        tempClearedTokens[2] = null;
+        tempClearedTokens[3] = null;
+        chosenTile = null;
+        chosenToken = null;
+
+        game.setIfTookTurn(false);
+        game.setTileChose(null);
+        game.setTokenChose(null);
     }
 
     public int getGameState()
@@ -143,9 +172,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             //main layout - player chooses options
             case 2 : {
+                drawPlayerBoard(g);
                 drawPrompt(g, "Choose a tile and token!");
                 drawOptions(g);
-                drawPlayerBoard(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -154,9 +183,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
             case 3:
             {
-                drawPrompt(g, "Choose where to place the tile!");
-                drawOptions(g);
                 drawPlayerBoard(g);
+                drawPrompt(g, "Choose placement of tile!");
+                drawOptions(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -164,9 +193,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 4: {
-                drawPrompt(g, "Choose your tile orientation! Click ok to confirm");
-                drawOptions(g);
                 drawPlayerBoard(g);
+                drawPrompt(g, "Rotate tile! Press OK when done!");
+                drawOptions(g);
                 drawPlayerIcons(g);
                 drawScoringCards(g);
                 drawShiftButtons(g);
@@ -174,24 +203,54 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 5: {
-
+                drawPlayerBoard(g);
+                drawPrompt(g, "Press tile to place a token on!");
+                drawOptions(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 6: {
-
+                drawPlayerBoard(g);
+                drawPrompt(g, "Confirm and go to next player!");
+                drawOptions(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 7: {
-
+                drawPlayerBoard(g);
+                drawPrompt(g, "Choose an option");
+                drawOptions(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 8: {
-
+                drawPlayerBoard(g);
+                drawPrompt(g, "Choose animal tokens to clear! Press OK when done!");
+                drawOptions(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 9:
             {
-
+                drawPlayerBoard(g);
+                drawPrompt(g, "Choose a specific tile and token! Press OK when done!");
+                drawOptions(g);
+                drawPlayerIcons(g);
+                drawScoringCards(g);
+                drawShiftButtons(g);
+                drawButtons(g);
                 break;
             }
             case 10:
@@ -220,12 +279,56 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.drawString("Player "+game.getPlayerNum()+"'s turn!", (int)(getWidth()/2.659), (int)(getHeight()/19.286));
         int x = 0; int y = 0;
         switch(getGameState()) {
-            case 2 : {
+            case 2 : { //choose tile
                 x = (int)(getWidth()/2.954);
                 y =  (int)(getHeight()/10.693);
                 break;
             }
-            case 3 : {
+            case 3 : {//choose tile placement
+                x = (int)(getWidth()/3.009);
+                y =  (int)(getHeight()/10.800);
+                break;
+            }
+            case 4 : {//choose tile orientation
+                x = (int)(getWidth()/3.282);
+                y =  (int)(getHeight()/10.800);
+                break;
+            }
+            case 5 : {//choose token placement
+                x = (int)(getWidth()/3.028);
+                y =  (int)(getHeight()/10.800);
+                break;
+            }
+            case 6 : {//replace tile and next turn
+                x = (int)(getWidth()/3.200);
+                y =  (int)(getHeight()/10.800);
+                break;
+            }
+            case 7 : {//choose pinecone options
+                x = (int)(getWidth()/2.767);
+                y =  (int)(getHeight()/10.800);
+                break;
+            }
+            case 8 : {//choose tokens to clear
+                x = (int)(getWidth()/4.384);
+                y =  (int)(getHeight()/10.800);
+                break;
+            }
+            case 9 : {//choose specific tile and token
+                x = (int)(getWidth()/4.561);
+                y =  (int)(getHeight()/10.800);
+                break;
+            }
+            case 10 : {
+
+                break;
+            }
+            case 11 : {
+
+                break;
+            }
+            case 12 : {
+
                 break;
             }
         }
@@ -236,10 +339,15 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/1.34), (int)(getWidth()/1.69), (int)(getHeight()/4.337));
         drawHighlights(g);
         for(int i = 0; i<game.getAvailableTiles().length; i++) {
-            g.drawImage(game.getAvailableTiles()[i].getImage(), (int)(getWidth()/6.316)+i*(int)(getWidth()/14.884), (int)(getHeight()/1.289), (int)(getWidth()/19.01), (int)(getHeight()/9.231), null);
-            game.getAvailableTiles()[i].setXCoord((int)(getWidth()/6.316)+i*(int)(getWidth()/14.884));
-            game.getAvailableTiles()[i].setYCoord((int)(getHeight()/1.289));
-            g.drawImage(tokenImages.get(game.getAvailableTokens()[i].getAnimal()), (int)(getWidth()/6.038)+i*(getWidth()/15), (int)(getHeight()/1.12), (int)(getWidth()/25.946), (int)(getHeight()/14.595), null);
+            if(game.getAvailableTiles()[i] != null) {
+                g.drawImage(game.getAvailableTiles()[i].getImage(), (int)(getWidth()/6.316)+i*(int)(getWidth()/14.95), (int)(getHeight()/1.289), (int)(getWidth()/19.01), (int)(getHeight()/9.231), null);
+            }
+            if(gameState==2) {
+                game.getAvailableTiles()[i].setXCoord((int)(getWidth()/6.316)+i*(int)(getWidth()/14.95));
+                game.getAvailableTiles()[i].setYCoord((int)(getHeight()/1.289));
+            }
+            if (game.getAvailableTokens()[i] != null)
+                g.drawImage(tokenImages.get(game.getAvailableTokens()[i].getAnimal()), (int)(getWidth()/6.038)+i*(getWidth()/15), (int)(getHeight()/1.12), (int)(getWidth()/25.946), (int)(getHeight()/14.595), null);
         }
         g.setColor(Color.white);
         Graphics2D g2 = (Graphics2D)g;
@@ -247,31 +355,106 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.setFont(new Font("h", 1, (int)(getHeight()/31.697)));
         //System.out.println((int)(getHeight()/31.697));
 
-        //pinecones
-        if(game.getCurrentPlayer().getPineCones()>0) {
-            g2.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.251), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
-            g.drawString("Use pinecones", (int)(getWidth()/2.261), (int)(getHeight()/1.186));
+        if(gameState==2) {
+            //pinecones
+            if (game.getCurrentPlayer().getPineCones() > 0) {
+                g2.drawRect((int) (getWidth() / 2.333), (int) (getHeight() / 1.251), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652));
+                g.drawString("Use pinecones", (int) (getWidth() / 2.261), (int) (getHeight() / 1.186));
+            }
+            //3 of the same pinecones
+            if (game.checkOverpopulation(false) == 3) {
+                g2.drawRect((int) (getWidth() / 2.333), (int) (getHeight() / 1.121), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652));
+                g.drawString("Clear tokens", (int) (getWidth() / 2.22), (int) (getHeight() / 1.069));
+            }
         }
-        //3 of the same pinecones
-        if(game.checkOverpopulation(false) == 3) {
-            g2.drawRect((int)(getWidth()/2.333), (int)(getHeight()/1.121), (int)(getWidth()/6.784), (int)(getHeight()/15.652));
-            g.drawString("Clear tokens", (int)(getWidth()/2.22), (int)(getHeight()/1.069));
+        if(gameState==5 || gameState==6) {
+            g2.drawRect((int) (getWidth() / 1.731), (int) (getHeight() / 1.325), (int) (getWidth() / 6.906), (int) (getHeight() / 15.652));
+            g.setFont(new Font("", 1, 26));
+            if(gameState==5) {
+                g.drawString("Throw away", (int)(getWidth()/1.67), (int)(getHeight()/1.254));
+            }
+
+            else {
+
+                g.drawString("Next player", (int)(getWidth()/1.654), (int)(getHeight()/1.254));
+            }
         }
-
-
     }
 
     public void drawPlayerBoard(Graphics g) {
+        System.out.println(game.getCurrentPlayer().getBoard().traverse());
+      //  game.getCurrentPlayer().getBoard().updateTileCoords((int)(getWidth()/2.46), (int)(getHeight()/4.5), getWidth(), getHeight());
+        System.out.println(game.getCurrentPlayer().getBoard().traverse());
         g.setColor(new Color(0, 0, 0, 153));
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
+        if(gameState==3) {
+            HashMap<Tile, ArrayList<Integer>> map = game.getCurrentPlayer().getBoard().allNullTiles();
+            Iterator<Tile> it = map.keySet().iterator();
+            while(it.hasNext()) {
+                Tile t = it.next();
+                ArrayList<Integer> temp = map.get(t);
+                int[] xc = new int[6];
+                int[] yc = new int[6];
+                for(int i = 0; i<temp.size(); i++) {
+                    switch (temp.get(i)) {
+                        case 0 : {
+                            xc = new int[]{t.getXCoord(), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord(), t.getXCoord() - (int) (getWidth() / 27.428), t.getXCoord() - (int) (getWidth() / 27.428)};
+                            yc = new int[]{t.getYCoord()-(int)(getHeight()/8.675), t.getYCoord()-(int)(getHeight()/12.857), t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord(), t.getYCoord()-(int)(getHeight()/12.857)};
+                            break;
+                        }//(int) (getWidth() / 13.714), (int) (getHeight() / 6.545)
+                        case 1 : {
+                            xc = new int[]{t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/27.428)};
+                            yc = new int[]{t.getYCoord()-(int)(getHeight()/8.675), t.getYCoord()-(int)(getHeight()/12.857), t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord(), t.getYCoord()-(int)(getHeight()/12.857)};
+                            break;
+                        }
+                        case 2 : {
+                            xc = new int[]{t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+2*(int)(getWidth()/13.714), t.getXCoord()+2*(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)};
+                            yc = new int[]{t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/26.667)};
+                            break;
+                        }
+                        case 3 : {
+                            xc = new int[]{t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714)+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/13.714), t.getXCoord()+(int)(getWidth()/27.428), t.getXCoord()+(int)(getWidth()/27.428)};
+                            yc = new int[]{t.getYCoord()+(int)(getHeight()/8.71), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/8.71), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)};
+                            break;
+                        }
+                        case 4 : {
+                            xc = new int[]{t.getXCoord(), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord() + (int) (getWidth() / 27.428), t.getXCoord(), t.getXCoord() - (int) (getWidth() / 27.428), t.getXCoord() - (int) (getWidth() / 27.428)};
+                            yc = new int[]{t.getYCoord()+(int)(getHeight()/8.71), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/8.71), t.getYCoord()+(int)(getHeight()/6.545)+(int)(getHeight()/12.857), t.getYCoord()+(int)(getHeight()/6.545)};
+                            break;
+                        }
+                        case 5 : {
+                            xc = new int[]{t.getXCoord()-(int)(getWidth()/27.428), t.getXCoord(), t.getXCoord(), t.getXCoord()-(int)(getWidth()/27.428), t.getXCoord()-(int)(getWidth()/13.714), t.getXCoord()-(int)(getWidth()/13.714)};
+                            yc = new int[]{t.getYCoord(), t.getYCoord()+(int)(getHeight()/26.667), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/6.545), t.getYCoord()+(int)(getHeight()/8.675), t.getYCoord()+(int)(getHeight()/26.667)};
+                            break;
+                        }
+                    }
+                    g.setColor(colors.get(game.getPlayerNum()));
+                    g.fillPolygon(xc, yc, 6);
+                    g.setColor(Color.black);
+                    g.drawPolygon(xc, yc, 6);
+                }
+            }
+        }
         ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
         game.getCurrentPlayer().getBoard().setBoardWidthandHeight(getWidth(), getHeight());
 //        game.getCurrentPlayer().getBoard().setCoordinates();
         for(int i = 0; i<temp.size(); i++) {
             if(temp.get(i).getImage() != null) {
                 rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * temp.get(i).getOrientation());
+                if(temp.get(i).hasAnimal()) {
+                    g.drawImage(tokenImages.get(temp.get(i).getAnimal()), temp.get(i).getXCoord()+(int)(getWidth()/106.667), temp.get(i).getYCoord()+(int)(getHeight()/37.241), (int)(getWidth()/18.462), (int)(getHeight()/10.385), null);
+                }
             }
         }
+        if(gameState==4) {
+            g.setColor(colors.get(game.getPlayerNum()));
+            int[] xc = {chosenTile.getXCoord()+(int)(getWidth()/27.428), chosenTile.getXCoord()+(int)(getWidth()/13.714), chosenTile.getXCoord()+(int)(getWidth()/13.714), chosenTile.getXCoord()+(int)(getWidth()/27.428), chosenTile.getXCoord(), chosenTile.getXCoord()};
+            int[] yc = {chosenTile.getYCoord(), chosenTile.getYCoord()+(int)(getHeight()/26.667), chosenTile.getYCoord()+(int)(getHeight()/8.675), chosenTile.getYCoord()+(int)(getHeight()/6.545), chosenTile.getYCoord()+(int)(getHeight()/8.675), chosenTile.getYCoord()+(int)(getHeight()/26.667)};
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+            g2.drawPolygon(xc, yc, 6);
+        }
+        g.drawImage(icons.get("b2"), 0, 0, getWidth(), getHeight(), null);
     }
 
     public void drawPlayerIcons(Graphics g) {
@@ -329,12 +512,16 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             Graphics2D g2 = (Graphics2D)g;
             g2.setStroke(new BasicStroke((int)(getHeight()/270)));
             g2.drawRect((int)(getWidth()/1.176), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4));
-            g.setFont(new Font("h", 1, 24));
-            g.drawString("OK", (int)(getWidth()/1.166), (int)(getHeight()/1.195));
+            g.setFont(new Font("h", 1, 26));
+            g.drawString("OK", (int)(getWidth()/1.168), (int)(getHeight()/1.195));
             if(gameState == 4) {
                 g2.drawRect((int)(getWidth()/1.306), (int)(getHeight()/1.444), (int)(getWidth()/12.715), (int)(getHeight()/11.739));
                 g2.drawRect((int)(getWidth()/1.116), (int)(getHeight()/1.444), (int)(getWidth()/12.715), (int)(getHeight()/11.739));
                 g.setFont(new Font("h", 1, 20));
+                g.drawString("Rotate", (int)(getWidth()/1.276), (int)(getHeight()/1.378));
+                g.drawString("Left", (int)(getWidth()/1.263), (int)(getHeight()/1.315));
+                g.drawString("Rotate", (int)(getWidth()/1.095), (int)(getHeight()/1.383));
+                g.drawString("Right", (int)(getWidth()/1.088), (int)(getHeight()/1.319));
 
             }
         }
@@ -384,20 +571,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.setColor(colors.get(game.getPlayerNum()));
         switch(getGameState())  {
             case 2 : {
-
-                //g.setColor(Color.yellow);
-
-                //int[] xC = {354, 295, 295, 354, 413, 413};
-                //int[] xC = {(int)(getWidth()/5.424), (int)(getWidth()/6.508), (int)(getWidth()/6.508), (int)(getWidth()/5.424), (int)(getWidth()/4.638), (int)(getWidth()/4.638)};
-                //int[] yC = {628, 662, 732, 766, 732, 662};
-                //int[] yC = {(int)(getHeight()/1.306), (int)(getHeight()/1.306)+(int)(getHeight()/30.857), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/7.777), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/30.857)};
-                //System.out.println(getWidth() +", "+ getHeight());
-                //System.out.println((int)(getHeight()/1.306)+", "+((int)(getHeight()/1.306)-(int)(getHeight()/30.857))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/10.286))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/7.777))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/30.857))+", "+((int)(getHeight()/1.306)-(int)(getHeight()/10.286)));
-                //g.fillPolygon(xC, yC, 6);
-                //int[] xc = {60, 50, 50, 60, 70, 70};
-                //int[] yc = {60, 70, 80, 90, 80, 70};
-                //g.fillPolygon(xc, yc, 6);
-
                 for(int i = 0; i< 4; i++) {
                     int[] xC = {(int)(getWidth()/5.424), (int)(getWidth()/6.508), (int)(getWidth()/6.508), (int)(getWidth()/5.424), (int)(getWidth()/4.638), (int)(getWidth()/4.638)};
                     int[] yC = {(int)(getHeight()/1.306), (int)(getHeight()/1.306)+(int)(getHeight()/30.857), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/7.777), (int)(getHeight()/1.306)+(int)(getHeight()/10.286), (int)(getHeight()/1.306)+(int)(getHeight()/30.857)};
@@ -427,7 +600,22 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
                     }
                 }
+
                 break;
+            }
+            case 4:{
+                for(int i = 0; i<4; i++) {
+                    if(i == tokenChosenNum) {
+                        g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
+                    }
+                }
+            }
+            case 5:{
+                for(int i = 0; i<4; i++) {
+                    if(i == tokenChosenNum) {
+                        g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
+                    }
+                }
             }
         }
     }
@@ -438,7 +626,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     public void mouseEntered(MouseEvent e) {    }
     public void mouseExited(MouseEvent e) {    }
     public void mouseReleased(MouseEvent e) {   }
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent e)
+    {
         int x = e.getX();
         int y = e.getY();
         System.out.println(x +" " +y);
@@ -467,7 +656,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     repaint();
                     game.play();
                 }
-                repaint();
+
                 break;
             }
             case 2:
@@ -497,19 +686,22 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                             tokenChosenNum = i;
                             chosenTile = game.getAvailableTiles()[i];
                             chosenToken = game.getAvailableTokens()[i];
+                            game.getAvailableTiles()[i] = null;
                             tileClicked = true;
                             setGameState(3);
                             repaint();
                         }
                     }
                 }
-                repaint();
+
                 break;
             }
             case 3: //choose tile placement
             {
                 HashMap<Tile, ArrayList<Integer>> tilesWithNullSides = game.getCurrentPlayer().getBoard().allNullTiles();
-                Iterator<Tile> iter = tilesWithNullSides.keySet().iterator(); //all tiles
+                Set<Tile> set= tilesWithNullSides.keySet();
+                Iterator<Tile> iter = set.iterator(); //all tiles
+
 
                 while (iter.hasNext())
                 {
@@ -517,17 +709,20 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     ArrayList<Integer> nullSidesOfTile = tilesWithNullSides.get(temp); //each tile's null sides
                     for (int j = 0; j < nullSidesOfTile.size(); j++)
                     {
-                        if (temp.getAdjacentTiles().get(j).ifNullTileClicked(nullSidesOfTile.get(j), x, y, (int) (getWidth() / 13.714), (int) (getHeight() / 6.545)))
+                        game.getCurrentPlayer().getBoard().setBoardWidthandHeight(getWidth(), getHeight());
+                        if (temp.ifNullTileClicked(nullSidesOfTile.get(j), x, y, (int) (getWidth() / 13.714), (int) (getHeight() / 6.545)))
                         {
+//                            System.out.println("Tile chosen's adjacent tiles: "+ getChosenTile().getAdjacentTiles());
+//                            System.out.println("Tile chosen's x and y: ("+ getChosenTile().getXCoord() +", "+ getChosenTile().getYCoord() +")");
+
                             game.getCurrentPlayer().getBoard().addTile(getChosenTile(), temp, nullSidesOfTile.get(j));
                         }
+                        //THIS NEEDS TO BE A LOOP OR SOMETHING TO ENSURE THE TILE CAN BE PLACED WHEN CLICKED IN A RANDOM PLACE
                     }
-                    iter.next();
                 }
 
                 tilePlaced = true;
                 setGameState(4);
-                repaint();
                 break;
             }
             case 4: //tile orientation
@@ -535,14 +730,14 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 //left
                 if(x >= (int)(getWidth()/1.306) &&  x <= (int)(getWidth()/1.306)+(int)(getWidth()/12.715) && y >= (int)(getHeight()/1.444) && y <= (int)(getHeight()/1.444)+(int)(getHeight()/11.739))
                 {
-                    game.getAvailableTiles()[tileChosenNum].rotateLeft();
+                    chosenTile.rotateLeft();
                     repaint();
                 }
 
                 //right
                 if(x >= (int)(getWidth()/1.116) &&  x <= (int)(getWidth()/1.116)+(int)(getWidth()/12.715) && y >= (int)(getHeight()/1.444) && y <= (int)(getHeight()/1.444)+(int)(getHeight()/11.739))
                 {
-                    game.getAvailableTiles()[tileChosenNum].rotateRight();
+                    chosenTile.rotateRight();
                     repaint();
                 }
 
@@ -552,32 +747,55 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     okClicked = true;
                     setGameState(5);
                 }
-                repaint();
+
                 break;
             }
             case 5: //choose token placement or throw away
             {
                 //token is thrown away
-                if (x <= getWidth()) //throw away button clicked coordinates
+
+                if (x>= (int) (getWidth() / 1.731) && x<=(int) (getWidth() / 1.731) +(int) (getWidth() / 6.906) && y>= (int) (getHeight() / 1.325) && y<=(int) (getHeight() / 1.325)+(int) (getHeight() / 15.652)) //throw away button clicked coordinates
                 {
                     throwAwayClicked = true;
                     tileTokenPlacement = null;
+                    game.getAvailableTokens()[tokenChosenNum] = null;
+                    setGameState(6);
                 }
-                else if (x<=getWidth())//tile coordinates that they chose to place the tile
-                {
-                    //token is placed on the tile they chose
-                    tokenPlaced = true;
+                else {
                     //get traversal of player tiles and use isClicked to see if player clicked on tile
+                    ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
+                    for (Tile t : temp) {
+                        if (t.isClicked(x, y, (int) (getWidth() / 13.714), (int) (getHeight() / 6.545))) {
+                            //token is placed on the tile they chose if animal matches
+                            for (int i : t.getPossibleAnimals()) {
+                                if (i == chosenToken.getAnimal()) {
+                                    tileTokenPlacement = t;
+                                    tileTokenPlacement.setAnimal(chosenToken);
+                                    tokenPlaced = true;
+                                    if(tileTokenPlacement.isKeyStone())
+                                    {
+                                        game.getCurrentPlayer().addPineCone();
+                                    }
+                                    setGameState(6);
+                                    repaint();
+                                }
+                            }
+                        }
+                    }
                 }
-                setGameState(6);
-                repaint();
+
                 break;
             }
             case 6: //check if next player button is clicked
             {
-                if (x <= getWidth()) //coordinates for clicking next turn button
+                if (x>= (int) (getWidth() / 1.731) && x<=(int) (getWidth() / 1.731) +(int) (getWidth() / 6.906) && y>= (int) (getHeight() / 1.325) && y<=(int) (getHeight() / 1.325)+(int) (getHeight() / 15.652)){ //coordinates for clicking next turn button
                     nextPlayerClicked = true;
-
+                    //game.setCurrentPlayer((game.getPlayerNum()+1)%game.getPlayers().size());
+                }
+//                game.updateTileAndTokens();
+//                setGameState(2);
+//                repaint();
+                break;
             }
             case 7: //use pinecone button
             {
@@ -591,7 +809,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     chooseTileTokenClicked = true;
                     setGameState(9);
                 }
-                repaint();
+
                 break;
             }
             case 8: //clear tokens
@@ -612,8 +830,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     okClicked = true;
                     setGameState(6);
                 }
-                repaint();
+
                 break;
+
+
             }
             case 9: //choose specific tile and token
             {
@@ -637,7 +857,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     okClicked = true;
                     setGameState(3);
                 }
-                repaint();
+
                 break;
             }
             case 10: {}
@@ -645,6 +865,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             case 12: {}
         }
     }
+
 
     public Tile getChosenTile()
     {

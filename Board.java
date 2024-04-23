@@ -41,6 +41,8 @@ public class Board
         if (temp > 5) temp -= 6;
         newTile.getAdjacentTiles().set(temp, adjTile);
         setCoordinates(newTile, adjTile, sideNum);
+
+
     }
 
 
@@ -365,6 +367,7 @@ public class Board
         }
         if (orientation == 2){
             tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 13.52));
+            tile.setYCoord(prev.getYCoord());
         }
         if (orientation == 3){
             tile.setXCoord(prev.getXCoord() + (int)(boardWidth / 27.04));
@@ -376,8 +379,64 @@ public class Board
         }
         if (orientation == 5){
             tile.setXCoord(prev.getXCoord() - (int)(boardWidth / 13.52));
+            tile.setYCoord(prev.getYCoord());
         }
     }
+
+    public void updateTileCoords(int x, int y, int width, int height){
+        ArrayList<Tile> allTiles = traverse();
+        for(int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
+
+        setBoardWidthandHeight(width, height);
+        startTile.setXCoord((int)(x));
+        startTile.setYCoord((int)(y));
+        Queue<Tile> q = new LinkedList<>();
+        q.add(startTile);
+        startTile.setChecker(true);
+        while (!q.isEmpty()){
+            Tile tile = q.poll();
+
+            for (int i = 0; i <= 5; i++){
+                Tile t = tile.getAdjacent(i);
+                if (t != null && !t.isChecked()) {
+                    if (i == 0) {
+                        t.setYCoord(tile.getYCoord() - (int) (boardHeight / 8.64));
+                        t.setXCoord(tile.getXCoord() - (int) (boardWidth / 27.04));
+                    }
+                    if (i == 1) {
+                        t.setYCoord(tile.getYCoord() - (int) (boardHeight / 8.64));
+                        t.setXCoord(tile.getXCoord() + (int) (boardWidth / 27.04));
+                    }
+                    if (i == 2) {
+                        t.setXCoord(tile.getXCoord() + (int) (boardWidth / 13.52));
+                        t.setYCoord(tile.getYCoord());
+                    }
+                    if (i == 3) {
+                        t.setXCoord(tile.getXCoord() + (int) (boardWidth / 27.04));
+                        t.setYCoord(tile.getYCoord() + (int) (boardHeight / 8.64));
+                    }
+                    if (i == 4) {
+                        t.setXCoord(tile.getXCoord() - (int) (boardWidth / 27.04));
+                        t.setYCoord(tile.getYCoord() + (int) (boardHeight / 8.64));
+                    }
+                    if (i == 5) {
+                        t.setXCoord(tile.getXCoord() - (int) (boardWidth / 13.52));
+                        t.setYCoord(tile.getYCoord());
+                    }
+                    t.setChecker(true);
+                    q.add(t);
+                }
+            }
+        }
+        ArrayList<Tile> traversal = traverse();
+        for (int i = 0; i < traversal.size(); i++){
+            traversal.get(i).setChecker(false);
+        }
+
+    }
+
 
     public HashMap<Tile, ArrayList<Integer>> allNullTiles(){
         ArrayList<Tile> allTiles = traverse();

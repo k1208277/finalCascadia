@@ -434,6 +434,7 @@ public class Board
 
     }
 
+
     public HashMap<Tile, ArrayList<Integer>> allNullTiles(){
         ArrayList<Tile> allTiles = traverse();
         HashMap<Tile, ArrayList<Integer>> nullMap = new HashMap<>();

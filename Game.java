@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.io.*;
 import java.awt.*;
@@ -7,7 +8,7 @@ import javax.swing.*;
 
 public class Game
 {
-//    private int gameState;
+    //    private int gameState;
     private ArrayList<Player> players;
     private Player currentPlayer;
     private int turn;
@@ -94,7 +95,7 @@ public class Game
 
 
         //player turn loop
-        while (checkGameEnd())
+        while (!checkGameEnd())
         {
             for(int i = 0; i < 4; i++)
             {
@@ -145,7 +146,7 @@ public class Game
                         else if (panel.getGameState() == 7)
                             pinecone2OptionsTurn(currentPlayer);
 
-                        //chose to click on the tile
+                            //chose to click on the tile
                         else
                             regularPlayerTurn(currentPlayer);
                     }
@@ -324,7 +325,7 @@ public class Game
 
                 else {
                     tokenDeck.add(tokenChose); //adds the chosen token back to token deck
-                     //sets that same spot in available tokens to empty
+                    //sets that same spot in available tokens to empty
                 }
                 panel.repaint();
             }
@@ -543,7 +544,7 @@ public class Game
 //            players.get(i).getBoard().addTile(st.get(1), st.get(0), 4);
 //            players.get(i).getBoard().addTile(st.get(2), st.get(0), 3);
         }
-        System.out.println("reaches play");
+//        System.out.println("reaches play");
         currentPlayer = players.get(0);
 
     }
@@ -572,7 +573,7 @@ public class Game
     }
 
     public void shuffleTokens()
-        {
+    {
         for(int i = 0; i < tokenDeck.size(); i++)
         {
             int k = (int)(Math.random() * tokenDeck.size());
@@ -580,7 +581,7 @@ public class Game
             tokenDeck.set(k, tokenDeck.get(i));
             tokenDeck.set(i, temp);
         }
-        }
+    }
 
     public Token getToken(int i)
     {
@@ -618,14 +619,14 @@ public class Game
         for(int i = 1; i < 6; i++)
         {
             if (animals.get(i) > 2)
-            num = animals.get(i);
+                num = animals.get(i);
 
             if(b)
             {
                 for(int j = 0; j < availableTokens.length; j++)
                 {
-                if(availableTokens[j].getAnimal() == i)
-                    availableTokens[j] = null;
+                    if(availableTokens[j].getAnimal() == i)
+                        availableTokens[j] = null;
                 }
                 updateTileAndTokens();
             }
@@ -670,7 +671,7 @@ public class Game
         ArrayList<Integer> temp= new ArrayList<>();
 //        for
 
-        
+
 
 
     }

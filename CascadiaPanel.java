@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.geom.AffineTransform;
@@ -24,6 +25,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private Tile chosenTile;
     private Token chosenToken;
     private Game game;
+    private int turn;
     private int shiftX, shiftY;
     //erica is shrot
     public CascadiaPanel(Game game)
@@ -63,6 +65,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         tempClearedTokens = new Token[4];
         chosenTile = null;
         chosenToken = null;
+        turn = 1;
 
         try
         {
@@ -156,7 +159,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     {
         g.drawImage(icons.get("background"), 0, 0, getWidth(), getHeight(), null);
         int s = getGameState();
-        System.out.println(s);
+//        System.out.println(s);
+
         switch(s) {
             //main menu
             case 0: {
@@ -382,9 +386,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     }
 
     public void drawPlayerBoard(Graphics g) {
-        System.out.println(game.getCurrentPlayer().getBoard().traverse());
-      //  game.getCurrentPlayer().getBoard().updateTileCoords((int)(getWidth()/2.46), (int)(getHeight()/4.5), getWidth(), getHeight());
-        System.out.println(game.getCurrentPlayer().getBoard().traverse());
+//        System.out.println(game.getCurrentPlayer().getBoard().traverse());
+        //  game.getCurrentPlayer().getBoard().updateTileCoords((int)(getWidth()/2.46), (int)(getHeight()/4.5), getWidth(), getHeight());
+//        System.out.println(game.getCurrentPlayer().getBoard().traverse());
         g.setColor(new Color(0, 0, 0, 153));
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
         if(gameState==3) {
@@ -475,17 +479,17 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 e++;
             }
 
-                g.setColor(Color.white);
-                g2.drawRect((int)(getWidth()/1.306), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/4.788), (int)(getHeight()/5.023));
-                g.drawImage(icons.get("open"), (int)(getWidth()/1.06), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/32.542), (int)(getHeight()/18.305), null);
-                g.setColor(colors.get(e));
-                g.setFont(new Font("j", 1, 27));
-                g.drawString("Player "+e, (int)(getWidth()/1.199), (int)(getHeight()/11.134)+i*(int)(getHeight()/4.576));
-                g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
-                g.setColor(Color.white);
-                g.drawString("x "+game.getPlayers().get(e).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
+            g.setColor(Color.white);
+            g2.drawRect((int)(getWidth()/1.306), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/4.788), (int)(getHeight()/5.023));
+            g.drawImage(icons.get("open"), (int)(getWidth()/1.06), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/32.542), (int)(getHeight()/18.305), null);
+            g.setColor(colors.get(e));
+            g.setFont(new Font("j", 1, 27));
+            g.drawString("Player "+e, (int)(getWidth()/1.199), (int)(getHeight()/11.134)+i*(int)(getHeight()/4.576));
+            g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
+            g.setColor(Color.white);
+            g.drawString("x "+game.getPlayers().get(e).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
 
-                e++;
+            e++;
 
         }
 
@@ -526,7 +530,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
         }
         else {
-           g.fillRect((int)(getWidth()/1.176), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4));
+            g.fillRect((int)(getWidth()/1.176), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4));
         }
         g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401), (int)(getWidth()/25.6), (int)(getHeight()/14.4), null);
 //        rotateImage(g, icons.get("arrow"), (int)(getWidth()/1.118), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4), 90);
@@ -630,7 +634,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     {
         int x = e.getX();
         int y = e.getY();
-        System.out.println(x +" " +y);
+//        System.out.println(x +" " +y);
         switch(getGameState())
         {
             case 0 :
@@ -656,7 +660,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     repaint();
                     game.play();
                 }
-
+                repaint();
                 break;
             }
             case 2:
@@ -693,8 +697,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         }
                     }
                 }
-
+                repaint();
                 break;
+
+
             }
             case 3: //choose tile placement
             {
@@ -723,6 +729,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
                 tilePlaced = true;
                 setGameState(4);
+                repaint();
                 break;
             }
             case 4: //tile orientation
@@ -747,7 +754,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     okClicked = true;
                     setGameState(5);
                 }
-
+                repaint();
                 break;
             }
             case 5: //choose token placement or throw away
@@ -783,18 +790,23 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         }
                     }
                 }
-
+                repaint();
                 break;
             }
             case 6: //check if next player button is clicked
             {
-                if (x>= (int) (getWidth() / 1.731) && x<=(int) (getWidth() / 1.731) +(int) (getWidth() / 6.906) && y>= (int) (getHeight() / 1.325) && y<=(int) (getHeight() / 1.325)+(int) (getHeight() / 15.652)){ //coordinates for clicking next turn button
+                if (x>= (int) (getWidth() / 1.731) && x<=(int) (getWidth() / 1.731) +(int) (getWidth() / 6.906) && y>= (int) (getHeight() / 1.325) && y<=(int) (getHeight() / 1.325)+(int) (getHeight() / 15.652) && turn < game.getPlayers().size() * 20){ //coordinates for clicking next turn button
                     nextPlayerClicked = true;
-                    //game.setCurrentPlayer((game.getPlayerNum()+1)%game.getPlayers().size());
+                    game.setCurrentPlayer((game.getPlayerNum()+1)%game.getPlayers().size());
+                    game.updateTileAndTokens();
+                    setGameState(2);
+                    System.out.println("Turn count = "+ turn);
+                    turn++;
                 }
-//                game.updateTileAndTokens();
-//                setGameState(2);
-//                repaint();
+                else if (turn >= game.getPlayers().size() * 20)
+                    System.out.println("END GAME");
+                repaint();
+
                 break;
             }
             case 7: //use pinecone button
@@ -809,7 +821,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     chooseTileTokenClicked = true;
                     setGameState(9);
                 }
-
+                repaint();
                 break;
             }
             case 8: //clear tokens
@@ -830,7 +842,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     okClicked = true;
                     setGameState(6);
                 }
-
+                repaint();
                 break;
 
 
@@ -857,7 +869,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     okClicked = true;
                     setGameState(3);
                 }
-
+                repaint();
                 break;
             }
             case 10: {}

@@ -100,6 +100,7 @@ public class Game
             for(int i = 0; i < 4; i++)
             {
 //                currentPlayer = players.get(i);
+                System.out.println(("in loop"));
                 updateTileAndTokens();
                 panel.setGameState(2);
                 panel.repaint();
@@ -619,17 +620,18 @@ public class Game
         int num = 0;
         for(int i = 1; i < 6; i++)
         {
-            if (animals.get(i) > 2)
+            if (animals.get(i) > 2) {
                 num = animals.get(i);
 
-            if(b)
-            {
-                for(int j = 0; j < availableTokens.length; j++)
+                if(b)
                 {
-                    if(availableTokens[j].getAnimal() == i)
-                        availableTokens[j] = null;
+                    for(int j = 0; j < availableTokens.length; j++)
+                    {
+                        if(availableTokens[j].getAnimal() == i)
+                            availableTokens[j] = null;
+                    }
+                    updateTileAndTokens();
                 }
-                updateTileAndTokens();
             }
         }
 

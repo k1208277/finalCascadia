@@ -935,6 +935,7 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
             }
             case 7: //use pinecone button
             {
+                game.getCurrentPlayer().takePineCone();
                 if (x <= getWidth()) // coordinates for clear token button
                 {
                     clearTokenClicked = true;

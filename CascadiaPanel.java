@@ -386,6 +386,13 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 g.drawString("Next player", (int)(getWidth()/1.654), (int)(getHeight()/1.254));
             }
         }
+        if(gameState == 7) {
+            g2.drawRect((int) (getWidth() / 2.333), (int) (getHeight() / 1.308), (int) (getWidth() / 6.784), (int) (getHeight() / 9.231));
+            g2.drawRect((int) (getWidth() / 2.333), (int) (getHeight() / 1.121), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652));
+            g.drawString("Choose tile and", (int) (getWidth() / 2.324), (int) (getHeight() / 1.29));
+            g.drawString("token", (int) (getWidth() / 2.129), (int) (getHeight() / 1.173));
+            g.drawString("Clear tokens", (int) (getWidth() / 2.24), (int) (getHeight() / 1.069));
+        }
     }
 
     public void drawPlayerBoard(Graphics g) {
@@ -674,6 +681,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
                     }
                 }
+                break;
             }
             case 5:{
                 for(int i = 0; i<4; i++) {
@@ -681,6 +689,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         g.fillOval((int)(getWidth()/6.174)+i*(getWidth()/15), (int)(getHeight()/1.13), (int)(getWidth()/21.818), (int)(getHeight()/12.273));
                     }
                 }
+                break;
+            }
+            case 8: {
+
             }
         }
     }
@@ -760,8 +772,16 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
             }
             case 2:
             {
+                //4 animal overpopulation
+                if (game.checkOverpopulation(false) == 4)
+                    while (game.checkOverpopulation(false) == 4) {
+                        game.checkOverpopulation(true);
+                        repaint();
+                    }
+
                 //pinecones clicked
-                if(x == getWidth() && game.getCurrentPlayer().getPineCones() > 0) //coordinates for use pinecone button
+                //(int) (getWidth() / 2.333), (int) (getHeight() / 1.251), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652)
+                if(x >= (int) (getWidth() / 2.333) && x <= (int) (getWidth() / 2.333)+(int) (getWidth() / 6.784) && y >= (int) (getHeight() / 1.251) && y <= (int) (getHeight() / 1.251) + (int) (getHeight() / 15.652) && game.getCurrentPlayer().getPineCones() > 0) //coordinates for use pinecone button
                 {
                     usePineConesClicked = true;
                     setGameState(7);
@@ -769,10 +789,17 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
 
 
                 //clear tokens button clicked              IDK ABOUT THIS NOT SURE
-                else if (game.checkOverpopulation(false) == 3 && x == getWidth()) //coordinates for clear token button
+                //(int) (getWidth() / 2.333), (int) (getHeight() / 1.121), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652)
+                else if (game.checkOverpopulation(false) == 3 && x >= (int) (getWidth() / 2.333) && x <= (int) (getWidth() / 2.333)+(int) (getWidth() / 6.784) && y >= (int) (getHeight() / 1.121) && y <= (int) (getHeight() / 1.121) + (int) (getHeight() / 15.652)) //coordinates for clear token button
                 {
-                    clearTokenClicked = true;
-                    setGameState(8);
+                    System.out.println("Before");
+                    for (int i = 0; i < 4; i++)
+                        System.out.print(game.getAvailableTiles()[i] +" ");
+                    game.checkOverpopulation(true);
+                    System.out.println("After");
+                    for (int i = 0; i < 4; i++)
+                        System.out.print(game.getAvailableTiles()[i] +" ");
+                    repaint();
                 }
 
 
@@ -897,6 +924,7 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
                     game.updateTileAndTokens();
                     setGameState(2);
                     System.out.println("Turn count = "+ turn);
+                    resetGameFlags();
                     turn++;
                 }
                 else if (turn >= game.getPlayers().size() * 20)
@@ -927,7 +955,7 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
                     if (Math.pow((x - (int)(getWidth()/6.038)+i*(getWidth()/15)-((int)(getWidth()/25.946)/2)), 2) + Math.pow((y - (int)(getHeight()/1.12)-((int)(getWidth()/25.946))/2), 2) <= Math.pow(((int)(getWidth()/25.946))/2, 2))
                         tempClearedTokens[i] = game.getAvailableTokens()[i];
 
-                if (x <= getWidth()) // ok button clicked coordinates
+                if (x>=(int)(getWidth()/1.176) && x <= (int)(getWidth()/1.176)+(int)(getWidth()/25.6) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) // ok button clicked coordinates
                 {
                     for (int i = 0; i < tempClearedTokens.length; i++) {
                         if (tempClearedTokens[i] != null) {
@@ -961,7 +989,7 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
                     }
                 }
                 //Check if ok button clicked
-                if(x<=getWidth()/*OkButton coordinates*/) {
+                if(x>=(int)(getWidth()/1.176) && x <= (int)(getWidth()/1.176)+(int)(getWidth()/25.6) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) {
                     okClicked = true;
                     setGameState(3);
                 }

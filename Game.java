@@ -609,6 +609,7 @@ public class Game
         TreeMap<Integer, Integer> animals = new TreeMap<>();
         for(int i = 1; i < 6; i++)
             animals.put(i, 0);
+
         for(int i = 0; i < availableTokens.length; i++)
         {
             int key = availableTokens[i].getAnimal();

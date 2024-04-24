@@ -488,10 +488,13 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             g.drawImage(icons.get("open"), (int)(getWidth()/1.06), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/32.542), (int)(getHeight()/18.305), null);
             g.setColor(colors.get(e));
             g.setFont(new Font("j", 1, 27));
-            g.drawString("Player "+e, (int)(getWidth()/1.199), (int)(getHeight()/11.134)+i*(int)(getHeight()/4.576));
+            g.drawString("Player "+(e+1), (int)(getWidth()/1.199), (int)(getHeight()/11.134)+i*(int)(getHeight()/4.576));
             g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
             g.setColor(Color.white);
             g.drawString("x "+game.getPlayers().get(e).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
+            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(e).getBoard().getStartTile().getOrientation());
+            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getOrientation());
+            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getOrientation());
 
             e++;
 

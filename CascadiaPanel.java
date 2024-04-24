@@ -131,6 +131,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         game.setIfTookTurn(false);
         game.setTileChose(null);
         game.setTokenChose(null);
+
+        shiftX = 0;
+        shiftY = 0;
     }
 
     public int getGameState()
@@ -386,9 +389,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     }
 
     public void drawPlayerBoard(Graphics g) {
-//        System.out.println(game.getCurrentPlayer().getBoard().traverse());
-        //  game.getCurrentPlayer().getBoard().updateTileCoords((int)(getWidth()/2.46), (int)(getHeight()/4.5), getWidth(), getHeight());
-//        System.out.println(game.getCurrentPlayer().getBoard().traverse());
+        //System.out.println(game.getCurrentPlayer().getBoard().traverse());
+        //shift(1);
+        game.getCurrentPlayer().getBoard().updateTileCoords((int)(getWidth()/2.46)+shiftX*(int)(getWidth()/13.714), (int)(getHeight()/4.5)+shiftY*(int)(getHeight()/6.545), getWidth(), getHeight());
+        //System.out.println(game.getCurrentPlayer().getBoard().traverse());
         g.setColor(new Color(0, 0, 0, 153));
         g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
         if(gameState==3) {
@@ -548,7 +552,61 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     }
     public void shift(int i)
     {
-
+        game.getCurrentPlayer().getBoard().updateTileCoords((int)(getWidth()/2.46)+shiftX*(int)(getWidth()/13.714), (int)(getHeight()/4.5)+shiftY*(int)(getHeight()/6.545), getWidth(), getHeight());
+        switch(i) {//g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
+            case 1: {
+                ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
+                boolean b = false;
+                for(int e = 0; e<temp.size(); e++) {
+                    Tile t = temp.get(e);
+                    if(t.getYCoord()-(int)(getHeight()/6.545)>=(int)(getHeight()/8.571)) {
+                        b = true;
+                    }
+                }
+                if(b)
+                    shiftY--;
+                break;
+            }
+            case 2: {
+                ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
+                boolean b = false;
+                for(int e = 0; e<temp.size(); e++) {
+                    Tile t = temp.get(e);
+                    if(t.getXCoord()+(int)(getWidth()/13.714)<=(int)(getWidth()/6.784)+(int)(getWidth()/1.69)) {
+                        b = true;
+                    }
+                }
+                if(b)
+                    shiftX++;
+                break;
+            }
+            case 3: {
+                ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
+                boolean b = false;
+                for(int e = 0; e<temp.size(); e++) {
+                    Tile t = temp.get(e);
+                    if(t.getYCoord()+(int)(getHeight()/6.545)<=(int)(getHeight()/8.571)+(int)(getHeight()/1.636)) {
+                        b = true;
+                    }
+                }
+                if(b)
+                    shiftY++;
+                break;
+            }
+            case 4: {
+                ArrayList<Tile> temp = game.getCurrentPlayer().getBoard().traverse();
+                boolean b = false;
+                for(int e = 0; e<temp.size(); e++) {
+                    Tile t = temp.get(e);
+                    if(t.getXCoord()-(int)(getWidth()/13.714)>=(int)(getWidth()/6.784)) {
+                        b = true;
+                    }
+                }
+                if(b)
+                    shiftX--;
+                break;
+            }
+        }
     }
     public void drawButtons(Graphics g)
     {
@@ -635,6 +693,40 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         int x = e.getX();
         int y = e.getY();
 //        System.out.println(x +" " +y);
+
+        if(getGameState()!=0 || getGameState() !=1) {
+            /*
+g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401), (int)(getWidth()/25.6), (int)(getHeight()/14.4), null);
+//        rotateImage(g, icons.get("arrow"), (int)(getWidth()/1.118), (int)(getHeight()/1.26), (int)(getWidth()/25.6), (int)(getHeight()/14.4), 90);
+//        rotateImage(g, icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.153), (int)(getWidth()/25.6), (int)(getHeight()/14.4), 180);
+        int[] xp = {(int)(getWidth()/1.117), (int)(getWidth()/1.076), (int)(getWidth()/1.117)};
+        int[] yp = {(int)(getHeight()/1.26), (int)(getHeight()/1.212), (int)(getHeight()/1.26)+(int)(getHeight()/14.4)};
+        g.fillPolygon(xp, yp, 3);
+        xp = new int[]{(int) (getWidth() / 1.176), (int) (getWidth() / 1.15), (int) (getWidth() / 1.124)};
+        yp = new int[]{(int)(getHeight()/1.145), (int)(getHeight()/1.065), (int)(getHeight()/1.145)};
+        g.fillPolygon(xp, yp, 3);
+        xp = new int[]{(int) (getWidth() / 1.235), (int) (getWidth() / 1.184), (int) (getWidth() / 1.184)};
+        yp = new int[]{(int)(getHeight()/1.212), (int)(getHeight()/1.26), (int)(getHeight()/1.26)+(int)(getHeight()/14.4)};
+             */
+            if(x>=(int) (getWidth() / 1.235) && x<=(int)(getWidth()/1.076) && y>=(int)(getHeight()/1.401) && y<=(int)(getHeight()/1.065)) {
+                if(x>=(int)(getWidth()/1.176) && x<=(int)(getWidth()/1.176)+(int)(getWidth()/25.6) && y>=(int)(getHeight()/1.401) && y<=(int)(getHeight()/1.401)+(int)(getHeight()/14.4)) {
+                    shift(1);
+                    repaint();
+                }
+                else if(x>=(int)(getWidth()/1.117) && x<=(int)(getWidth()/1.076) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) {
+                    shift(2);
+                    repaint();
+                }
+                else if(x>=(int) (getWidth() / 1.176) && x<=(int) (getWidth() / 1.124) && y>=(int)(getHeight()/1.145) && y<=(int)(getHeight()/1.065)) {
+                    shift(3);
+                    repaint();
+                }
+                else if(x>=(int) (getWidth() / 1.235) && x<=(int) (getWidth() / 1.184) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) {
+                    shift(4);
+                    repaint();
+                }
+            }
+        }
         switch(getGameState())
         {
             case 0 :

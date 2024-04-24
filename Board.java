@@ -404,7 +404,7 @@ public class Board
         while (!q.isEmpty()){
             Tile tile = q.poll();
             end.add(tile);
-            System.out.println(tile.getAdjacentTiles());
+            //System.out.println(tile.getAdjacentTiles());
             for (int i = 0; i <= 5; i++){
                 Tile t = tile.getAdjacent(i);
                 if (t != null && !t.isChecked()) {
@@ -437,7 +437,7 @@ public class Board
                 }
             }
         }
-        System.out.println("starter tiles adjacents: " + startTile.getAdjacentTiles());
+        //System.out.println("starter tiles adjacents: " + startTile.getAdjacentTiles());
 
         for (int i = 0; i < end.size(); i++){
             end.get(i).setChecker(false);

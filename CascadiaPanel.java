@@ -964,7 +964,7 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
                         }
                     }
                     okClicked = true;
-                    setGameState(6);
+                    setGameState(2);
                 }
                 repaint();
                 break;
@@ -975,17 +975,16 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
             {
                 //Check which tile and token has been clicked
                 for(int i = 0; i<4; i++) {
+                    if (game.getAvailableTiles()[i].isClicked(x, y, (int)(getWidth()/19.01), (int)(getHeight()/9.231))){
+                        tileChosenNum = i;
+                        chosenTile = game.getAvailableTiles()[i];
+                        tileClicked = true;
+                    }
                     if (Math.pow((x - (int)(getWidth()/6.038)+i*(getWidth()/15)-((int)(getWidth()/25.946)/2)), 2) + Math.pow((y - (int)(getHeight()/1.12)-((int)(getWidth()/25.946))/2), 2) <= Math.pow(((int)(getWidth()/25.946))/2, 2))
                     {
                         tokenChosenNum = i;
                         chosenToken = game.getAvailableTokens()[i];
                         tokenClicked = true;
-                    }
-                    else if (game.getAvailableTiles()[i].isClicked(x, y, (int)(getWidth()/19.01), (int)(getHeight()/9.231))){
-                        tileChosenNum = i;
-                        chosenTile = game.getAvailableTiles()[i];
-                        tileClicked = true;
-
                     }
                 }
                 //Check if ok button clicked

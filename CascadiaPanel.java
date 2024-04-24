@@ -785,7 +785,6 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
                             tokenChosenNum = i;
                             chosenTile = game.getAvailableTiles()[i];
                             chosenToken = game.getAvailableTokens()[i];
-                            game.getAvailableTiles()[i] = null;
                             tileClicked = true;
                             setGameState(3);
                             repaint();
@@ -817,14 +816,15 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
 //                            System.out.println("Tile chosen's x and y: ("+ getChosenTile().getXCoord() +", "+ getChosenTile().getYCoord() +")");
 
                             game.getCurrentPlayer().getBoard().addTile(getChosenTile(), temp, nullSidesOfTile.get(j));
+                            tilePlaced = true;
+                            game.getAvailableTiles()[tileChosenNum] = null;
+                            setGameState(4);
+                            repaint();
                         }
                         //THIS NEEDS TO BE A LOOP OR SOMETHING TO ENSURE THE TILE CAN BE PLACED WHEN CLICKED IN A RANDOM PLACE
                     }
                 }
 
-                tilePlaced = true;
-                setGameState(4);
-                repaint();
                 break;
             }
             case 4: //tile orientation
@@ -878,6 +878,7 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
                                     {
                                         game.getCurrentPlayer().addPineCone();
                                     }
+                                    game.getAvailableTokens()[tokenChosenNum] = null;
                                     setGameState(6);
                                     repaint();
                                 }

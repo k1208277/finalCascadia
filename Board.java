@@ -86,6 +86,7 @@ public class Board
     public int getHabitatScore(int h) {
         ArrayList<Tile> allTiles = traverse();
         ArrayList<Tile> habitatTiles = new ArrayList<Tile>();
+        ArrayList<Tile> end = new ArrayList<>();
         for (int i = 0; i < allTiles.size(); i++) {
             Tile temp = allTiles.get(i);
             if (temp.getAdjacentTiles().contains(h)) {
@@ -103,6 +104,7 @@ public class Board
             }
             while (!q.isEmpty()){
                 Tile ht = q.poll();
+                end.add(ht);
                 group.add(ht);
                 ht.setChecker(true);
                 for (int j = 0; j <= 5; j++){
@@ -121,6 +123,9 @@ public class Board
             max = Math.max(max, group.size());
         }
 
+        for(int i = 0; i < end.size(); i++){
+            end.get(i).setChecker(false);
+        }
 
         return max;
     }
@@ -170,8 +175,8 @@ public class Board
 
                 }
             }
-            for(int i = 0; i < allTiles.size(); i++){
-                allTiles.get(i).setChecker(false);
+            for(int i = 0; i < allElk.size(); i++){
+                allElk.get(i).setChecker(false);
             }
 
             return score;
@@ -232,8 +237,8 @@ public class Board
             }
         }
 
-        for(int i = 0; i < allTiles.size(); i++){
-            allTiles.get(i).setChecker(false);
+        for(int i = 0; i < allSalmon.size(); i++){
+            allSalmon.get(i).setChecker(false);
         }
         return score;
     }
@@ -260,8 +265,8 @@ public class Board
                 aloneHawks++;
             }
         }
-        for(int i = 0; i < allTiles.size(); i++){
-            allTiles.get(i).setChecker(false);
+        for(int i = 0; i < allHawks.size(); i++){
+            allHawks.get(i).setChecker(false);
         }
         switch(aloneHawks){
             case 0: return 0;
@@ -310,8 +315,8 @@ public class Board
         }
 
 
-        for(int i = 0; i < allTiles.size(); i++){
-            allTiles.get(i).setChecker(false);
+        for(int i = 0; i < allBears.size(); i++){
+            allBears.get(i).setChecker(false);
         }
 
 
@@ -342,8 +347,8 @@ public class Board
             }
             score += uniques.size();
         }
-        for(int i = 0; i < allTiles.size(); i++){
-            allTiles.get(i).setChecker(false);
+        for(int i = 0; i < allFoxes.size(); i++){
+            allFoxes.get(i).setChecker(false);
         }
 
         return score;
@@ -393,11 +398,13 @@ public class Board
         startTile.setXCoord((int)(x));
         startTile.setYCoord((int)(y));
         Queue<Tile> q = new LinkedList<>();
+        ArrayList<Tile> end =  new ArrayList<>();
         q.add(startTile);
         startTile.setChecker(true);
         while (!q.isEmpty()){
             Tile tile = q.poll();
-
+            end.add(tile);
+            System.out.println(tile.getAdjacentTiles());
             for (int i = 0; i <= 5; i++){
                 Tile t = tile.getAdjacent(i);
                 if (t != null && !t.isChecked()) {
@@ -430,9 +437,10 @@ public class Board
                 }
             }
         }
-        ArrayList<Tile> traversal = traverse();
-        for (int i = 0; i < traversal.size(); i++){
-            traversal.get(i).setChecker(false);
+        System.out.println("starter tiles adjacents: " + startTile.getAdjacentTiles());
+
+        for (int i = 0; i < end.size(); i++){
+            end.get(i).setChecker(false);
         }
 
     }
@@ -463,6 +471,10 @@ public class Board
     }
 
     public void updateTileCoords(){
+        ArrayList<Tile> allTiles = traverse();
+        for (int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
         startTile.setXCoord((int)(boardWidth/ 2.46));
         startTile.setYCoord((int)(boardHeight / 4.5));
         Queue<Tile> q = new LinkedList<>();
@@ -484,6 +496,7 @@ public class Board
                     }
                     if (i == 2) {
                         t.setXCoord(tile.getXCoord() + (int) (boardWidth / 13.52));
+                        t.setYCoord(tile.getYCoord());
                     }
                     if (i == 3) {
                         t.setXCoord(tile.getXCoord() + (int) (boardWidth / 27.04));
@@ -495,6 +508,7 @@ public class Board
                     }
                     if (i == 5) {
                         t.setXCoord(tile.getXCoord() - (int) (boardWidth / 13.52));
+                        t.setYCoord(tile.getYCoord());
                     }
                     t.setChecker(true);
                     q.add(t);

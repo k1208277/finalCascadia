@@ -936,12 +936,13 @@ g.drawImage(icons.get("arrow"), (int)(getWidth()/1.176), (int)(getHeight()/1.401
             case 7: //use pinecone button
             {
                 game.getCurrentPlayer().takePineCone();
-                if (x <= getWidth()) // coordinates for clear token button
+                if (x>=(int)(getWidth() / 2.359) && x <= (int)(getWidth() / 2.359)+(int)(getWidth() / 6.982) && y>=(int)(getHeight() / 1.306) && y<=(int)(getHeight() / 1.306)+(int)(getHeight() / 9.477)) // coordinates for clear token button
                 {
                    clearTokenClicked = true;
                     setGameState(8);
                 }
-                else if (x <= getWidth()) // coordinates for specific tile and token button
+                //x >= (int) (getWidth() / 2.333) && x <= (int) (getWidth() / 2.333)+(int) (getWidth() / 6.784) && y >= (int) (getHeight() / 1.121) && y <= (int) (getHeight() / 1.121) + (int) (getHeight() / 15.652)
+                else if (x>=(int)(getWidth() / 2.359) && x <= (int)(getWidth() / 2.359)+(int)(getWidth() / 6.982) && y>=(int)(getHeight() / 1.119) && y<=(int)(getHeight() / 1.119)+(int)(getHeight() / 16.364))// coordinates for specific tile and token button
                 {
                     chooseTileTokenClicked = true;
                     setGameState(9);

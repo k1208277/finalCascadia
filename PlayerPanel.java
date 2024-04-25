@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.awt.event.MouseEvent;
@@ -9,23 +11,37 @@ public class PlayerPanel extends JPanel
 {
     private Player player;
     private boolean isVisible;
-    private int width, height;
+    private int width, height, shiftX, shiftY;
 
     public PlayerPanel() {
         player = new Player(null);
         isVisible = false;
     }
 
-    public void paint(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, int w, int h) {
+    public void paint(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, HashMap<Integer, BufferedImage> tokenImages, int w, int h) {
         setWH(w, h);
         if(isVisible) {
+            drawBoard(g, icons, tokenImages);
             drawOthers(g, icons, scoringCards);
-            drawBoard(g, icons);
             drawShift(g, icons);
         }
     }
-    public void drawBoard(Graphics g,  HashMap<String, BufferedImage> icons) {
-
+    public void drawBoard(Graphics g,  HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> tokenImages) {
+        player.getBoard().updateTileCoords((int)(getWidth()/2.46)+shiftX*(int)(getWidth()/13.714), (int)(getHeight()/4.5)+shiftY*(int)(getHeight()/6.545), getWidth(), getHeight());
+        //System.out.println(game.getCurrentPlayer().getBoard().traverse());
+        g.setColor(new Color(0, 0, 0, 153));
+        g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
+        ArrayList<Tile> temp = player.getBoard().traverse();
+        player.getBoard().setBoardWidthandHeight(getWidth(), getHeight());
+        for(int i = 0; i<temp.size(); i++) {
+            if(temp.get(i).getImage() != null) {
+                rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * temp.get(i).getOrientation());
+                if(temp.get(i).hasAnimal()) {
+                    g.drawImage(tokenImages.get(temp.get(i).getAnimal()), temp.get(i).getXCoord()+(int)(getWidth()/106.667), temp.get(i).getYCoord()+(int)(getHeight()/37.241), (int)(getWidth()/18.462), (int)(getHeight()/10.385), null);
+                }
+            }
+        }
+        g.drawImage(icons.get("b2"), 0, 0, getWidth(), getHeight(), null);
     }
     public void drawShift(Graphics g,  HashMap<String, BufferedImage> icons) {
         g.setColor(Color.white);
@@ -45,6 +61,9 @@ public class PlayerPanel extends JPanel
         g.setColor(new Color(0,0,0,102));
         g.fillRect((int)(getWidth()/1.328), (int)(getHeight()/49.091), (int)(getWidth()/4.286), (int)(getHeight()/1.044));
         g.fillRect((int)(getWidth()/83.478), (int)(getHeight()/49.091), (int)(getWidth()/8.24), (int)(getHeight()/1.044));
+        g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/1.34), (int)(getWidth()/1.69), (int)(getHeight()/4.337));
+        g.fillRect((int)(getWidth()/6.76), (int)(getHeight()/49.09), (int)(getWidth()/1.692), (int)(getHeight()/13.17));
+
         g.setColor(Color.white);
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke((int)(getHeight()/270)));
@@ -55,11 +74,88 @@ public class PlayerPanel extends JPanel
         for(int i = 0; i<5; i++) {
             g.drawImage(scoringCards.get(i), (int)(getWidth()/41.739), (int)(getHeight()/10.286)+i*(int)(getHeight()/5.714), (int)(getWidth()/10.105), (int)(getHeight()/5.967), null);
         }
-    }
 
+
+    }
+    public void rotateImage(Graphics g, BufferedImage image, int x, int y, int width, int height, int degree)
+    {
+        Graphics2D g2d = (Graphics2D)g;
+        double rotationRequired = Math.toRadians (degree);
+        double locationX = image.getWidth() / 2;
+        double locationY = image.getHeight() / 2;
+        AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+        if(degree%180 == 0 || degree%90==0) {
+            g2d.drawImage(op.filter(image, null), x, y, width, height,null);
+        }
+        else {
+            g2d.drawImage(op.filter(image, null), x, y, (int)(width*1.26), (int)(height*1.11),null);
+        }
+    }
+    public void shift(int i)
+    {
+        player.getBoard().updateTileCoords((int)(getWidth()/2.46)+shiftX*(int)(getWidth()/13.714), (int)(getHeight()/4.5)+shiftY*(int)(getHeight()/6.545), getWidth(), getHeight());
+        switch(i) {//g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
+            case 1: {
+                ArrayList<Tile> temp = player.getBoard().traverse();
+                boolean b = false;
+                for(int e = 0; e<temp.size(); e++) {
+                    Tile t = temp.get(e);
+                    if(t.getYCoord()-(int)(getHeight()/6.545)>=(int)(getHeight()/8.571)) {
+                        b = true;
+                    }
+                }
+                if(b)
+                    shiftY--;
+                break;
+            }
+            case 2: {
+                ArrayList<Tile> temp = player.getBoard().traverse();
+                boolean b = false;
+                for(int e = 0; e<temp.size(); e++) {
+                    Tile t = temp.get(e);
+                    if(t.getXCoord()+(int)(getWidth()/13.714)<=(int)(getWidth()/6.784)+(int)(getWidth()/1.69)) {
+                        b = true;
+                    }
+                }
+                if(b)
+                    shiftX++;
+                break;
+            }
+            case 3: {
+                ArrayList<Tile> temp = player.getBoard().traverse();
+                boolean b = false;
+                for(int e = 0; e<temp.size(); e++) {
+                    Tile t = temp.get(e);
+                    if(t.getYCoord()+(int)(getHeight()/6.545)<=(int)(getHeight()/8.571)+(int)(getHeight()/1.636)) {
+                        b = true;
+                    }
+                }
+                if(b)
+                    shiftY++;
+                break;
+            }
+            case 4: {
+                ArrayList<Tile> temp = player.getBoard().traverse();
+                boolean b = false;
+                for(int e = 0; e<temp.size(); e++) {
+                    Tile t = temp.get(e);
+                    if(t.getXCoord()-(int)(getWidth()/13.714)>=(int)(getWidth()/6.784)) {
+                        b = true;
+                    }
+                }
+                if(b)
+                    shiftX--;
+                break;
+            }
+        }
+    }
 
     public void setPlayer(Player p) {
         player = p;
+        shiftX = 0;
+        shiftY = 0;
     }
     public Player getPlayer() {
         return player;
@@ -82,7 +178,27 @@ public class PlayerPanel extends JPanel
     }
 
     public void mouseClicked(int x, int y) {
-
+        if(x>=(int)(getWidth()/41.739) && x<=(int)(getWidth()/41.739)+(int)(getWidth()/10.105) && y>=(int)(getHeight()/30) && y<=(int)(getHeight()/30)+(int)(getHeight()/17.143)) {
+            isVisible = false;
+        }
+        if(x>=(int) (getWidth() / 1.235) && x<=(int)(getWidth()/1.076) && y>=(int)(getHeight()/1.401) && y<=(int)(getHeight()/1.065)) {
+            if(x>=(int)(getWidth()/1.176) && x<=(int)(getWidth()/1.176)+(int)(getWidth()/25.6) && y>=(int)(getHeight()/1.401) && y<=(int)(getHeight()/1.401)+(int)(getHeight()/14.4)) {
+                shift(1);
+                repaint();
+            }
+            else if(x>=(int)(getWidth()/1.117) && x<=(int)(getWidth()/1.076) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) {
+                shift(2);
+                repaint();
+            }
+            else if(x>=(int) (getWidth() / 1.176) && x<=(int) (getWidth() / 1.124) && y>=(int)(getHeight()/1.145) && y<=(int)(getHeight()/1.065)) {
+                shift(3);
+                repaint();
+            }
+            else if(x>=(int) (getWidth() / 1.235) && x<=(int) (getWidth() / 1.184) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) {
+                shift(4);
+                repaint();
+            }
+        }
     }
 
 }

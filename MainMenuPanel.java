@@ -52,7 +52,7 @@ public class MainMenuPanel extends JPanel
     }
     public void drawPlayerNumberOptions(Graphics g, HashMap<String, BufferedImage> icons, int state) {
         if(state == 1) {
-            System.out.println(state);
+            //System.out.println(state);
             g.setColor(new Color(0, 0, 0, 127));
             g.fillRect((int)(getWidth()/5.517), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
             g.fillRect((int)(getWidth()/2.406), (int)(getHeight()/2), (int)(getWidth()/5.944), (int)(getHeight()/3.333));
@@ -119,11 +119,6 @@ public class MainMenuPanel extends JPanel
         return i;
     }
     public boolean stateChangeClick(int x, int y) {
-        /*
-        g.fillRect((int)(getWidth()/3.018), (int)(getHeight()/1.859), (int)(getWidth()/2.967), (int)(getHeight()/8.78));
-            g.fillRect((int)(getWidth()/3.018), (int)(getHeight()/1.438), (int)(getWidth()/2.967), (int)(getHeight()/8.78));
-
-         */
         if(!manual.isVisible()) {
             if(x>=(int)(getWidth()/3.018) && x<= (int)(getWidth()/3.018)+(int)(getWidth()/2.967)) {
                 if (y>=(int)(getHeight()/1.859) && y<=(int)(getHeight()/1.859)+(int)(getHeight()/8.78)) {
@@ -133,6 +128,9 @@ public class MainMenuPanel extends JPanel
                     manual.setVisible(true);
                 }
             }
+        }
+        else {
+            manual.mouseClicked(x, y, getWidth(), getHeight());
         }
         return false;
     }

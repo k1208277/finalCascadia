@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 public class PlayerPanel extends JPanel
 {
     private Player player;
-    private boolean isVisible;
+    private boolean isVisible, endGame;
     private int width, height, shiftX, shiftY;
 
     public PlayerPanel() {
@@ -18,11 +18,11 @@ public class PlayerPanel extends JPanel
         isVisible = false;
     }
 
-    public void paint(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, HashMap<Integer, BufferedImage> tokenImages, int w, int h) {
+    public void paint(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players, int w, int h) {
         setWH(w, h);
         if(isVisible) {
             drawBoard(g, icons, tokenImages);
-            drawOthers(g, icons, scoringCards);
+            drawOthers(g, icons, scoringCards, players);
             drawShift(g, icons);
         }
     }
@@ -57,7 +57,13 @@ public class PlayerPanel extends JPanel
         yp = new int[]{(int)(getHeight()/1.212), (int)(getHeight()/1.26), (int)(getHeight()/1.26)+(int)(getHeight()/14.4)};
         g.fillPolygon(xp, yp, 3);
     }
-    public void drawOthers(Graphics g,  HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards) {
+    public void drawOthers(Graphics g,  HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, ArrayList<Player> players) {
+        ArrayList<Color> colors = new ArrayList<Color>();
+        colors.add(new Color(255, 243, 188));
+        colors.add(new Color(154, 225, 228));
+        colors.add(new Color(255, 144, 173));
+        colors.add(new Color(144, 219, 176));
+
         g.setColor(new Color(0,0,0,102));
         g.fillRect((int)(getWidth()/1.328), (int)(getHeight()/49.091), (int)(getWidth()/4.286), (int)(getHeight()/1.044));
         g.fillRect((int)(getWidth()/83.478), (int)(getHeight()/49.091), (int)(getWidth()/8.24), (int)(getHeight()/1.044));
@@ -74,8 +80,43 @@ public class PlayerPanel extends JPanel
         for(int i = 0; i<5; i++) {
             g.drawImage(scoringCards.get(i), (int)(getWidth()/41.739), (int)(getHeight()/10.286)+i*(int)(getHeight()/5.714), (int)(getWidth()/10.105), (int)(getHeight()/5.967), null);
         }
+        g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.693), (int)(getHeight()/1.196), (int)(getWidth()/18.113), (int)(getHeight()/12.706), null);
+        g.setColor(Color.white);
+        g.setFont(new Font("h", 1, (int)(getHeight()/12.695)));
+        //System.out.println((int)(getHeight()/12.695) + " - 66");
 
+        g.drawString("x "+player.getPineCones(), (int)(getWidth()/1.526), (int)(getHeight()/1.108));
 
+        if(endGame) {
+
+        }
+        else {
+            int e = 0;
+            for(int i = 0; i<players.size()-1; i++) {
+                if(player.equals(players.get(e))) {
+                    g.setFont(new Font("he", 1, 40));
+                    g.setColor(colors.get(e));
+                    g.drawString("Player "+(e+1)+"'s Board", (int)(getWidth()/2.659), (int)(getHeight()/19.286));
+                    e++;
+                }
+
+                g.setColor(Color.white);
+                g2.drawRect((int)(getWidth()/1.306), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/4.788), (int)(getHeight()/5.023));
+                g.setColor(colors.get(e));
+                g.setFont(new Font("j", 1, (int)(getHeight()/30.72)));
+                //System.out.println((int)(getHeight()/30.72) + " - 27");
+                g.drawString("Player "+(e+1), (int)(getWidth()/1.199), (int)(getHeight()/11.134)+i*(int)(getHeight()/4.576));
+                g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
+                g.setColor(Color.white);
+                g.drawString("x "+players.get(e).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
+                rotateImage(g, players.get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*players.get(e).getBoard().getStartTile().getOrientation());
+                rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*players.get(e).getBoard().getStartTile().getAdjacent(3).getOrientation());
+                rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*players.get(e).getBoard().getStartTile().getAdjacent(4).getOrientation());
+
+                e++;
+
+            }
+        }
     }
     public void rotateImage(Graphics g, BufferedImage image, int x, int y, int width, int height, int degree)
     {
@@ -170,6 +211,8 @@ public class PlayerPanel extends JPanel
         width = w;
         height = h;
     }
+    public void setEndGame(boolean b){endGame = b;}
+    public boolean endGame(){return endGame;}
     public int getWidth() {
         return width;
     }

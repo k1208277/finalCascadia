@@ -329,7 +329,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 12 : {
-
+                game.bonusesAndScores(); //sets the scores and bonuses of all players i think i hope i wish i pray
+                drawScoreBoard(g);
                 break;
             }
         }
@@ -709,9 +710,21 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
         }
     }
+    public void drawScoreBoard(Graphics g){
+        g.setColor(new Color(0,0,0,103));
+        g.fillRect((int)(getWidth() / 76.15), (int)(getHeight() / 49.09),(int)(getWidth() / 3.72) ,(int)(getHeight() / 1.0465));
+        g.fillRect((int)(getWidth() / 3.3), (int)(getHeight() / 49.09), (int)(getWidth() / 2.31), (int)(getHeight() / 1.0465));
+        g.fillRect((int)(getWidth() / 1.2999), (int)(getHeight() / 49.09), (int)(getWidth() / 4.295), (int)(getHeight() / 1.0465));
+
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+       // g2.drawLine((int)(getWidth() / 14.545), (int)(getHeight() / 10.909))
+        game.getPlayers();
 
 
 
+
+    }
     public void mouseClicked(MouseEvent e) {    }
     public void mouseEntered(MouseEvent e) {    }
     public void mouseExited(MouseEvent e) {    }
@@ -1056,7 +1069,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         chosenToken = t;
     }
 
-
     public void waitForPlayerAmountClicked()
     {
         while (!twoPlayerCLicked && !threePlayerClicked && !fourPlayerClicked)
@@ -1188,5 +1200,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
         }
     }
+
+
 
 }

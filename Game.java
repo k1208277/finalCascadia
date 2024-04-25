@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.io.*;
 import java.awt.*;
@@ -5,7 +6,8 @@ import java.awt.image.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Game {
+public class Game
+{
     //    private int gameState;
     private ArrayList<Player> players;
     private Player currentPlayer;
@@ -36,6 +38,7 @@ public class Game {
     //13: overpopulation choice to remove
 
 
+
     //Mountain = 1
     //Forest = 2
     //Prairie = 3
@@ -49,7 +52,8 @@ public class Game {
     //Bear = 5
     //Not on Tile = 0
 
-    public Game() {
+    public Game()
+    {
         //Intatization of attributes
         players = new ArrayList<Player>();
         tileDeck = new ArrayList<Tile>();
@@ -76,7 +80,8 @@ public class Game {
         panel.setGameState(0);
     }
 
-    public void play() {
+    public void play()
+    {
         //Shuffle tiles and tokens and remove extra tiles
         shuffleTiles();
         int totalTiles = players.size() * 20 + 3;
@@ -87,9 +92,13 @@ public class Game {
         //Filling in the starting tiles and tokens
         updateTileAndTokens();
 
+
+
         //player turn loop
-        while (!checkGameEnd()) {
-            for (int i = 0; i < 4; i++) {
+        while (!checkGameEnd())
+        {
+            for(int i = 0; i < 4; i++)
+            {
 //                currentPlayer = players.get(i);
                 updateTileAndTokens();
                 panel.setGameState(2);
@@ -103,20 +112,24 @@ public class Game {
     }
 
 
-    public void playerTurn(Player currentPlayer) {
+    public void playerTurn(Player currentPlayer)
+    {
         //overpopulation
-        if (panel.getGameState() == 2) {
-            //IDK ABOUT THIS NOT  SURE
+        if (panel.getGameState() == 2)
+        {
+
             if (checkOverpopulation(false) == 4)
                 while (checkOverpopulation(false) == 4) {
                     checkOverpopulation(true);
                 }
 
             else if (checkOverpopulation(false) == 3) {
-                while (checkOverpopulation(false) == 3) {
+                while (checkOverpopulation(false) == 3)
+                {
                     alreadyTookTurn = true;
                     //has pinecones and can also clear tokens
-                    if (currentPlayer.getPineCones() > 0) {
+                    if (currentPlayer.getPineCones() > 0)
+                    {
                         //setPrompt - choose a tile or clear tokens or use pinecones
                         panel.repaint();
                         panel.waitForChooseTileOrClearTokensOrUsePinecones();
@@ -138,7 +151,8 @@ public class Game {
                             regularPlayerTurn(currentPlayer);
                     }
                     //does not have pinecones but can still clear tokens
-                    else {
+                    else
+                    {
                         //setPrompt - choose a tile or clear tokens
                         panel.repaint();
                         panel.waitForChooseTileOrClearTokens();
@@ -192,7 +206,8 @@ public class Game {
     }
 
 
-    public void pinecone2OptionsTurn(Player currentPlayer) {
+    public void pinecone2OptionsTurn(Player currentPlayer)
+    {
         //panel.setPrompt() - choose one of the options below
         panel.repaint();
         panel.waitForPinecone2options();
@@ -248,13 +263,15 @@ public class Game {
             //panel.repaint(); - will highlight available tokens
             panel.waitForTokenPlacedOrThrowAway();
             //chose to keep and place or throw away
-            if (panel.getGameState() == 5) {
-                if (panel.getTileForTokenPlacementChosen() != null) {
+            if (panel.getGameState() == 5)
+            {
+                if(panel.getTileForTokenPlacementChosen() !=null) {
                     panel.getTileForTokenPlacementChosen().setAnimal(tokenChose);
                     //award pinecones
                     if (panel.getTileForTokenPlacementChosen().isKeyStone())
                         currentPlayer.addPineCone();
-                } else {
+                }
+                else {
                     tokenDeck.add(tokenChose); //adds the chosen token back to token deck
                     availableTokens[panel.getTokenChosenNum()] = null; //sets that same spot in available tokens to empty
                 }
@@ -272,7 +289,8 @@ public class Game {
     }
 
 
-    public void regularPlayerTurn(Player currentPlayer) {
+    public void regularPlayerTurn(Player currentPlayer)
+    {
         //has already chosen a tile
 
         if (panel.getGameState() == 3) {
@@ -297,7 +315,8 @@ public class Game {
             //panel.repaint();
             panel.waitForTokenPlacedOrThrowAway();
             //chose to keep and place or throw away
-            if (panel.getGameState() == 5) {
+            if (panel.getGameState() == 5)
+            {
 
 
                 //award pinecones
@@ -320,34 +339,44 @@ public class Game {
     }
 
 
-    public void createGame() throws IOException {
+
+    public void createGame() throws IOException
+    {
         //tiles
         Scanner s = new Scanner(new File("Cascadia.txt"));
         BufferedImage img;
-        while (s.hasNext()) {
+        while(s.hasNext())
+        {
             String t = s.nextLine().trim();
 //            System.out.println(t);
             String[] a = t.split(" ");
 //            System.out.println(Arrays.toString(a));
 
-            try {
-                if (Integer.parseInt(a[5]) < 21) {
+            try
+            {
+                if(Integer.parseInt(a[5]) < 21)
+                {
                     img = ImageIO.read(Game.class.getResource("/KeyStonetiles/" + a[5] + ".png"));
                     tileDeck.add(new Tile(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), -999, -999, true, img));
-                } else {
+                }
+                else
+                {
                     img = ImageIO.read(Game.class.getResource("/RegularTiles/" + a[5] + ".png"));
                     tileDeck.add(new Tile(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), -999, -999, false, img));
                 }
-            } catch (Exception E) {
+            }
+            catch(Exception E)
+            {
                 System.out.print("Error in tile image number");
-                System.out.println("Error in tile image number " + a[5]);
+                System.out.println("Error in tile image number "+ a[5]);
             }
             getLeaderBoard();
         }
 
         //starterTiles
         //int hab1, int hab2, int animal1, int animal2, int animal3, int x, int y, boolean , image
-        try {
+        try
+        {
             starterTiles.put(1, new ArrayList<Tile>());
             img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "1a.png"));
             starterTiles.get(1).add(new Tile(2, 2, 1, 0, 0, -999, -999, true, img));
@@ -397,13 +426,17 @@ public class Game {
             starterTiles.get(5).add(new Tile(4, 1, 3, 4, 0, -999, -999, false, img));
             starterTiles.get(5).get(1).rotateRight();
             starterTiles.get(5).get(2).rotateLeft();
-        } catch (Exception E) {
+        }
+        catch(Exception E)
+        {
             System.out.println("error with starter tiles");
         }
 
         //tokens
-        for (int i = 1; i <= 5; i++) {
-            for (int j = 0; j < 25; j++) {
+        for(int i = 1; i <= 5; i++)
+        {
+            for(int j = 0; j < 25; j++)
+            {
                 tokenDeck.add(new Token(i));
             }
         }
@@ -418,78 +451,91 @@ public class Game {
 //        gameState = gs;
 //    }
 
-    public Player getCurrentPlayer() {
+    public Player getCurrentPlayer()
+    {
         return currentPlayer;
     }
 
-    public void setCurrentPlayer(int p) {
+    public void setCurrentPlayer(int p)
+    {
         currentPlayer = players.get(p);
     }
 
-    public ArrayList<Tile> getTileDeck() {
+    public ArrayList<Tile> getTileDeck()
+    {
         return tileDeck;
     }
 
-    public ArrayList<Token> getTokenDeck() {
+    public ArrayList<Token> getTokenDeck()
+    {
         return tokenDeck;
     }
 
-    public boolean getIfTookTurn() {
+    public boolean getIfTookTurn()
+    {
         return alreadyTookTurn;
     }
 
-    public void setIfTookTurn(boolean b) {
+    public void setIfTookTurn(boolean b)
+    {
         alreadyTookTurn = b;
     }
 
-    public Tile getTileChose() {
+    public Tile getTileChose()
+    {
         return tileChose;
     }
 
-    public void setTileChose(Tile t) {
+    public void setTileChose(Tile t)
+    {
         tileChose = t;
     }
 
-    public Token getTokenChose() {
+    public Token getTokenChose()
+    {
         return tokenChose;
     }
 
-    public void setTokenChose(Token t) {
+    public void setTokenChose(Token t)
+    {
         tokenChose = t;
     }
 
 
+
     public int getPlayerNum() {
-        for (int i = 0; i < players.size(); i++) {
+        for(int i = 0; i<players.size(); i++) {
             Player temp = players.get(i);
-            if (temp.equals(currentPlayer)) {
+            if(temp.equals(currentPlayer)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
+    public ArrayList<Player> getPlayers() {return players;}
 
-    public void setNumOfPlayers(int x) {
+    public void setNumOfPlayers(int x)
+    {
         //Create Number of players
-        for (int i = 0; i < x; i++) {
+        for (int i = 0; i < x; i++)
+        {
 //            try {             //HARDCODED PLAYER AND TILE
 //                players.add(new Player(new Board(new Tile(2, 2, 5, 5, 0, 10, 10, false, ImageIO.read(Game.class.getResource("/StarterTiles/1a.png"))))));
 //            } catch (IOException e) {
 //                throw new RuntimeException(e);
 //            }
             ArrayList<Tile> st = new ArrayList<>();
-            int ind = (int) (Math.random() * 5 + 1);
+            int ind = (int)(Math.random() * 5 + 1);
             boolean added = false;
 
-            while (!added) {
+            while (!added)
+            {
                 if (starterTiles.containsKey(ind)) {
                     st = starterTiles.remove(ind);
                     added = true;
-                } else {
+                }
+                else {
                     ind = (int) (Math.random() * 5 + 1);
                 }
             }
@@ -504,67 +550,82 @@ public class Game {
     }
 
 
-    public void getLeaderBoard() {
+
+    public void getLeaderBoard()
+    {
 
     }
 
-    public boolean checkGameEnd() {
+    public boolean checkGameEnd()
+    {
         return turn < 20;
     }
 
-    public void shuffleTiles() {
-        for (int i = 0; i < tileDeck.size(); i++) {
-            int k = (int) (Math.random() * tileDeck.size());
+    public void shuffleTiles()
+    {
+        for(int i = 0; i < tileDeck.size(); i++)
+        {
+            int k = (int)(Math.random() * tileDeck.size());
             Tile temp = tileDeck.get(k);
             tileDeck.set(k, tileDeck.get(i));
             tileDeck.set(i, temp);
         }
     }
 
-    public void shuffleTokens() {
-        for (int i = 0; i < tokenDeck.size(); i++) {
-            int k = (int) (Math.random() * tokenDeck.size());
+    public void shuffleTokens()
+    {
+        for(int i = 0; i < tokenDeck.size(); i++)
+        {
+            int k = (int)(Math.random() * tokenDeck.size());
             Token temp = tokenDeck.get(k);
             tokenDeck.set(k, tokenDeck.get(i));
             tokenDeck.set(i, temp);
         }
     }
 
-    public Token getToken(int i) {
+    public Token getToken(int i)
+    {
         return tokenDeck.get(i);
     }
 
-    public Tile getTile(int i) {
+    public Tile getTile(int i)
+    {
         return tileDeck.get(i);
     }
 
-    public void updateTileAndTokens() {
-        for (int i = 0; i < availableTokens.length; i++)
-            if (availableTokens[i] == null)
+    public void updateTileAndTokens()
+    {
+        for(int i = 0; i < availableTokens.length; i++)
+            if(availableTokens[i] == null)
                 availableTokens[i] = tokenDeck.remove(0);
 
-        for (int i = 0; i < availableTiles.length; i++)
-            if (availableTiles[i] == null)
+        for(int i = 0; i < availableTiles.length; i++)
+            if(availableTiles[i] == null)
                 availableTiles[i] = tileDeck.remove(0);
     }
 
-    public int checkOverpopulation(boolean b) {
+    public int checkOverpopulation(boolean b)
+    {
         TreeMap<Integer, Integer> animals = new TreeMap<>();
-        for (int i = 1; i < 6; i++)
+        for(int i = 1; i < 6; i++)
             animals.put(i, 0);
-        for (int i = 0; i < availableTokens.length; i++) {
+        for(int i = 0; i < availableTokens.length; i++)
+        {
             int key = availableTokens[i].getAnimal();
             animals.put(key, animals.get(key) + 1);
         }
 
         int num = 0;
-        for (int i = 1; i < 6; i++) {
+        for(int i = 1; i < 6; i++)
+        {
             if (animals.get(i) > 2)
                 num = animals.get(i);
 
-            if (b) {
-                for (int j = 0; j < availableTokens.length; j++) {
-                    if (availableTokens[j].getAnimal() == i)
+            if(b)
+            {
+                for(int j = 0; j < availableTokens.length; j++)
+                {
+                    if(availableTokens[j].getAnimal() == i)
                         availableTokens[j] = null;
                 }
                 updateTileAndTokens();
@@ -574,7 +635,8 @@ public class Game {
         return num;
     }
 
-    public void waitForSeconds(double seconds) {
+    public void waitForSeconds(double seconds)
+    {
         try {
             Thread.sleep((int) (seconds * 1000));
         } catch (InterruptedException e) {
@@ -582,15 +644,15 @@ public class Game {
         }
     }
 
-    public CascadiaPanel getPanel() {
+    public CascadiaPanel getPanel()
+    {
         return panel;
     }
 
     public Tile[] getAvailableTiles() {
         return availableTiles;
     }
-
-    public Token[] getAvailableTokens() {
+    public Token[] getAvailableTokens(){
         return availableTokens;
     }
 

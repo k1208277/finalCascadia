@@ -718,11 +718,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke((int)(getHeight()/270)));
-       // g2.drawLine((int)(getWidth() / 14.545), (int)(getHeight() / 10.909))
-        game.getPlayers();
-
-
-
+        g2.drawLine((int)(getWidth() / 14.545), (int)(getHeight() / 10.909), (int)(getWidth() / 14.545), (int)(getHeight() / 1.069));
+        g2.drawLine((int)(getWidth() / 8.384), (int)(getHeight() / 10.909), (int)(getWidth() / 8.384),(int)(getHeight() / 1.069));
+       // g2.drawLine((int)(getWidth() / 5.836), (int)(getHeight() / 10.909), (int)(get))
 
     }
     public void mouseClicked(MouseEvent e) {    }

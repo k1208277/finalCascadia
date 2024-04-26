@@ -91,7 +91,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             tokenImages.put(4, ImageIO.read(CascadiaPanel.class.getResource("/Tokens/fox token.png")));
             tokenImages.put(5, ImageIO.read(CascadiaPanel.class.getResource("/Tokens/bear token.png")));
 
-            scoringCards.put(0, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/elk - lines card.png")));
+            scoringCards.put(0, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/elk - formations card.png")));
             scoringCards.put(1, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/fish - long run card.png")));
             scoringCards.put(2, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/hawk - solidarity card.png")));
             scoringCards.put(3, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/fox - nearby animals card.png")));
@@ -775,7 +775,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     a++;
                 }//(int)(getWidth()/1.06), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/32.542), (int)(getHeight()/18.305)
                 if (y >= (int) (getHeight() / 27) + i * (int) (getHeight() / 4.576) && y <= (int) (getHeight() / 27) + i * (int) (getHeight() / 4.576) + (int) (getHeight() / 18.305)) {
-                    player.setPlayer(game.getPlayers().get(a));
+                    player.setPlayer(game.getPlayers().get(a), a==game.getPlayers().size() - 1);
                     player.setVisible(true);
                     repaint();
                 }

@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 public class PlayerPanel extends JPanel
 {
     private Player player;
-    private boolean isVisible, endGame;
+    private boolean isVisible, endGame, lastPlayer;
     private int width, height, shiftX, shiftY;
 
     public PlayerPanel() {
@@ -94,9 +94,10 @@ public class PlayerPanel extends JPanel
             int e = 0;
             for(int i = 0; i<players.size()-1; i++) {
                 if(player.equals(players.get(e))) {
+                    //System.out.println(e+" = player");
                     g.setFont(new Font("he", 1, 40));
                     g.setColor(colors.get(e));
-                    g.drawString("Player "+(e+1)+"'s Board", (int)(getWidth()/2.659), (int)(getHeight()/19.286));
+                    g.drawString("Player "+(e+1)+"'s Board", (int)(getWidth()/3.052), (int)(getHeight()/13.333));
                     e++;
                 }
 
@@ -115,6 +116,11 @@ public class PlayerPanel extends JPanel
 
                 e++;
 
+            }
+            if(lastPlayer) {
+                g.setFont(new Font("he", 1, 40));
+                g.setColor(colors.get(e));
+                g.drawString("Player "+(players.size())+"'s Board", (int)(getWidth()/3.052), (int)(getHeight()/13.333));
             }
         }
     }
@@ -193,10 +199,11 @@ public class PlayerPanel extends JPanel
         }
     }
 
-    public void setPlayer(Player p) {
+    public void setPlayer(Player p, boolean b) {
         player = p;
         shiftX = 0;
         shiftY = 0;
+        lastPlayer = b;
     }
     public Player getPlayer() {
         return player;

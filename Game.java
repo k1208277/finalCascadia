@@ -744,23 +744,39 @@ public class Game
 
     public TreeMap<Integer, ArrayList<Player>> getRanking()
     {
-        ArrayList<Player> ranks = new ArrayList<Player>();
-        int firstPlace = players.get(0).getScore()[18];
-        ranks.add(0,players.get(0));
-        for (int i = 1; i < players.size(); i++)
+//        ArrayList<Player> ranks = new ArrayList<Player>();
+//        int firstPlace = players.get(0).getScore()[18];
+//        ranks.add(0,players.get(0));
+//        for (int i = 1; i < players.size(); i++)
+//        {
+//            if (players.get(i).getScore()[18] > firstPlace)
+//                ranks.add(0, players.get(i));
+//            else if (players.get(i).getScore()[18] == firstPlace)
+//            {
+//                if (players.get(i).getPineCones() > players.get(0).getPineCones())
+//                    ranks.add(0, players.get(i));
+//                else if ()
+//            }
+//
+//
+//
+//        }
+
+//        TreeMap<Integer, ArrayList<Player>> ranks = new TreeMap<>();
+//        for(int i = 1; i <= players.size(); i++)
+//            ranks.put(i, new ArrayList<Player>());
+
+        TreeMap<Integer, ArrayList<Player>> ranks = new TreeMap<>();
+        for(int i = 0; i < players.size(); i++)
         {
-            if (players.get(i).getScore()[18] > firstPlace)
-                ranks.add(0, players.get(i));
-            else if (players.get(i).getScore()[18] == firstPlace)
-            {
-                if (players.get(i).getPineCones() > players.get(0).getPineCones())
-                    ranks.add(0, players.get(i));
-                else if ()
-            }
-
-
-
+            ranks.put(players.get(i).getScore()[18], new ArrayList<Player>());
         }
+        for(int i = 0; i < players.size(); i++)
+        {
+            ranks.get(players.get(i).getScore()[18]).add(players.get(i));
+        }
+
+        return ranks;
     }
 
 

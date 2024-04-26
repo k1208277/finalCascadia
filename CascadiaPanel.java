@@ -79,6 +79,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             icons.put("pinecone", ImageIO.read(CascadiaPanel.class.getResource("/Images/pinecone.png")));
             icons.put("arrow", ImageIO.read(CascadiaPanel.class.getResource("/Images/arrow.png")));
             icons.put("b2", ImageIO.read(CascadiaPanel.class.getResource("/Images/background2.png")));
+            icons.put("1", ImageIO.read(CascadiaPanel.class.getResource("/Images/gold.png")));
+            icons.put("2", ImageIO.read(CascadiaPanel.class.getResource("/Images/silver.png")));
+            icons.put("3", ImageIO.read(CascadiaPanel.class.getResource("/Images/bronze.png")));
 
             //Elk = 1
             //Salmon = 2
@@ -265,7 +268,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     break;
                 }
                 case 10: {
-
+                    drawScoreBoard(g);
+                    drawLeaderboard(g);
                     break;
                 }
             }
@@ -321,14 +325,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 break;
             }
             case 10 : {
-
-                break;
-            }
-            case 11 : {
-
-                break;
-            }
-            case 12 : {
                 game.bonusesAndScores(); //sets the scores and bonuses of all players i think i hope i wish i pray
                 drawScoreBoard(g);
                 break;
@@ -376,9 +372,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             if(gameState==5) {
                 g.drawString("Throw away", (int)(getWidth()/1.67), (int)(getHeight()/1.254));
             }
-
+            else if (turn == game.getPlayers().size() * 2) {
+                g.drawString("End game", (int)(getWidth()/1.654), (int)(getHeight()/1.254));
+            }
             else {
-
                 g.drawString("Next player", (int)(getWidth()/1.654), (int)(getHeight()/1.254));
             }
         }
@@ -710,18 +707,51 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
         }
     }
+
     public void drawScoreBoard(Graphics g){
+
         g.setColor(new Color(0,0,0,103));
         g.fillRect((int)(getWidth() / 76.15), (int)(getHeight() / 49.09),(int)(getWidth() / 3.72) ,(int)(getHeight() / 1.0465));
         g.fillRect((int)(getWidth() / 3.3), (int)(getHeight() / 49.09), (int)(getWidth() / 2.31), (int)(getHeight() / 1.0465));
-        g.fillRect((int)(getWidth() / 1.2999), (int)(getHeight() / 49.09), (int)(getWidth() / 4.295), (int)(getHeight() / 1.0465));
-
+        g.fillRect((int)(getWidth() / 1.327), (int)(getHeight() / 49.09), (int)(getWidth() / 4.295), (int)(getHeight() / 1.0465));
+        g.setColor(Color.white);
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke((int)(getHeight()/270)));
         g2.drawLine((int)(getWidth() / 14.545), (int)(getHeight() / 10.909), (int)(getWidth() / 14.545), (int)(getHeight() / 1.069));
         g2.drawLine((int)(getWidth() / 8.384), (int)(getHeight() / 10.909), (int)(getWidth() / 8.384),(int)(getHeight() / 1.069));
-       // g2.drawLine((int)(getWidth() / 5.836), (int)(getHeight() / 10.909), (int)(get))
+        g2.drawLine((int)(getWidth() / 5.836), (int)(getHeight() / 10.909), (int)(getWidth() / 5.836), (int)(getHeight() / 1.069));
+        g2.drawLine((int)(getWidth() / 4.507), (int)(getHeight() / 10.909), (int)(getWidth() / 4.507), (int)(getHeight() / 1.069));
 
+        game.getPlayers();
+
+
+
+    }
+    public void drawLeaderboard(Graphics g)
+    {
+        g.setColor(Color.white);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+
+        for(int i = 0; i<game.getPlayers().size(); i++) {
+            g.setColor(Color.white);
+            g2.drawRect((int)(getWidth()/1.306), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/4.788), (int)(getHeight()/5.023));
+            g.drawImage(icons.get("open"), (int)(getWidth()/1.06), (int)(getHeight()/27)+i*(int)(getHeight()/4.576), (int)(getWidth()/32.542), (int)(getHeight()/18.305), null);
+            g.setColor(colors.get(i));
+            g.setFont(new Font("j", 1, (int)(getHeight()/30.72)));
+            //System.out.println((int)(getHeight()/30.72) + " - 27");
+            g.drawString("Player "+(i+1), (int)(getWidth()/1.199), (int)(getHeight()/11.134)+i*(int)(getHeight()/4.576));
+            g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
+            g.setColor(Color.white);
+            g.drawString("x "+game.getPlayers().get(i).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
+            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(i).getBoard().getStartTile().getOrientation());
+            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getOrientation());
+            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getOrientation());
+        }
+
+        //main menu button
+        g2.drawRect((int)(getWidth()/1.305), (int)(getHeight()/1.117), (int)(getWidth()/4.788), (int)(getHeight()/16.119));
+        g.drawString("Main menu", (int)(getWidth()/1.211), (int)(getHeight()/1.067));
     }
     public void mouseClicked(MouseEvent e) {    }
     public void mouseEntered(MouseEvent e) {    }
@@ -766,7 +796,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             help.setVisible(true);
             repaint();
         }
-        else if(getGameState()!=0 && getGameState() !=1 && x>=(int)(getWidth()/1.06) && x<=(int)(getWidth()/1.06)+(int)(getWidth()/32.542)) {
+        else if(getGameState()!=0 && getGameState() !=1 && getGameState() !=10 && x>=(int)(getWidth()/1.06) && x<=(int)(getWidth()/1.06)+(int)(getWidth()/32.542)) {
             int a = 0;
             for (int i = 0; i < game.getPlayers().size() - 1; i++) {
                 if (a == game.getPlayerNum()) {
@@ -945,7 +975,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 }
                 case 6: //check if next player button is clicked
                 {
-                    if (x >= (int) (getWidth() / 1.731) && x <= (int) (getWidth() / 1.731) + (int) (getWidth() / 6.906) && y >= (int) (getHeight() / 1.325) && y <= (int) (getHeight() / 1.325) + (int) (getHeight() / 15.652) && turn < game.getPlayers().size() * 20) { //coordinates for clicking next turn button
+                    if (x >= (int) (getWidth() / 1.731) && x <= (int) (getWidth() / 1.731) + (int) (getWidth() / 6.906) && y >= (int) (getHeight() / 1.325) && y <= (int) (getHeight() / 1.325) + (int) (getHeight() / 15.652) && turn < game.getPlayers().size() * 2) {  // ONLY USED FOR TESTING SCORING REMEMBER TO CHANGE BACK TO 20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         nextPlayerClicked = true;
                         game.setCurrentPlayer((game.getPlayerNum() + 1) % game.getPlayers().size());
                         game.updateTileAndTokens();
@@ -953,8 +983,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         System.out.println("Turn count = " + turn);
                         resetGameFlags();
                         turn++;
-                    } else if (turn >= game.getPlayers().size() * 20)
+                    } else if (turn >= game.getPlayers().size() * 2) {
                         System.out.println("END GAME");
+                        setGameState(10);
+                    }
                     repaint();
 
                     break;
@@ -1036,11 +1068,15 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     repaint();
                     break;
                 }
-                case 10: {
-                }
-                case 11: {
-                }
-                case 12: {
+                case 10:
+                {
+                    if ( x <= getWidth()) //mainMenu button clicking
+                    {
+
+                    }
+                    else if(x>=(int)(getWidth()/1.06) && x<=(int)(getWidth()/1.06)+(int)(getWidth()/32.542)) {
+
+                    }
                 }
             }
         }

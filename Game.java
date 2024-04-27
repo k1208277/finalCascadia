@@ -744,50 +744,35 @@ public class Game
 
     public TreeMap<Integer, ArrayList<Player>> getRanking()
     {
-//        ArrayList<Player> ranks = new ArrayList<Player>();
-//        int firstPlace = players.get(0).getScore()[18];
-//        ranks.add(0,players.get(0));
-//        for (int i = 1; i < players.size(); i++)
-//        {
-//            if (players.get(i).getScore()[18] > firstPlace)
-//                ranks.add(0, players.get(i));
-//            else if (players.get(i).getScore()[18] == firstPlace)
-//            {
-//                if (players.get(i).getPineCones() > players.get(0).getPineCones())
-//                    ranks.add(0, players.get(i));
-//                else if ()
-//            }
-//
-//
-//
-//        }
 
-//        TreeMap<Integer, ArrayList<Player>> ranks = new TreeMap<>();
-//        for(int i = 1; i <= players.size(); i++)
-//            ranks.put(i, new ArrayList<Player>());
-
-        TreeMap<Integer, ArrayList<Player>> ranks = new TreeMap<>();
-        for(int i = 0; i < players.size(); i++)
+        TreeMap<Integer, ArrayList<Integer>> ranks = new TreeMap<>();
+        for(int i = 1; i <= 3; i++)
         {
-            ranks.put(players.get(i).getScore()[18], new ArrayList<Player>());
+            ranks.put(i, new ArrayList<Integer>());
         }
-        for(int i = 0; i < players.size(); i++)
+        ArrayList<Integer> playerScores = new ArrayList<>();
+        int maxScore = 0;
+        for (int i = 0; i < players.size(); i++){
+            int score = players.get(i).getScore()[18];
+            playerScores.add(score);
+            maxScore = Math.max(score, maxScore);
+        }
+        ArrayList<Integer> firstPlace = ranks.get(1);
+        for(int i = 0; i < playerScores.size(); i++)
         {
-            if(ranks.get(players.get(i).getScore()[18]).size() > 0)//tie breaking, inside the arraylist is least to greatest in pinecones
-            {
-                for(int j = 0; j < ranks.get(players.get(i).getScore()[18]).size() ; j++)
-                {
-                    if(ranks.get(players.get(i).getScore()[18]).get(j).getScore()[17] > players.get(i).getScore()[17])
-                        ranks.get(players.get(i).getScore()[18]).add(0,players.get(i));
-                    else
-                        ranks.get(players.get(i).getScore()[18]).add(players.get(i));
-                }
-            }
-            else
-            {
-                ranks.get(players.get(i).getScore()[18]).add(players.get(i));
+            if (playerScores.get(i) == maxScore){
+                firstPlace.add(i);
             }
         }
+
+        if (firstPlace.size() > 1){
+            //checks for max PineCone size
+            int maxPineCone = 0;
+            for (int i = 0; i < firstPlace.size(); i++){
+                maxPineCone = Math.max(players.get(firstPlace.get(i)).getScore()[17], maxScore);
+            }
+        }
+
 
         return ranks;
     }
@@ -881,7 +866,25 @@ public class Game
 
 	}
 
+for(int i = 0; i < players.size(); i++)
+        {
+            if(ranks.get(players.get(i).getScore()[18]).size() > 0)//tie breaking, inside the arraylist is least to greatest in pinecones
+            {
+                for(int j = 0; j < ranks.get(players.get(i).getScore()[18]).size() ; j++)
+                {
+                    if(ranks.get(players.get(i).getScore()[18]).get(j).getScore()[17] > players.get(i).getScore()[17])
+                        ranks.get(players.get(i).getScore()[18]).add(0,players.get(i));
+                    else
+                        ranks.get(players.get(i).getScore()[18]).add(players.get(i));
+                }
+            }
+            else
+            {
+                ranks.get(players.get(i).getScore()[18]).add(players.get(i));
+            }
+        }
 
+        return ranks;
 
      */
 }

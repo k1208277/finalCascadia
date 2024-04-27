@@ -773,7 +773,7 @@ public class Game
         }
         for(int i = 0; i < players.size(); i++)
         {
-            if(ranks.get(players.get(i).getScore()[18]).size() > 0)
+            if(ranks.get(players.get(i).getScore()[18]).size() > 0)//tie breaking, inside the arraylist is least to greatest in pinecones
             {
                 for(int j = 0; j < ranks.get(players.get(i).getScore()[18]).size() ; j++)
                 {

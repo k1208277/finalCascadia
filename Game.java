@@ -773,7 +773,20 @@ public class Game
         }
         for(int i = 0; i < players.size(); i++)
         {
-            ranks.get(players.get(i).getScore()[18]).add(players.get(i));
+            if(ranks.get(players.get(i).getScore()[18]).size() > 0)
+            {
+                for(int j = 0; j < ranks.get(players.get(i).getScore()[18]).size() ; j++)
+                {
+                    if(ranks.get(players.get(i).getScore()[18]).get(j).getScore()[17] > players.get(i).getScore()[17])
+                        ranks.get(players.get(i).getScore()[18]).add(0,players.get(i));
+                    else
+                        ranks.get(players.get(i).getScore()[18]).add(players.get(i));
+                }
+            }
+            else
+            {
+                ranks.get(players.get(i).getScore()[18]).add(players.get(i));
+            }
         }
 
         return ranks;

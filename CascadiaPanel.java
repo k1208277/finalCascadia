@@ -715,12 +715,67 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g.fillRect((int)(getWidth() / 3.3), (int)(getHeight() / 49.09), (int)(getWidth() / 2.31), (int)(getHeight() / 1.0465));
         g.fillRect((int)(getWidth() / 1.327), (int)(getHeight() / 49.09), (int)(getWidth() / 4.295), (int)(getHeight() / 1.0465));
         g.setColor(Color.white);
+
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+        //Animals vertical lines
         g2.drawLine((int)(getWidth() / 14.545), (int)(getHeight() / 10.909), (int)(getWidth() / 14.545), (int)(getHeight() / 1.069));
         g2.drawLine((int)(getWidth() / 8.384), (int)(getHeight() / 10.909), (int)(getWidth() / 8.384),(int)(getHeight() / 1.069));
         g2.drawLine((int)(getWidth() / 5.836), (int)(getHeight() / 10.909), (int)(getWidth() / 5.836), (int)(getHeight() / 1.069));
         g2.drawLine((int)(getWidth() / 4.507), (int)(getHeight() / 10.909), (int)(getWidth() / 4.507), (int)(getHeight() / 1.069));
+        //animals horizontal lines
+        g2.drawLine((int)(getWidth() / 23.133), (int)(getHeight() / 7.770), (int)(getWidth() / 3.840), (int)(getHeight() / 7.770));
+        g2.drawLine((int)(getWidth() / 23.133), (int)(getHeight() / 4.138), (int)(getWidth() / 3.840), (int)(getHeight() / 4.138));
+        g2.drawLine((int)(getWidth() / 23.133), (int)(getHeight() / 2.707), (int)(getWidth() / 3.840), (int)(getHeight() / 2.707));
+        g2.drawLine((int)(getWidth() / 23.133), (int)(getHeight() / 1.974), (int)(getWidth() / 3.840), (int)(getHeight() / 1.974));
+        g2.drawLine((int)(getWidth() / 23.133), (int)(getHeight() / 1.565), (int)(getWidth() / 3.840), (int)(getHeight() / 1.565));
+        g2.drawLine((int)(getWidth() / 23.133), (int)(getHeight() / 1.287), (int)(getWidth() / 3.840), (int)(getHeight() / 1.287));
+
+
+        //habitats vertical
+        g2.drawLine((int)(getWidth() / 2.763), (int)(getHeight() / 11.613), (int)(getWidth() / 2.763), (int)(getHeight() / 1.068));
+        g2.drawLine((int)(getWidth() / 2.243), (int)(getHeight() / 11.613), (int)(getWidth() / 2.243), (int)(getHeight() / 1.068));
+        g2.drawLine((int)(getWidth() / 1.870), (int)(getHeight() / 11.613), (int)(getWidth() / 1.870), (int)(getHeight() / 1.068));
+        g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 11.613), (int)(getWidth() / 1.585), (int)(getHeight() / 1.068));
+
+        //habitats horizontal
+        g2.drawLine((int)(getWidth() / 3.014), (int)(getHeight() / 7.660), (int)(getWidth() / 1.400), (int)(getHeight() / 7.660));
+        g2.drawLine((int)(getWidth() / 3.014), (int)(getHeight() / 4.286), (int)(getWidth() / 1.400), (int)(getHeight() / 4.286));
+        g2.drawLine((int)(getWidth() / 3.014), (int)(getHeight() / 2.872), (int)(getWidth() / 1.400), (int)(getHeight() / 2.872));
+        g2.drawLine((int)(getWidth() / 3.014), (int)(getHeight() / 2.173), (int)(getWidth() / 1.400), (int)(getHeight() / 2.173));
+        g2.drawLine((int)(getWidth() / 3.014), (int)(getHeight() / 1.725), (int)(getWidth() / 1.400), (int)(getHeight() / 1.725));
+        g2.drawLine((int)(getWidth() / 3.014), (int)(getHeight() / 1.415), (int)(getWidth() / 1.400), (int)(getHeight() / 1.415));
+        g2.drawLine((int)(getWidth() / 3.014), (int)(getHeight() / 1.204), (int)(getWidth() / 1.400), (int)(getHeight() / 1.204));
+        //habitats diagonal
+        g2.drawLine((int)(getWidth() / 2.763), (int)(getHeight() / 7.606), (int)(getWidth() / 2.243), (int)(getHeight() / 29.189));
+        g2.drawLine((int)(getWidth() / 2.243), (int)(getHeight() / 7.606), (int)(getWidth() / 1.870), (int)(getHeight() / 29.189));
+        g2.drawLine((int)(getWidth() / 1.870), (int)(getHeight() / 7.606), (int)(getWidth() / 1.585), (int)(getHeight() / 29.189));
+        g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 7.606), (int)(getWidth() / 1.400), (int)(getHeight() / 29.189));
+
+        g2.drawLine((int)(getWidth() / 2.763), (int)(getHeight() / 4.269), (int)(getWidth() / 2.243), (int)(getHeight() / 7.606));
+        g2.drawLine((int)(getWidth() / 2.243), (int)(getHeight() / 4.269), (int)(getWidth() / 1.870), (int)(getHeight() / 7.606));
+        g2.drawLine((int)(getWidth() / 1.870), (int)(getHeight() / 4.269), (int)(getWidth() / 1.585), (int)(getHeight() / 7.606));
+        g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 4.269), (int)(getWidth() / 1.400), (int)(getHeight() / 7.606));
+
+        g2.drawLine((int)(getWidth() / 2.763), (int)(getHeight() / 4.252), (int)(getWidth() / 2.243), (int)(getHeight() / 4.269));
+        g2.drawLine((int)(getWidth() / 2.243), (int)(getHeight() / 4.252), (int)(getWidth() / 1.870), (int)(getHeight() / 4.269));
+        g2.drawLine((int)(getWidth() / 1.870), (int)(getHeight() / 4.252), (int)(getWidth() / 1.585), (int)(getHeight() / 4.269));
+        g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 4.252), (int)(getWidth() / 1.400), (int)(getHeight() / 4.269));
+
+        g2.drawLine((int)(getWidth() / 2.763), (int)(getHeight() / 2.865), (int)(getWidth() / 2.243), (int)(getHeight() / 4.252));
+        g2.drawLine((int)(getWidth() / 2.243), (int)(getHeight() / 2.865), (int)(getWidth() / 1.870), (int)(getHeight() / 4.252));
+        g2.drawLine((int)(getWidth() / 1.870), (int)(getHeight() / 2.865), (int)(getWidth() / 1.585), (int)(getHeight() / 4.252));
+        g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 2.865), (int)(getWidth() / 1.400), (int)(getHeight() / 4.252));
+
+        g2.drawLine((int)(getWidth() / 2.763), (int)(getHeight() / 2.160), (int)(getWidth() / 2.243), (int)(getHeight() / 2.865));
+        g2.drawLine((int)(getWidth() / 2.243), (int)(getHeight() / 2.160), (int)(getWidth() / 1.870), (int)(getHeight() / 2.865));
+        g2.drawLine((int)(getWidth() / 1.870), (int)(getHeight() / 2.160), (int)(getWidth() / 1.585), (int)(getHeight() / 2.865));
+        g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 2.160), (int)(getWidth() / 1.400), (int)(getHeight() / 2.865));
+
+        g2.drawLine((int)(getWidth() / 2.763), (int)(getHeight() / 1.722), (int)(getWidth() / 2.243), (int)(getHeight() / 2.160));
+        g2.drawLine((int)(getWidth() / 2.243), (int)(getHeight() / 1.722), (int)(getWidth() / 1.870), (int)(getHeight() / 2.160));
+        g2.drawLine((int)(getWidth() / 1.870), (int)(getHeight() / 1.722), (int)(getWidth() / 1.585), (int)(getHeight() / 2.160));
+        g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 1.722), (int)(getWidth() / 1.400), (int)(getHeight() / 2.160));
 
         game.getPlayers();
 
@@ -975,7 +1030,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 }
                 case 6: //check if next player button is clicked
                 {
-                    if (x >= (int) (getWidth() / 1.731) && x <= (int) (getWidth() / 1.731) + (int) (getWidth() / 6.906) && y >= (int) (getHeight() / 1.325) && y <= (int) (getHeight() / 1.325) + (int) (getHeight() / 15.652) && turn < game.getPlayers().size() * 2) {  // ONLY USED FOR TESTING SCORING REMEMBER TO CHANGE BACK TO 20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    if (x >= (int) (getWidth() / 1.731) && x <= (int) (getWidth() / 1.731) + (int) (getWidth() / 6.906) && y >= (int) (getHeight() / 1.325) && y <= (int) (getHeight() / 1.325) + (int) (getHeight() / 15.652) && turn < game.getPlayers().size() * 1) {  // ONLY USED FOR TESTING SCORING REMEMBER TO CHANGE BACK TO 20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         nextPlayerClicked = true;
                         game.setCurrentPlayer((game.getPlayerNum() + 1) % game.getPlayers().size());
                         game.updateTileAndTokens();
@@ -983,7 +1038,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         System.out.println("Turn count = " + turn);
                         resetGameFlags();
                         turn++;
-                    } else if (turn >= game.getPlayers().size() * 2) {
+                    } else if (turn >= game.getPlayers().size() * 1) {
                         System.out.println("END GAME");
                         setGameState(10);
                     }

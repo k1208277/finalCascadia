@@ -80,7 +80,11 @@ public class Tile
     }
 
     public ArrayList<Integer> getPossibleAnimals(){return possibleAnimals;}
-    public int getAnimal(){ return animal.getAnimal();}
+    public int getAnimal(){
+        if(animal == null)
+            return 0;
+        return animal.getAnimal();
+    }
     public boolean hasAnimal(){ return animal != null;}
     public int getHabitat(int habitat)
     {
@@ -126,6 +130,7 @@ public class Tile
             double a1 = area(xCoord, yCoord+(int)(height/4.074), xCoord+width/2, yCoord, x, y);
             double a2 = area(xCoord, yCoord+(int)(height/4.074), x, y, xCoord+width, yCoord+(int)(height/4.074));
             double a3 = area(x, y, xCoord+width/2, yCoord, xCoord+width, yCoord+(int)(height/4.074));
+            System.out.println((a1+a2+a3) + ", " + totalArea);
             if(a1+a2+a3==totalArea) {
                 return true;
             }
@@ -133,6 +138,7 @@ public class Tile
             a1 = area(xCoord, yCoord+(int)(height/1.325), xCoord+width/2, yCoord+height, x, y);
             a2 = area(xCoord, yCoord+(int)(height/1.325), x, y, xCoord+width, yCoord+(int)(1.325));
             a3 = area(x, y, xCoord+width/2, yCoord+height, xCoord+width, yCoord+(int)(1.325));
+            System.out.println((a1+a2+a3) + ", " + totalArea);
             if(a1+a2+a3==totalArea) {
                 return true;
             }

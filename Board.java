@@ -213,7 +213,7 @@ public class Board
                 int adjSalmon = 0;
                 Tile temp = run.get(j);
                 for (int k = 0; k <= 5; k++){
-                    if (temp.getAdjacent(k).getAnimal() == 2){
+                    if (temp.getAdjacent(k) != null && temp.getAdjacent(k).getAnimal() == 2){
                         adjSalmon++;
                     }
                 }
@@ -257,7 +257,7 @@ public class Board
             Tile ht = allHawks.get(i);
             boolean isAlone = true;
             for(int j = 0; j <= 5; j++){
-                if (ht.getAdjacent(i).getAnimal() == 3){
+                if (ht.getAdjacent(i) != null && ht.getAdjacent(i).getAnimal() == 3){
                     isAlone = false;
                 }
             }
@@ -342,6 +342,7 @@ public class Board
             Tile ft = allFoxes.get(i);
             TreeSet<Integer> uniques = new TreeSet<>();
             for (int j = 0; j <= 5; j++){
+                if (ft.getAdjacent(j) != null)
                 uniques.add(ft.getAdjacent(j).getAnimal());
                 uniques.remove(0);
             }

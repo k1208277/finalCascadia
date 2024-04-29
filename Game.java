@@ -76,6 +76,26 @@ public class Game
         panel.setGameState(0);
     }
 
+    public void resetGame()
+    {
+        players = new ArrayList<Player>();
+        tileDeck = new ArrayList<Tile>();
+        starterTiles = new HashMap<Integer, ArrayList<Tile>>(); //5 starterTiles so we have an int to represent each tile. StarterTiles are an arraylist of 3 tiles
+        tokenDeck = new ArrayList<Token>();
+        availableTiles = new Tile[4];
+        availableTokens = new Token[4];
+        tileChose = null;
+        tokenChose = null;
+        alreadyTookTurn = false;
+        turn = 0;
+        try {
+            createGame();
+        } catch (IOException e) {
+            System.out.println("Error in creating new game from main menu button resetting game");
+            throw new RuntimeException(e);
+        }
+    }
+
     public void play()
     {
         //Shuffle tiles and tokens and remove extra tiles
@@ -839,96 +859,4 @@ public class Game
         return ranks;
     }
 
-
-    /*
-    //CODE FROM GIZMOS
-    public void drawWinner(Graphics g) {
-		g.setColor(Color.white);
-		g.fillRect(600, 801, 1000, 98);
-		g.setColor(Color.black);
-		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 40));
-		int temp = 0;
-		Iterator<Player> it = game.getAllPlayers().iterator();
-		while (it.hasNext()) {
-			Player p = it.next();
-			if (p.getTotalPoints() > temp) {
-				temp = p.getTotalPoints();
-			}
-		}
-		ArrayList<Player> winners = new ArrayList<>();
-		it = game.getAllPlayers().iterator();
-		while (it.hasNext()) {
-			Player p = it.next();
-			if (p.getTotalPoints() == temp) {
-				winners.add(p);
-			}
-		}
-		if (winners.size() == 1) {
-			g.drawString(winners.get(0) + " WINS!", 800, 860);
-			return;
-		}
-		//only for victory points ^^^
-
-		//counting number of cards
-		temp = 0;
-		for (int i = 0; i < winners.size(); i++) {
-			if (winners.get(i).getCardCount() > temp) {
-				temp = winners.get(i).getCardCount();
-			}
-		}
-
-		for (int i = 0; i < winners.size(); i++) {
-			if (winners.get(i).getCardCount() < temp) {
-				winners.remove(i);
-				i--;
-			}
-		}
-		if (winners.size() == 1) {
-			g.drawString(winners.get(0) + " WINS!", 800, 860);
-			return;
-		}
-
-		//marble count
-		temp = 0;
-		for (int i = 0; i < winners.size(); i++) {
-			int marb = winners.get(i).getMarbles().length;
-			for (int j = 0; j < winners.get(i).getMarbles().length; j++) {
-				if (winners.get(i).getMarbles()[j] == null) {
-					marb = j;
-					break;
-				}
-			}
-			if (marb > temp) {
-				marb = temp;
-			}
-		} //getting max marble count
-
-		for (int i = 0; i < winners.size(); i++) {
-			int marb = winners.get(i).getMarbles().length;
-			for (int j = 0; j < winners.get(i).getMarbles().length; j++) {
-				if (winners.get(i).getMarbles()[j] == null) {
-					marb = j;
-					break;
-				}
-			}
-			if (marb < temp) {
-				winners.remove(i);
-				i--;
-			}
-		} //removing players that have less than the max
-
-		if (winners.size() == 1) {
-			g.drawString(winners.get(0) + " WINS!", 800, 860);
-			return;
-		}
-		else {
-			g.drawString(winners.get(winners.size() - 1) + " WINS!", 800, 860);
-			return;
-		}
-
-	}
-
-
-
-     */
 }

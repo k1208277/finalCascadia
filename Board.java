@@ -140,10 +140,14 @@ public class Board
     { //Scoring #2 - formations
         ArrayList<Tile> allTiles = traverse();
         ArrayList<Tile> notElk = new ArrayList<>();
+        ArrayList<Tile> elkTiles = new ArrayList<>();
         for(int i  = 0; i < allTiles.size(); i++)
         {
             if (allTiles.get(i).getAnimal() != 1){
                 notElk.add(allTiles.get(i));
+            }
+            else{
+                elkTiles.add(allTiles.get(i));
             }
         }
 
@@ -182,6 +186,9 @@ public class Board
 
         }
 
+        for(int i = 0; i < elkTiles.size(); i++){
+            elkTiles.get(i).setChecker(false);
+        }
         return score;
 
 

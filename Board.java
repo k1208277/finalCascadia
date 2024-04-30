@@ -136,85 +136,134 @@ public class Board
 
 
 
-    public int elkScore() { //Scoring #2 - formations
-            ArrayList<Tile> allTiles = traverse();
-            ArrayList<Tile> allElk = new ArrayList<>();
-            for (int i = 0; i < allTiles.size(); i++){
-                if (allTiles.get(i).getAnimal() == 1){
-                    allElk.add(allTiles.get(i));
-                }
+    public int elkScore()
+    { //Scoring #2 - formations
+        ArrayList<Tile> allTiles = traverse();
+        ArrayList<Tile> notElk = new ArrayList<>();
+        for(int i  = 0; i < allTiles.size(); i++)
+        {
+            if (allTiles.get(i).getAnimal() == 1){
+                notElk.add(allTiles.get(i));
             }
-            int score = 0;
-            for (int i = 0; i < allElk.size(); i++){
-                Tile et = allElk.get(i);
-                Queue<Tile> q = new LinkedList<>();
-                ArrayList<Tile> formation = new ArrayList<>();
-                if (!et.isChecked()){
-                    q.add(et);
-                    et.setChecker(true);
-                }
-                while (!q.isEmpty()){
-                    Tile temp = q.poll();
-                    formation.add(temp);
-                    for(int j = 0; j<=5; j++){
-                        if(temp.getAdjacent(j) != null && !temp.getAdjacent(j).isChecked() && temp.getAdjacent(j).getAnimal() == 1){
-                            temp.getAdjacent(j).setChecker(true);
-                            q.add(temp.getAdjacent(j));
-                        }
-                    }
-                }
+        }
 
-                if (formation.size() == 4){
-                    boolean isValid = true;
-                    for (int j = 0; j < formation.size(); j++){
-                        int adjElk = 0;
-                        Tile temp = formation.get(j);
-                        for (int k = 0; k <= 5; k++){
-                            if (temp.getAdjacent(k) != null && temp.getAdjacent(k).getAnimal() == 1){
-                                adjElk++;
-                            }
-                        }
-                        if (adjElk != 2 && adjElk != 3){
-                            isValid = false;
-                        }
-                    }
-                    if (isValid){
-                        score+=13;
-                    }
-                }
-                else if (formation.size() == 3){
-                    boolean isValid = true;
-                    for (int j = 0; j < formation.size(); j++){
-                        int adjElk = 0;
-                        Tile temp = formation.get(j);
-                        for (int k = 0; k <= 5; k++){
-                            if (temp.getAdjacent(k) != null && temp.getAdjacent(k).getAnimal() == 1){
-                                adjElk++;
-                            }
-                        }
-                        if (adjElk != 2){
-                            isValid = false;
-                        }
-                    }
-                    if (isValid){
-                        score+=9;
-                    }
-                }
-                else if (formation.size() == 2){
-                    score += 5;
-                }
-                else if (formation.size() == 1){
-                    score += 2;
-                }
-                else{
-                    score += 0;
-                }
-            }
-            for(int i = 0; i < allElk.size(); i++){
-                allElk.get(i).setChecker(false);
+        ArrayList<Tile> hasRing = new ArrayList<>();
+        for(int i  = 0; i < notElk.size(); i++)
+        {
+            Tile temp = notElk.get(i);
+            boolean hr = true;
+
+            for(int j = 0; j <= 5; j++)
+            {
+                if(temp.getAdjacent(j).getAnimal() != 1 || temp.getAdjacent(i).isChecked())
+                    hr = false;
             }
 
-            return score;
+            if(hr)
+            {
+                for(int j = 0; j <= 5; j++)
+                {
+                    temp.getAdjacent(j).setChecker(true);
+                }
+                hasRing.add(temp);
+            }
+        }
+
+        int score = 0;
+        switch(hasRing.size()){
+            case 0: {score += 0; break;}
+            case 1: {score += 2; break;}
+            case 2: {score += 5; break;}
+            case 3: {score += 8; break;}
+            case 4: {score += 12; break;}
+            case 5: {score += 16; break;}
+            case 6: {score += 21; break;}
+            default: {score += 0; break;}
+
+        }
+
+        return score;
+
+
+
+//            ArrayList<Tile> allTiles = traverse();
+//            ArrayList<Tile> allElk = new ArrayList<>();
+//            for (int i = 0; i < allTiles.size(); i++){
+//                if (allTiles.get(i).getAnimal() == 1){
+//                    allElk.add(allTiles.get(i));
+//                }
+//            }
+//            int score = 0;
+//            for (int i = 0; i < allElk.size(); i++){
+//                Tile et = allElk.get(i);
+//                Queue<Tile> q = new LinkedList<>();
+//                ArrayList<Tile> formation = new ArrayList<>();
+//                if (!et.isChecked()){
+//                    q.add(et);
+//                    et.setChecker(true);
+//                }
+//                while (!q.isEmpty()){
+//                    Tile temp = q.poll();
+//                    formation.add(temp);
+//                    for(int j = 0; j<=5; j++){
+//                        if(temp.getAdjacent(j) != null && !temp.getAdjacent(j).isChecked() && temp.getAdjacent(j).getAnimal() == 1){
+//                            temp.getAdjacent(j).setChecker(true);
+//                            q.add(temp.getAdjacent(j));
+//                        }
+//                    }
+//                }
+//
+//                if (formation.size() == 4){
+//                    boolean isValid = true;
+//                    for (int j = 0; j < formation.size(); j++){
+//                        int adjElk = 0;
+//                        Tile temp = formation.get(j);
+//                        for (int k = 0; k <= 5; k++){
+//                            if (temp.getAdjacent(k) != null && temp.getAdjacent(k).getAnimal() == 1){
+//                                adjElk++;
+//                            }
+//                        }
+//                        if (adjElk != 2 && adjElk != 3){
+//                            isValid = false;
+//                        }
+//                    }
+//                    if (isValid){
+//                        score+=13;
+//                    }
+//                }
+//                else if (formation.size() == 3){
+//                    boolean isValid = true;
+//                    for (int j = 0; j < formation.size(); j++){
+//                        int adjElk = 0;
+//                        Tile temp = formation.get(j);
+//                        for (int k = 0; k <= 5; k++){
+//                            if (temp.getAdjacent(k) != null && temp.getAdjacent(k).getAnimal() == 1){
+//                                adjElk++;
+//                            }
+//                        }
+//                        if (adjElk != 2){
+//                            isValid = false;
+//                        }
+//                    }
+//                    if (isValid){
+//                        score+=9;
+//                    }
+//                }
+//                else if (formation.size() == 2){
+//                    score += 5;
+//                }
+//                else if (formation.size() == 1){
+//                    score += 2;
+//                }
+//                else{
+//                    score += 0;
+//                }
+//            }
+//            for(int i = 0; i < allElk.size(); i++){
+//                allElk.get(i).setChecker(false);
+//            }
+//
+//            return score;
     }
     public int salmonScore() {
         ArrayList<Tile> allTiles = traverse();

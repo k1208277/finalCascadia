@@ -301,12 +301,18 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     game.bonusesAndScores();
                     for(int i = 0; i < game.getPlayers().size(); i++)
                     {
-                        System.out.println(i +"bear "+ game.getPlayers().get(i).getScore()[0]);
-                        System.out.println(i+"elk " +game.getPlayers().get(i).getScore()[1]);
-                        System.out.println(i +"salmon "+game.getPlayers().get(i).getScore()[2]);
-                        System.out.println(i +"hawk "+game.getPlayers().get(i).getScore()[3]);
-                        System.out.println(i +"fox "+game.getPlayers().get(i).getScore()[4]);
-                        System.out.println(i+"total " +game.getPlayers().get(i).getScore()[5]);
+//                        System.out.println(i +"bear "+ game.getPlayers().get(i).getScore()[0]);
+//                        System.out.println(i+"elk " +game.getPlayers().get(i).getScore()[1]);
+//                        System.out.println(i +"salmon "+game.getPlayers().get(i).getScore()[2]);
+//                        System.out.println(i +"hawk "+game.getPlayers().get(i).getScore()[3]);
+//                        System.out.println(i +"fox "+game.getPlayers().get(i).getScore()[4]);
+//                        System.out.println(i+"total " +game.getPlayers().get(i).getScore()[5]);
+
+                        System.out.println(i +"mountain "+ game.getPlayers().get(i).getScore()[6]);
+                        System.out.println(i +"forest "+ game.getPlayers().get(i).getScore()[8]);
+                        System.out.println(i +"prairie "+ game.getPlayers().get(i).getScore()[10]);
+                        System.out.println(i +"wetland "+ game.getPlayers().get(i).getScore()[12]);
+                        System.out.println(i +"river "+ game.getPlayers().get(i).getScore()[14]);
                     }
                     break;
                 }

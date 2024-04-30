@@ -89,8 +89,12 @@ public class Board
         ArrayList<Tile> end = new ArrayList<>();
         for (int i = 0; i < allTiles.size(); i++) {
             Tile temp = allTiles.get(i);
-            if (temp.getAdjacentTiles().contains(h)) {
-                habitatTiles.add(temp);
+            a:
+            for (int j = 0; j <= 5; j++){
+                if (temp.getHabitat(j) == h){
+                    habitatTiles.add(temp);
+                    break a;
+                }
             }
         }
         int max = 0;
@@ -112,7 +116,7 @@ public class Board
                     if (t != null) {
                         int otherBiome = j + 3;
                         if (otherBiome > 5) {
-                            otherBiome -= 3;
+                            otherBiome -= 6;
                         }
                         if (ht.getHabitat(j) == t.getHabitat(otherBiome) && ht.getHabitat(j) == h && !t.isChecked()) {
                             q.add(t);

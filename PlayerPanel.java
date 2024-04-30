@@ -22,7 +22,7 @@ public class PlayerPanel extends JPanel
         setWH(w, h);
         if(isVisible) {
             drawBoard(g, icons, tokenImages);
-            drawOthers(g, icons, scoringCards, players);
+            drawOthers(g, icons, scoringCards, tokenImages, players);
             drawShift(g, icons);
         }
     }
@@ -57,7 +57,7 @@ public class PlayerPanel extends JPanel
         yp = new int[]{(int)(getHeight()/1.212), (int)(getHeight()/1.26), (int)(getHeight()/1.26)+(int)(getHeight()/14.4)};
         g.fillPolygon(xp, yp, 3);
     }
-    public void drawOthers(Graphics g,  HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, ArrayList<Player> players) {
+    public void drawOthers(Graphics g,  HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players) {
         ArrayList<Color> colors = new ArrayList<Color>();
         colors.add(new Color(255, 243, 188));
         colors.add(new Color(154, 225, 228));
@@ -88,14 +88,14 @@ public class PlayerPanel extends JPanel
         g.drawString("x "+player.getPineCones(), (int)(getWidth()/1.526), (int)(getHeight()/1.108));
 
         if(endGame) {
-
+            drawEndScores(g, icons, tokenImages);
         }
         else {
             int e = 0;
             for(int i = 0; i<players.size()-1; i++) {
                 if(player.equals(players.get(e))) {
                     //System.out.println(e+" = player");
-                    g.setFont(new Font("he", 1, 40));
+                    g.setFont(new Font("he", 1, (int)(getHeight()/21.0432)));
                     g.setColor(colors.get(e));
                     g.drawString("Player "+(e+1)+"'s Board", (int)(getWidth()/3.052), (int)(getHeight()/13.333));
                     e++;
@@ -124,6 +124,33 @@ public class PlayerPanel extends JPanel
             }
         }
     }
+    public void drawEndScores(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> tokenImages) {
+        g.setColor(Color.white);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+
+        for(int i = 0; i<5; i++) {
+            g2.drawLine((int)(getWidth()/1.327), (int)(getHeight()/8.372)+i*(int)(getHeight()/10.693), (int)(getWidth()/1.014), (int)(getHeight()/8.372)+i*(int)(getHeight()/10.693));
+            g2.drawLine((int)(getWidth()/1.068), (int)(getHeight()/9.818)+i*(int)(getHeight()/10.693), (int)(getWidth()/1.031), (int)(getHeight()/27)+i*(int)(getHeight()/10.693));
+            g.drawImage(tokenImages.get(i+1), (int)(getWidth()/1.31), (int)(getHeight()/27)+i*(int)(getHeight()/11.25), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
+            g.drawImage(icons.get("t"+(i+1)), (int)(getWidth()/1.15), (int)(getHeight()/27)+i*(int)(getHeight()/11.25), (int)(getWidth()/20.211), (int)(getHeight()/13.333), null);
+        }
+        g2.drawLine((int)(getWidth()/1.327), (int)(getHeight()/1.701), (int)(getWidth()/1.014), (int)(getHeight()/1.701));
+        g2.drawLine((int)(getWidth()/1.155), (int)(getHeight()/1.496), (int)(getWidth()/1.014), (int)(getHeight()/1.496));
+        g2.drawLine((int)(getWidth()/1.235), (int)(getHeight()/49.091), (int)(getWidth()/1.235), (int)(getHeight()/1.695));
+        g2.drawLine((int)(getWidth()/1.157), (int)(getHeight()/49.091), (int)(getWidth()/1.157), (int)(getHeight()/1.383));
+        g2.drawLine((int)(getWidth()/1.084), (int)(getHeight()/49.091), (int)(getWidth()/1.084), (int)(getHeight()/1.383));
+
+        g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.148), (int)(getHeight()/1.674), (int)(getWidth()/22.588), (int)(getHeight()/16.119), null);
+
+        g.setFont(new Font("50", 1, (int)(getHeight()/16.187)));
+        g.drawString("W", (int)(getWidth()/1.299), (int)(getHeight()/1.736));
+        g.drawString("H", (int)(getWidth()/1.138), (int)(getHeight()/1.736));
+        g.drawString("T", (int)(getWidth()/1.138), (int)(getHeight()/1.385));
+
+
+    }
+
     public void rotateImage(Graphics g, BufferedImage image, int x, int y, int width, int height, int degree)
     {
         Graphics2D g2d = (Graphics2D)g;

@@ -82,6 +82,16 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             icons.put("1", ImageIO.read(CascadiaPanel.class.getResource("/Images/gold.png")));
             icons.put("2", ImageIO.read(CascadiaPanel.class.getResource("/Images/silver.png")));
             icons.put("3", ImageIO.read(CascadiaPanel.class.getResource("/Images/bronze.png")));
+            icons.put("t1", ImageIO.read(CascadiaPanel.class.getResource("/Images/mountain.png")));
+            icons.put("t2", ImageIO.read(CascadiaPanel.class.getResource("/Images/forest.png")));
+            icons.put("t3", ImageIO.read(CascadiaPanel.class.getResource("/Images/prairie.png")));
+            icons.put("t4", ImageIO.read(CascadiaPanel.class.getResource("/Images/river.png")));
+            icons.put("t5", ImageIO.read(CascadiaPanel.class.getResource("/Images/wetland.png")));
+            //Mountain = 1
+            //Forest = 2
+            //Prairie = 3
+            //Wetland = 4
+            //River = 5
 
             //Elk = 1
             //Salmon = 2
@@ -182,7 +192,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         if(help.isVisible()){
             help.paint(g, icons, getWidth(), getHeight());
         }
-        else if(player.isVisible()) {
+        else if(player.isVisible() && gameState!=10) {
             player.paint(g, icons, scoringCards, tokenImages, game.getPlayers(), getWidth(), getHeight());
         }
         else {
@@ -281,8 +291,13 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     break;
                 }
                 case 10: {
-                    drawScoreBoard(g);
-                    drawLeaderboard(g);
+                    if(player.isVisible()) {
+                        player.paint(g, icons, scoringCards, tokenImages, game.getPlayers(), getWidth(), getHeight());
+                    }
+                    else {
+                        drawScoreBoard(g);
+                        drawLeaderboard(g);
+                    }
                     game.bonusesAndScores();
                     for(int i = 0; i < game.getPlayers().size(); i++)
                     {
@@ -908,6 +923,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 if (y >= (int) (getHeight() / 27) + i * (int) (getHeight() / 4.576) && y <= (int) (getHeight() / 27) + i * (int) (getHeight() / 4.576) + (int) (getHeight() / 18.305)) {
                     player.setPlayer(game.getPlayers().get(a), a==game.getPlayers().size() - 1);
                     player.setVisible(true);
+                    player.setEndGame(false);
                     repaint();
                 }
                 a++;
@@ -1186,7 +1202,14 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
                     }
                     else if(x>=(int)(getWidth()/1.06) && x<=(int)(getWidth()/1.06)+(int)(getWidth()/32.542)) {
-
+                        for(int i = 0; i<game.getPlayers().size(); i++) {
+                            if(y >= (int)(getHeight()/27)+i*(int)(getHeight()/4.576) && y<= (int)(getHeight()/27)+i*(int)(getHeight()/4.576)+(int)(getHeight()/18.305)) {
+                                player.setPlayer(game.getPlayers().get(i), i==game.getPlayers().size()-1);
+                                player.setEndGame(true);
+                                player.setVisible(true);
+                                repaint();
+                            }
+                        }
                     }
                 }
             }

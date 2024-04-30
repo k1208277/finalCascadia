@@ -142,7 +142,7 @@ public class Board
         ArrayList<Tile> notElk = new ArrayList<>();
         for(int i  = 0; i < allTiles.size(); i++)
         {
-            if (allTiles.get(i).getAnimal() == 1){
+            if (allTiles.get(i).getAnimal() != 1){
                 notElk.add(allTiles.get(i));
             }
         }
@@ -155,7 +155,7 @@ public class Board
 
             for(int j = 0; j <= 5; j++)
             {
-                if(temp.getAdjacent(j).getAnimal() != 1 || temp.getAdjacent(i).isChecked())
+                if(temp.getAdjacent(j)!= null && temp.getAdjacent(j).getAnimal() != 1 || temp.getAdjacent(i).isChecked())
                     hr = false;
             }
 

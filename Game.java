@@ -456,6 +456,11 @@ public class Game
                 tokenDeck.add(new Token(i));
             }
         }
+//sfiwegfeugfiewhfoihewoi[fhweq[ho[fgewhf[wehf
+//        for(int j = 0; j < 25; j++)
+//        {
+//            tokenDeck.add(new Token(1));
+//        }
     }
 
 //    public int getGameState()

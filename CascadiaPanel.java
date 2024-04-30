@@ -800,18 +800,29 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g2.drawLine((int)(getWidth() / 1.870), (int)(getHeight() / 1.722), (int)(getWidth() / 1.585), (int)(getHeight() / 2.160));
         g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 1.722), (int)(getWidth() / 1.400), (int)(getHeight() / 2.160));
 
-        //Player
+        //Animal scores
         int x = 0;
-        g.setFont(new Font("j", 1, (int)(getHeight()/22.5)));
+        g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
         for (int i = 0; i < game.getPlayers().size();i++)
         {
-
             g.setColor(colors.get(i));
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 6; j++)
             {
-                g.drawString(""+ game.getPlayers().get(i).getScore()[j], (int)(getWidth()/12.075) + x, (int)(getHeight()/6.136) + (int)(getHeight()/7.714));
+                g.drawString(""+ game.getPlayers().get(i).getScore()[j], (int)(getWidth()/12.075) + x, (int)(getHeight()/5.000) + j*(int)(getHeight()/7.714));
             }
-            x = (int)(getWidth()/20.000);
+            x += (int)(getWidth()/20.000);
+        }
+
+        //Habitat scores
+        int y = 0;
+        for (int i = 0; i < game.getPlayers().size();i++)
+        {
+            g.setColor(colors.get(i));
+            for (int j = 6; j < 16; j+=2)
+            {
+                g.drawString(""+ game.getPlayers().get(i).getScore()[j], (int)(getWidth()/2.594) + y, (int)(getHeight()/5) + j*(int)(getHeight()/7.714));
+            }
+            y += (int)(getWidth()/20.000);
         }
 
         game.getPlayers();

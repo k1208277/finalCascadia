@@ -751,14 +751,13 @@ public class Game
                 }
 
             }
-            Iterator<Integer> it = bonus.keySet().iterator();
-            while (it.hasNext()){
-                int x = it.next();
-                players.get(x).setScore(bonus.get(x));
-            }
 
         }
-
+        Iterator<Integer> it = bonus.keySet().iterator();
+        while (it.hasNext()){
+            int x = it.next();
+            players.get(x).setScore(bonus.get(x));
+        }
     }
 
     public TreeMap<Integer, ArrayList<Integer>> getRanking()

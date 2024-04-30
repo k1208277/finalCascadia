@@ -143,37 +143,7 @@ public class Board
             int score = 0;
             for (int i = 0; i < allElk.size(); i++){
                 Tile et = allElk.get(i);
-                if (!et.isChecked()){
-                    if (et.getAdjacent(1)!= null && et.getAdjacent(2)!= null && et.getAdjacent(3)!= null && et.getAdjacent(1).getAnimal() == 1&& et.getAdjacent(2).getAnimal() == 1 && et.getAdjacent(3).getAnimal() == 1){
-                        if (!et.getAdjacent(1).isChecked() &&!et.getAdjacent(2).isChecked() && !et.getAdjacent(3).isChecked()) {
-                            et.getAdjacent(1).setChecker(true);
-                            et.getAdjacent(2).setChecker(true);
-                            et.getAdjacent(3).setChecker(true);
-                            et.setChecker(true);
-                            score += 13;
-                        }
-                    }
-                    else if (et.getAdjacent(1)!= null && et.getAdjacent(2)!= null && et.getAdjacent(1).getAnimal() == 1&& et.getAdjacent(2).getAnimal() == 1){
-                        if (!et.getAdjacent(1).isChecked() &&!et.getAdjacent(2).isChecked()) {
-                            et.getAdjacent(1).setChecker(true);
-                            et.getAdjacent(2).setChecker(true);
-                            et.setChecker(true);
-                            score += 9;
-                        }
-                    }
-                    else if (et.getAdjacent(2)!= null && et.getAdjacent(2).getAnimal() == 1){
-                        if (!et.getAdjacent(2).isChecked()) {
-                            et.getAdjacent(2).setChecker(true);
-                            et.setChecker(true);
-                            score += 5;
-                        }
-                    }
-                    else{
-                        et.setChecker(true);
-                        score +=2;
-                    }
 
-                }
             }
             for(int i = 0; i < allElk.size(); i++){
                 allElk.get(i).setChecker(false);

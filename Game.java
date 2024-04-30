@@ -634,6 +634,7 @@ public class Game
         int num = 0;
         for(int i = 1; i < 6; i++)
         {
+            num = 0;
             if (animals.get(i) > 2)
                 num = animals.get(i);
 

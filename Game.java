@@ -631,12 +631,14 @@ public class Game
             animals.put(key, animals.get(key) + 1);
         }
 
-        int num = 0;
+        int retnum = 0;
         for(int i = 1; i < 6; i++)
         {
-            num = 0;
-            if (animals.get(i) > 2)
+            int num = 0;
+            if (animals.get(i) > 2) {
                 num = animals.get(i);
+                retnum = num;
+            }
 
             if(b)
             {
@@ -649,7 +651,7 @@ public class Game
             }
         }
 
-        return num;
+        return retnum;
     }
 
     public void waitForSeconds(double seconds)

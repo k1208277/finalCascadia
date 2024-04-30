@@ -631,27 +631,25 @@ public class Game
             animals.put(key, animals.get(key) + 1);
         }
 
-        int retnum = 0;
+        int num = 0;
         for(int i = 1; i < 6; i++)
         {
-            int num = 0;
             if (animals.get(i) > 2) {
                 num = animals.get(i);
-                retnum = num;
-            }
 
-            if(b)
-            {
-                for(int j = 0; j < availableTokens.length; j++)
+                if(b)
                 {
-                    if(availableTokens[j].getAnimal() == i)
-                        availableTokens[j] = null;
+                    for(int j = 0; j < availableTokens.length; j++)
+                    {
+                        if(availableTokens[j].getAnimal() == i)
+                            availableTokens[j] = null;
+                    }
+                    updateTileAndTokens();
                 }
-                updateTileAndTokens();
             }
         }
 
-        return retnum;
+        return num;
     }
 
     public void waitForSeconds(double seconds)

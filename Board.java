@@ -143,7 +143,68 @@ public class Board
             int score = 0;
             for (int i = 0; i < allElk.size(); i++){
                 Tile et = allElk.get(i);
+                Queue<Tile> q = new LinkedList<>();
+                ArrayList<Tile> formation = new ArrayList<>();
+                if (!et.isChecked()){
+                    q.add(et);
+                    et.setChecker(true);
+                }
+                while (!q.isEmpty()){
+                    Tile temp = q.poll();
+                    formation.add(temp);
+                    for(int j = 0; j<=5; j++){
+                        if(temp.getAdjacent(j) != null && !temp.getAdjacent(j).isChecked() && temp.getAdjacent(j).getAnimal() == 1){
+                            temp.getAdjacent(j).setChecker(true);
+                            q.add(temp.getAdjacent(j));
+                        }
+                    }
+                }
 
+                if (formation.size() == 4){
+                    boolean isValid = true;
+                    for (int j = 0; j < formation.size(); j++){
+                        int adjElk = 0;
+                        Tile temp = formation.get(j);
+                        for (int k = 0; k <= 5; k++){
+                            if (temp.getAdjacent(k) != null && temp.getAdjacent(k).getAnimal() == 1){
+                                adjElk++;
+                            }
+                        }
+                        if (adjElk != 2 && adjElk != 3){
+                            isValid = false;
+                        }
+                    }
+                    if (isValid){
+                        score+=13;
+                    }
+                }
+                else if (formation.size() == 3){
+                    boolean isValid = true;
+                    for (int j = 0; j < formation.size(); j++){
+                        int adjElk = 0;
+                        Tile temp = formation.get(j);
+                        for (int k = 0; k <= 5; k++){
+                            if (temp.getAdjacent(k) != null && temp.getAdjacent(k).getAnimal() == 1){
+                                adjElk++;
+                            }
+                        }
+                        if (adjElk != 2){
+                            isValid = false;
+                        }
+                    }
+                    if (isValid){
+                        score+=9;
+                    }
+                }
+                else if (formation.size() == 2){
+                    score += 5;
+                }
+                else if (formation.size() == 1){
+                    score += 2;
+                }
+                else{
+                    score += 0;
+                }
             }
             for(int i = 0; i < allElk.size(); i++){
                 allElk.get(i).setChecker(false);
@@ -206,6 +267,9 @@ public class Board
                     default: {score += 25; break;}
 
                 }
+            }
+            else {
+                score += 0;
             }
         }
 

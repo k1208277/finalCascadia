@@ -189,12 +189,14 @@ public class Board
                 }
                 if (adjSalmon > 2){
                     validRun = false;
+                    run = new ArrayList<>();
                 }
             }
 
 
             if (validRun) {
                 switch(run.size()){
+                    case 0: {score += 0; break;}
                     case 1: {score += 2; break;}
                     case 2: {score += 5; break;}
                     case 3: {score += 8; break;}

@@ -112,7 +112,7 @@ public class Board
                 group.add(ht);
                 ht.setChecker(true);
                 for (int j = 0; j <= 5; j++){
-                    Tile t = ht.getAdjacent(i);
+                    Tile t = ht.getAdjacent(j);
                     if (t != null) {
                         int otherBiome = j + 3;
                         if (otherBiome > 5) {

@@ -86,7 +86,8 @@ public class Board
     public int getHabitatScore(int h) {
         ArrayList<Tile> allTiles = traverse();
         ArrayList<Tile> habitatTiles = new ArrayList<Tile>();
-        ArrayList<Tile> end = new ArrayList<>();
+        //ArrayList<Tile> end = new ArrayList<>();
+
         for (int i = 0; i < allTiles.size(); i++) {
             Tile temp = allTiles.get(i);
             a:
@@ -108,7 +109,7 @@ public class Board
             }
             while (!q.isEmpty()){
                 Tile ht = q.poll();
-                end.add(ht);
+                //end.add(ht);
                 group.add(ht);
                 ht.setChecker(true);
                 for (int j = 0; j <= 5; j++){
@@ -127,8 +128,8 @@ public class Board
             max = Math.max(max, group.size());
         }
 
-        for(int i = 0; i < end.size(); i++){
-            end.get(i).setChecker(false);
+        for(int i = 0; i < habitatTiles.size(); i++){
+            habitatTiles.get(i).setChecker(false);
         }
 
         return max;

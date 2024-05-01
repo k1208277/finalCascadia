@@ -159,7 +159,7 @@ public class Board
 
             for(int j = 0; j <= 5; j++)
             {
-                if(temp.getAdjacent(j)!= null && temp.getAdjacent(j).getAnimal() != 1 || temp.getAdjacent(i).isChecked())
+                if(temp.getAdjacent(j)!= null && (temp.getAdjacent(j).getAnimal() != 1 || temp.getAdjacent(j).isChecked()))
                     hr = false;
             }
 

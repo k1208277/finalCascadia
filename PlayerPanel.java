@@ -88,7 +88,7 @@ public class PlayerPanel extends JPanel
         g.drawString("x "+player.getPineCones(), (int)(getWidth()/1.526), (int)(getHeight()/1.108));
 
         if(endGame) {
-            drawEndScores(g, icons, tokenImages);
+            drawEndScores(g, icons, tokenImages, players, colors);
         }
         else {
             int e = 0;
@@ -124,7 +124,15 @@ public class PlayerPanel extends JPanel
             }
         }
     }
-    public void drawEndScores(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> tokenImages) {
+    public void drawEndScores(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players, ArrayList<Color> colors) {
+        for(int i = 0; i<players.size(); i++) {
+            if(player.equals(players.get(i))) {
+                //System.out.println(e+" = player");
+                g.setFont(new Font("he", 1, (int)(getHeight()/21.0432)));
+                g.setColor(colors.get(i));
+                g.drawString("Player "+(i+1)+"'s Board", (int)(getWidth()/3.052), (int)(getHeight()/13.333));
+            }
+        }
         g.setColor(Color.white);
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke((int)(getHeight()/270)));

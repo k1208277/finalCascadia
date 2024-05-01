@@ -721,7 +721,7 @@ public class Game
                             bonus.get(i).add(0);
                         }
                     }
-                    playerScores.set(playerScores.getFirst(), -1);
+                    playerScores.set(temp.getFirst(), -1);
                     maxScore = 0; //start to calculate second largest
                     for (int i = 0; i < playerScores.size(); i++) {
                         maxScore = Math.max(maxScore, playerScores.get(i));

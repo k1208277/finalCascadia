@@ -139,57 +139,115 @@ public class Board
     public int elkScore()
     { //Scoring #2 - formations
         ArrayList<Tile> allTiles = traverse();
-        ArrayList<Tile> notElk = new ArrayList<>();
-        ArrayList<Tile> elkTiles = new ArrayList<>();
-        for(int i  = 0; i < allTiles.size(); i++)
-        {
-            if (allTiles.get(i).getAnimal() != 1){
-                notElk.add(allTiles.get(i));
-            }
-            else{
-                elkTiles.add(allTiles.get(i));
+        ArrayList<Tile> allElk = new ArrayList<>();
+        for (int i = 0; i < allTiles.size(); i++){
+            if (allTiles.get(i).getAnimal() == 1){
+                allElk.add(allTiles.get(i));
             }
         }
-
-        ArrayList<Tile> hasRing = new ArrayList<>();
-        for(int i  = 0; i < notElk.size(); i++)
-        {
-            Tile temp = notElk.get(i);
-            boolean hr = true;
-
-            for(int j = 0; j <= 5; j++)
-            {
-                if(temp.getAdjacent(j)!= null && (temp.getAdjacent(j).getAnimal() != 1 || temp.getAdjacent(j).isChecked()))
-                    hr = false;
+        int score= 0;
+        for (int i = 0; i < allElk.size(); i++){
+            Tile st = allElk.get(i);
+            Queue<Tile> q = new LinkedList<>();
+            ArrayList<Tile> run = new ArrayList<>();
+            if (!st.isChecked()){
+                q.add(st);
+                st.setChecker(true);
             }
-
-            if(hr)
-            {
-                for(int j = 0; j <= 5; j++)
-                {
-                    temp.getAdjacent(j).setChecker(true);
+            while (!q.isEmpty()){
+                Tile temp = q.poll();
+                run.add(temp);
+                for (int j = 0; j <= 5; j++){
+                    if (temp.getAdjacent(j) != null && !temp.getAdjacent(j).isChecked() && temp.getAdjacent(j).getAnimal() == 2){
+                        temp.getAdjacent(j).setChecker(true);
+                        q.add(temp.getAdjacent(j));
+                    }
                 }
-                hasRing.add(temp);
+            }
+
+
+            switch(run.size()){
+                case 0: {score += 0; break;}
+                case 1: {score += 2; break;}
+                case 2: {score += 4; break;}
+                case 3: {score += 7; break;}
+                case 4: {score += 10; break;}
+                case 5: {score += 14; break;}
+                case 6: {score += 18; break;}
+                case 7: {score += 23; break;}
+                default: {score += 28; break;}
+
             }
         }
 
-        int score = 0;
-        switch(hasRing.size()){
-            case 0: {score += 0; break;}
-            case 1: {score += 2; break;}
-            case 2: {score += 5; break;}
-            case 3: {score += 8; break;}
-            case 4: {score += 12; break;}
-            case 5: {score += 16; break;}
-            case 6: {score += 21; break;}
-            default: {score += 0; break;}
-
-        }
-
-        for(int i = 0; i < elkTiles.size(); i++){
-            elkTiles.get(i).setChecker(false);
+        for(int i = 0; i < allElk.size(); i++){
+            allElk.get(i).setChecker(false);
         }
         return score;
+
+
+
+
+
+
+
+//        ArrayList<Tile> allTiles = traverse();
+//        ArrayList<Tile> notElk = new ArrayList<>();
+//        ArrayList<Tile> elkTiles = new ArrayList<>();
+//        for(int i  = 0; i < allTiles.size(); i++)
+//        {
+//            if (allTiles.get(i).getAnimal() != 1){
+//                notElk.add(allTiles.get(i));
+//            }
+//            else{
+//                elkTiles.add(allTiles.get(i));
+//            }
+//        }
+//
+//        for(int i = 0; i < notElk.size(); i++)
+//        {
+//
+//        }
+//
+////        ArrayList<Tile> hasRing = new ArrayList<>();
+////        for(int i  = 0; i < notElk.size(); i++)
+////        {
+////            Tile temp = notElk.get(i);
+////            boolean hr = true;
+////
+////            for(int j = 0; j <= 5; j++)
+////            {
+////                if(temp.getAdjacent(j)!= null && (temp.getAdjacent(j).getAnimal() != 1 || temp.getAdjacent(j).isChecked()))
+////                    hr = false;
+////            }
+////
+////            if(hr)
+////            {
+////                for(int j = 0; j <= 5; j++)
+////                {
+////                    temp.getAdjacent(j).setChecker(true);
+////                }
+////                hasRing.add(temp);
+////            }
+////        }
+//
+////        int score = 0;
+////        switch(hasRing.size()){
+////            case 0: {score += 0; break;}
+////            case 1: {score += 2; break;}
+////            case 2: {score += 5; break;}
+////            case 3: {score += 8; break;}
+////            case 4: {score += 12; break;}
+////            case 5: {score += 16; break;}
+////            case 6: {score += 21; break;}
+////            default: {score += 0; break;}
+////
+////        }
+//
+//        for(int i = 0; i < elkTiles.size(); i++){
+//            elkTiles.get(i).setChecker(false);
+//        }
+//        return score;
 
 
 

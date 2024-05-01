@@ -158,7 +158,7 @@ public class Board
                 Tile temp = q.poll();
                 run.add(temp);
                 for (int j = 0; j <= 5; j++){
-                    if (temp.getAdjacent(j) != null && !temp.getAdjacent(j).isChecked() && temp.getAdjacent(j).getAnimal() == 2){
+                    if (temp.getAdjacent(j) != null && !temp.getAdjacent(j).isChecked() && temp.getAdjacent(j).getAnimal() == 1){
                         temp.getAdjacent(j).setChecker(true);
                         q.add(temp.getAdjacent(j));
                     }

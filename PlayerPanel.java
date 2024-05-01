@@ -30,14 +30,14 @@ public class PlayerPanel extends JPanel
         player.getBoard().updateTileCoords((int)(getWidth()/2.46)+shiftX*(int)(getWidth()/13.714), (int)(getHeight()/4.5)+shiftY*(int)(getHeight()/6.545), getWidth(), getHeight());
         //System.out.println(game.getCurrentPlayer().getBoard().traverse());
         g.setColor(new Color(0, 0, 0, 153));
-        g.fillRect((int)(getWidth()/6.784), (int)(getHeight()/8.571), (int)(getWidth()/1.69), (int)(getHeight()/1.636));
+        g.fillRect((int) (getWidth() / 6.784), (int) (getHeight() / 8.571), (int) (getWidth() / 1.69), (int) (getHeight() / 1.636));
         ArrayList<Tile> temp = player.getBoard().traverse();
         player.getBoard().setBoardWidthandHeight(getWidth(), getHeight());
-        for(int i = 0; i<temp.size(); i++) {
-            if(temp.get(i).getImage() != null) {
+        for (int i = 0; i < temp.size(); i++) {
+            if (temp.get(i).getImage() != null) {
                 rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * temp.get(i).getOrientation());
-                if(temp.get(i).hasAnimal()) {
-                    g.drawImage(tokenImages.get(temp.get(i).getAnimal()), temp.get(i).getXCoord()+(int)(getWidth()/106.667), temp.get(i).getYCoord()+(int)(getHeight()/37.241), (int)(getWidth()/18.462), (int)(getHeight()/10.385), null);
+                if (temp.get(i).hasAnimal()) {
+                    g.drawImage(tokenImages.get(temp.get(i).getAnimal()), temp.get(i).getXCoord() + (int) (getWidth() / 106.667), temp.get(i).getYCoord() + (int) (getHeight() / 37.241), (int) (getWidth() / 18.462), (int) (getHeight() / 10.385), null);
                 }
             }
         }
@@ -57,7 +57,8 @@ public class PlayerPanel extends JPanel
         yp = new int[]{(int)(getHeight()/1.212), (int)(getHeight()/1.26), (int)(getHeight()/1.26)+(int)(getHeight()/14.4)};
         g.fillPolygon(xp, yp, 3);
     }
-    public void drawOthers(Graphics g,  HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players) {
+
+    public void drawOthers(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players) {
         ArrayList<Color> colors = new ArrayList<Color>();
         colors.add(new Color(255, 243, 188));
         colors.add(new Color(154, 225, 228));
@@ -157,6 +158,19 @@ public class PlayerPanel extends JPanel
         g.drawString("T", (int)(getWidth()/1.138), (int)(getHeight()/1.385));
 
         //animal scoring
+        for(int i = 0; i<players.size(); i++) {
+            if(player.equals(players.get(i))) {
+                //System.out.println(e+" = player");
+                g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
+                g.setColor(colors.get(i));
+            }
+        }
+        for (int j = 0; j < 6; j++)
+        {
+            g.drawString(""+ player.getScore()[j], (int)(getWidth()/1.217), (int)(getHeight()/18) + j*(int)(getHeight()/10.286));
+        }
+
+
 
         //habitat scoring
 

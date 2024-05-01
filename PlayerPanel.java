@@ -140,8 +140,8 @@ public class PlayerPanel extends JPanel
         for(int i = 0; i<5; i++) {
             g2.drawLine((int)(getWidth()/1.327), (int)(getHeight()/8.372)+i*(int)(getHeight()/10.693), (int)(getWidth()/1.014), (int)(getHeight()/8.372)+i*(int)(getHeight()/10.693));
             g2.drawLine((int)(getWidth()/1.068), (int)(getHeight()/9.818)+i*(int)(getHeight()/10.693), (int)(getWidth()/1.031), (int)(getHeight()/27)+i*(int)(getHeight()/10.693));
-            g.drawImage(tokenImages.get(i+1), (int)(getWidth()/1.31), (int)(getHeight()/27)+i*(int)(getHeight()/11.25), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
-            g.drawImage(icons.get("t"+(i+1)), (int)(getWidth()/1.15), (int)(getHeight()/27)+i*(int)(getHeight()/11.25), (int)(getWidth()/20.211), (int)(getHeight()/13.333), null);
+            g.drawImage(tokenImages.get(i+1), (int)(getWidth()/1.31), (int)(getHeight()/27)+i*(int)(getHeight()/10.8), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
+            g.drawImage(icons.get("t"+(i+1)), (int)(getWidth()/1.15), (int)(getHeight()/27)+i*(int)(getHeight()/10.8), (int)(getWidth()/20.211), (int)(getHeight()/13.333), null);
         }
         g2.drawLine((int)(getWidth()/1.327), (int)(getHeight()/1.701), (int)(getWidth()/1.014), (int)(getHeight()/1.701));
         g2.drawLine((int)(getWidth()/1.155), (int)(getHeight()/1.496), (int)(getWidth()/1.014), (int)(getHeight()/1.496));

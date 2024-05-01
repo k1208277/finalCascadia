@@ -85,8 +85,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             icons.put("t1", ImageIO.read(CascadiaPanel.class.getResource("/Images/mountain.png")));
             icons.put("t2", ImageIO.read(CascadiaPanel.class.getResource("/Images/forest.png")));
             icons.put("t3", ImageIO.read(CascadiaPanel.class.getResource("/Images/prairie.png")));
-            icons.put("t4", ImageIO.read(CascadiaPanel.class.getResource("/Images/river.png")));
-            icons.put("t5", ImageIO.read(CascadiaPanel.class.getResource("/Images/wetland.png")));
+            icons.put("t4", ImageIO.read(CascadiaPanel.class.getResource("/Images/wetland.png")));
+            icons.put("t5", ImageIO.read(CascadiaPanel.class.getResource("/Images/river.png")));
             //Mountain = 1
             //Forest = 2
             //Prairie = 3
@@ -822,8 +822,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 1.722), (int)(getWidth() / 1.400), (int)(getHeight() / 2.160));
         //icons
         for(int i = 0; i<5; i++) {
-            g.drawImage(tokenImages.get(i+1), (int)(getWidth()/41.739), (int)(getHeight()/6.75)+i*(int)(getHeight()/8.71), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
-            g.drawImage(icons.get("t"+(i+1)), (int)(getWidth()/3.232), (int)(getHeight()/23.478)+i*(int)(getHeight()/9.558), (int)(getWidth()/20.211), (int)(getHeight()/13.333), null);
+            g.drawImage(tokenImages.get(i+1), (int)(getWidth()/41.739), (int)(getHeight()/6.75)+i*(int)(getHeight()/8.2), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
+            g.drawImage(icons.get("t"+(i+1)), (int)(getWidth()/3.232), (int)(getHeight()/23.478)+i*(int)(getHeight()/9.1), (int)(getWidth()/20.211), (int)(getHeight()/13.333), null);
         }
         //Animal scores
         int x = 0;

@@ -148,6 +148,10 @@ public class PlayerPanel extends JPanel
         g.drawString("H", (int)(getWidth()/1.138), (int)(getHeight()/1.736));
         g.drawString("T", (int)(getWidth()/1.138), (int)(getHeight()/1.385));
 
+        //animal scoring
+
+        //habitat scoring
+
 
     }
 

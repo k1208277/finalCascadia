@@ -103,7 +103,7 @@ public class Board
 
         for (int i = 0; i < habitatTiles.size(); i++) {
             Tile temp = habitatTiles.get(i);
-            ArrayList<Tile> group = new ArrayList<>();
+            HashSet<Tile> group = new HashSet<>();
             Queue<Tile> q = new LinkedList<>();
             if (!temp.isChecked()){
                 q.add(temp);
@@ -127,6 +127,7 @@ public class Board
                 }
             }
             max = Math.max(max, group.size());
+            System.out.println(group);
         }
 
         for(int i = 0; i < habitatTiles.size(); i++){

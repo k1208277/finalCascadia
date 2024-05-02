@@ -416,7 +416,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             if(gameState==5) {
                 g.drawString("Throw away", (int)(getWidth()/1.67), (int)(getHeight()/1.254));
             }
-            else if (turn == game.getPlayers().size() * 2) {
+            else if (turn == game.getPlayers().size() * 1) {
                 g.drawString("End game", (int)(getWidth()/1.654), (int)(getHeight()/1.254));
             }
             else {
@@ -924,7 +924,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     {
         int x = e.getX();
         int y = e.getY();
-        System.out.println(x +" " +y);
+//        System.out.println(x +" " +y);
 
 
         if(getGameState()!=0 && getGameState() !=1 && !player.isVisible()) {
@@ -1069,10 +1069,11 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 //                            System.out.println("Tile chosen's x and y: ("+ getChosenTile().getXCoord() +", "+ getChosenTile().getYCoord() +")");
 
                                 game.getCurrentPlayer().getBoard().addTile(getChosenTile(), temp, nullSidesOfTile.get(j));
-                                for(Tile t: game.getCurrentPlayer().getBoard().traverse()){
-                                    System.out.println(t.getAdjacentTiles());
-                                }
+//                                for(Tile t: game.getCurrentPlayer().getBoard().traverse()){
+//                                    System.out.println(t.getAdjacentTiles());
+//                                }
                                 tilePlaced = true;
+                                System.out.println("Starting tile's habitats = "+ getChosenTile().getAllHabitats());
                                 game.getAvailableTiles()[tileChosenNum] = null;
                                 setGameState(4);
                                 repaint();

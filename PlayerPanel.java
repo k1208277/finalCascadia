@@ -165,9 +165,18 @@ public class PlayerPanel extends JPanel
                 g.setColor(colors.get(i));
             }
         }
+        //animals
         for (int j = 0; j < 6; j++)
         {
-            g.drawString(""+ player.getScore()[j], (int)(getWidth()/1.217), (int)(getHeight()/18) + j*(int)(getHeight()/10.286));
+            g.drawString(""+ player.getScore()[j], (int)(getWidth()/1.217), (int)(getHeight()/15) + j*(int)(getHeight()/10.286));
+        }
+        //habitats
+        int count = 0;
+        g.setFont(new Font("j", 1, (int)(getHeight()/22)));
+        for (int j = 6; j < 16; j += 2)
+        {
+            g.drawString("" + player.getScore()[j], (int) (getWidth() / 1.079), (int) (getHeight() / 16) + count * (int) (getHeight() / 10.5));
+            count++;
         }
 
 

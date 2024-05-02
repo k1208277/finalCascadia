@@ -492,7 +492,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 //        game.getCurrentPlayer().getBoard().setCoordinates();
         for(int i = 0; i<temp.size(); i++) {
             if(temp.get(i).getImage() != null) {
-                rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * temp.get(i).getOrientation());
+                rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * (6-temp.get(i).getOrientation()));
                 if(temp.get(i).hasAnimal()) {
                     g.drawImage(tokenImages.get(temp.get(i).getAnimal()), temp.get(i).getXCoord()+(int)(getWidth()/106.667), temp.get(i).getYCoord()+(int)(getHeight()/37.241), (int)(getWidth()/18.462), (int)(getHeight()/10.385), null);
                 }

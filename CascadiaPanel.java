@@ -17,6 +17,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked, throwAwayClicked;
     private boolean nextPlayerClicked;
     private boolean tilePlaced, tokenPlaced;
+    private boolean overpop3AlrUsed;
     private ArrayList<Color> colors;
     private int tileChosenNum; // only for choosing tile to place to pass to player board to addTile()
     private Tile tileTokenPlacement; //only for mouseclicker when player has clicked on it to add a token to it
@@ -56,6 +57,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         okClicked = false;
         throwAwayClicked = false;
         nextPlayerClicked = false;
+        overpop3AlrUsed = false;
 
         tileChosenNum = -1;
         tokenChosenNum = -1;
@@ -128,6 +130,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         okClicked = false;
         throwAwayClicked = false;
         nextPlayerClicked = false;
+        overpop3AlrUsed = false;
 
         tileChosenNum = -1;
         tokenChosenNum = -1;
@@ -404,7 +407,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 g.drawString("Use pinecones", (int) (getWidth() / 2.261), (int) (getHeight() / 1.186));
             }
             //3 of the same pinecones
-            if (game.checkOverpopulation(false) == 3) {
+            if (!overpop3AlrUsed && game.checkOverpopulation(false) == 3) {
                 g2.drawRect((int) (getWidth() / 2.333), (int) (getHeight() / 1.121), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652));
                 g.drawString("Clear tokens", (int) (getWidth() / 2.22), (int) (getHeight() / 1.069));
             }
@@ -1019,7 +1022,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
                     //clear tokens button clicked              IDK ABOUT THIS NOT SURE
                     //(int) (getWidth() / 2.333), (int) (getHeight() / 1.121), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652)
-                    else if (game.checkOverpopulation(false) == 3 && x >= (int) (getWidth() / 2.333) && x <= (int) (getWidth() / 2.333) + (int) (getWidth() / 6.784) && y >= (int) (getHeight() / 1.121) && y <= (int) (getHeight() / 1.121) + (int) (getHeight() / 15.652)) //coordinates for clear token button
+                    else if (!overpop3AlrUsed && game.checkOverpopulation(false) == 3 && x >= (int) (getWidth() / 2.333) && x <= (int) (getWidth() / 2.333) + (int) (getWidth() / 6.784) && y >= (int) (getHeight() / 1.121) && y <= (int) (getHeight() / 1.121) + (int) (getHeight() / 15.652)) //coordinates for clear token button
                     {
                         System.out.println("Before");
                         for (int i = 0; i < 4; i++)
@@ -1028,6 +1031,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         System.out.println("After");
                         for (int i = 0; i < 4; i++)
                             System.out.print(game.getAvailableTiles()[i] + " ");
+                        overpop3AlrUsed = true;
+                        System.out.print("tokens 3 clearewd");
                         repaint();
                     }
 

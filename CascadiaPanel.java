@@ -825,9 +825,21 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 1.722), (int)(getWidth() / 1.400), (int)(getHeight() / 2.160));
         //icons
         for(int i = 0; i<5; i++) {
-            g.drawImage(tokenImages.get(i+1), (int)(getWidth()/41.739), (int)(getHeight()/6.75)+i*(int)(getHeight()/8.2), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
+            g.drawImage(tokenImages.get(i+1), (int)(getWidth()/41.739), (int)(getHeight()/6.75)+i*(int)(getHeight()/7.8), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
             g.drawImage(icons.get("t"+(i+1)), (int)(getWidth()/3.232), (int)(getHeight()/23.478)+i*(int)(getHeight()/9.1), (int)(getWidth()/20.211), (int)(getHeight()/13.333), null);
         }
+        g.drawImage(icons.get("person"), (int)(getWidth() / 32.266), (int)(getHeight() / 18), (int)(getWidth() / 28.657), (int)(getHeight() / 14.4), null);
+        g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
+        for(int i = 0; i<game.getPlayers().size(); i++) {
+            g.setColor(colors.get(i));
+            g.drawString(i+1+"", (int)(getWidth() / 11.636)+i*(int)(getWidth()/20.645), (int)(getHeight() / 9.31));
+        }
+        g.setColor(Color.white);
+        g.drawString("W",(int)(getWidth() / 32.542), (int)(getHeight() / 1.138));
+        g.drawString("H",(int)(getWidth() / 3.102), (int)(getHeight() / 1.506));
+        g.drawString("T",(int)(getWidth() / 3.102), (int)(getHeight() / 1.098));
+        g.drawImage(icons.get("pinecone"), (int)(getWidth() / 3.232), (int)(getHeight() / 1.355), (int)(getWidth() / 22.857), (int)(getHeight() / 15.882), null);
+
         //Animal scores
         int x = 0;
         g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
@@ -910,9 +922,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
             g.setColor(Color.white);
             g.drawString("x "+game.getPlayers().get(i).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
-            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(i).getBoard().getStartTile().getOrientation());
-            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getOrientation());
-            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getOrientation());
+            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getOrientation()));
+            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getOrientation()));
+            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getOrientation()));
         }
 
         //main menu button

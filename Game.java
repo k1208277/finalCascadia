@@ -429,7 +429,7 @@ public class Game
             img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "4b.png"));
             starterTiles.get(4).add(new Tile(2, 4, 3, 1, 4, -999, -999, false, img));
             img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "4c.png"));
-            starterTiles.get(4).add(new Tile(2, 5, 2, 5, 0, -999, -999, false, img));
+            starterTiles.get(4).add(new Tile(3, 5, 2, 5, 0, -999, -999, false, img));
             starterTiles.get(4).get(1).rotateRight();
             starterTiles.get(4).get(2).rotateLeft();
 
@@ -437,7 +437,7 @@ public class Game
             img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "5a.png"));
             starterTiles.get(5).add(new Tile(5, 5, 2, 0, 0, -999, -999, true, img));
             img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "5b.png"));
-            starterTiles.get(5).add(new Tile(3, 3, 2, 1, 5, -999, -999, false, img));
+            starterTiles.get(5).add(new Tile(3, 2, 2, 1, 5, -999, -999, false, img));
             img = ImageIO.read(Game.class.getResource("/StarterTiles/" + "5c.png"));
             starterTiles.get(5).add(new Tile(4, 1, 3, 4, 0, -999, -999, false, img));
             starterTiles.get(5).get(1).rotateRight();

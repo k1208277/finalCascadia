@@ -62,13 +62,13 @@ public class Tile
     }
     public void rotateLeft()
     {
-        orientation = (orientation+5)%6;
-        habitats.add(habitats.remove(5));
+        orientation = (orientation+1)%6;
+        habitats.add(habitats.remove(0));
     }
     public void rotateRight()
     {
-        orientation = (orientation+1)%6;
-        habitats.add(habitats.remove(0));
+        orientation = (orientation+5)%6;
+        habitats.add(0,habitats.remove(5));
     }
     public int getOrientation()
     {

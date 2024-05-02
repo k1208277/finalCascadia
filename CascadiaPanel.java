@@ -823,6 +823,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         g2.drawLine((int)(getWidth() / 2.243), (int)(getHeight() / 1.722), (int)(getWidth() / 1.870), (int)(getHeight() / 2.160));
         g2.drawLine((int)(getWidth() / 1.870), (int)(getHeight() / 1.722), (int)(getWidth() / 1.585), (int)(getHeight() / 2.160));
         g2.drawLine((int)(getWidth() / 1.585), (int)(getHeight() / 1.722), (int)(getWidth() / 1.400), (int)(getHeight() / 2.160));
+
         //icons
         for(int i = 0; i<5; i++) {
             g.drawImage(tokenImages.get(i+1), (int)(getWidth()/41.739), (int)(getHeight()/6.75)+i*(int)(getHeight()/7.8), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
@@ -853,9 +854,10 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             x += (int)(getWidth()/20.000);
         }
 
+
+        //Habitat scores
         int x2 = 0;
         int count = 0;
-        //Habitat scores
         if (game.getPlayers().size() >= 1) {
             g.setColor(colors.get(0));
 
@@ -899,8 +901,70 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             }
         }
 
+        //total animals
 
+
+
+        //bonues
+        g.setFont(new Font("j", Font.PLAIN, (int)(getHeight()/18.500)));
+        g.setColor(Color.white);
+        x2 = 0;
+        count = 0;
+        //Habitat scores
+        if (game.getPlayers().size() >= 1) {
+            g.setColor(Color.white);
+
+            for (int j = 7; j < 17; j += 2)//game.getPlayers().get(0).getScore()[j],
+            {
+                g.drawString("" + game.getPlayers().get(0).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
+                count++;
+            }
+        }
+
+        if (game.getPlayers().size() >= 2) {
+            x2 += (int) (getWidth() / 11.5);
+            g.setColor(Color.white);
+            count = 0;
+            for (int j = 7; j < 17; j += 2)//game.getPlayers().get(0).getScore()[j],
+            {
+                g.drawString("" + game.getPlayers().get(0).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
+                count++;
+            }
+        }
+
+        if (game.getPlayers().size() >= 3) {
+            x2 += (int) (getWidth() / 11.1);
+            g.setColor(Color.white);
+            count = 0;
+            for (int j = 7; j < 17; j += 2)//game.getPlayers().get(0).getScore()[j],
+            {
+                g.drawString("" + game.getPlayers().get(0).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
+                count++;
+            }
+        }
+
+        if (game.getPlayers().size() == 4) {
+            x2 += (int) (getWidth() / 11);
+            g.setColor(Color.white);
+            count = 0;
+            for (int j = 7; j < 17; j += 2)//game.getPlayers().get(0).getScore()[j],
+            {
+                g.drawString("" + game.getPlayers().get(0).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
+                count++;
+            }
+        }
+
+        //total habitats
+        x = 0;
+        g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
+        for (int i = 0; i < game.getPlayers().size();i++)
+        {
+            g.setColor(colors.get(i));
+            g.drawString("" + 20, (int) (getWidth() / 2.591) + x2, (int) (getHeight() / 1.602));
+            x += (int)(getWidth()/5.838);
+        }
         game.getPlayers();
+
 
 
 

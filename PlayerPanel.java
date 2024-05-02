@@ -35,7 +35,7 @@ public class PlayerPanel extends JPanel
         player.getBoard().setBoardWidthandHeight(getWidth(), getHeight());
         for (int i = 0; i < temp.size(); i++) {
             if (temp.get(i).getImage() != null) {
-                rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * temp.get(i).getOrientation());
+                rotateImage(g, temp.get(i).getImage(), temp.get(i).getXCoord(), temp.get(i).getYCoord(), (int) (getWidth() / 13.714), (int) (getHeight() / 6.545), 60 * (6-temp.get(i).getOrientation()));
                 if (temp.get(i).hasAnimal()) {
                     g.drawImage(tokenImages.get(temp.get(i).getAnimal()), temp.get(i).getXCoord() + (int) (getWidth() / 106.667), temp.get(i).getYCoord() + (int) (getHeight() / 37.241), (int) (getWidth() / 18.462), (int) (getHeight() / 10.385), null);
                 }
@@ -111,9 +111,9 @@ public class PlayerPanel extends JPanel
                 g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
                 g.setColor(Color.white);
                 g.drawString("x "+players.get(e).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
-                rotateImage(g, players.get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*players.get(e).getBoard().getStartTile().getOrientation());
-                rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*players.get(e).getBoard().getStartTile().getAdjacent(3).getOrientation());
-                rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*players.get(e).getBoard().getStartTile().getAdjacent(4).getOrientation());
+                rotateImage(g, players.get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-players.get(e).getBoard().getStartTile().getOrientation()));
+                rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-players.get(e).getBoard().getStartTile().getAdjacent(3).getOrientation()));
+                rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-players.get(e).getBoard().getStartTile().getAdjacent(4).getOrientation()));
 
                 e++;
 

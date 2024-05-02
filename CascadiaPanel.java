@@ -539,9 +539,9 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
             g.setColor(Color.white);
             g.drawString("x "+game.getPlayers().get(e).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
-            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(e).getBoard().getStartTile().getOrientation());
-            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getOrientation());
-            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getOrientation());
+            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(e).getBoard().getStartTile().getOrientation()));
+            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getOrientation()));
+            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getOrientation()));
 
             e++;
 

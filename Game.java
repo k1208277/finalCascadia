@@ -453,7 +453,7 @@ public class Game
         //tokens
         for(int i = 1; i <= 5; i++)
         {
-            for(int j = 0; j < 25; j++)
+            for(int j = 0; j < 20; j++)
             {
                 tokenDeck.add(new Token(i));
             }
@@ -771,7 +771,7 @@ public class Game
     {
 
         TreeMap<Integer, ArrayList<Integer>> ranks = new TreeMap<>();
-        for(int i = 0; i < players.size(); i++)
+        for(int i = 1; i <= 3; i++)
         {
             ranks.put(i, new ArrayList<Integer>());
         }

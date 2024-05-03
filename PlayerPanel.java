@@ -184,6 +184,14 @@ public class PlayerPanel extends JPanel
         g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
         g.drawString(""+player.getScore()[16], (int) (getWidth() / 1.07), (int) (getHeight() / 1.748));
 
+        //pinecones
+        g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
+        g.drawString(""+player.getScore()[17], (int) (getWidth() / 1.07), (int) (getHeight() / 1.543));
+
+        // final score
+        g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
+        g.drawString(""+player.getScore()[18], (int) (getWidth() / 1.07), (int) (getHeight() / 1.394));
+
         //habitat bonus
         count = 0;
         g.setFont(new Font("j", Font.PLAIN, (int)(getHeight()/18.500)));

@@ -374,7 +374,7 @@ public class Game
             {
                 if(Integer.parseInt(a[5]) < 21)
                 {
-                    img = ImageIO.read(Game.class.getResource("/KeyStonetiles/" + a[5] + ".png"));
+                    img = ImageIO.read(Game.class.getResource("/KeyStoneTiles/" + a[5] + ".png"));
                     tileDeck.add(new Tile(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), -999, -999, true, img));
                 }
                 else
@@ -385,7 +385,7 @@ public class Game
             }
             catch(Exception E)
             {
-                System.out.print("Error in tile image number");
+//                System.out.print("Error in tile image number");
                 System.out.println("Error in tile image number "+ a[5]);
             }
             getLeaderBoard();
@@ -864,5 +864,4 @@ public class Game
         }
         return ranks;
     }
-
 }

@@ -927,7 +927,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             count = 0;
             for (int j = 7; j < 17; j += 2)//game.getPlayers().get(0).getScore()[j],
             {
-                g.drawString("" + game.getPlayers().get(0).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
+                g.drawString("" + game.getPlayers().get(1).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
                 count++;
             }
         }
@@ -938,7 +938,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             count = 0;
             for (int j = 7; j < 17; j += 2)//game.getPlayers().get(0).getScore()[j],
             {
-                g.drawString("" + game.getPlayers().get(0).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
+                g.drawString("" + game.getPlayers().get(2).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
                 count++;
             }
         }
@@ -949,7 +949,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             count = 0;
             for (int j = 7; j < 17; j += 2)//game.getPlayers().get(0).getScore()[j],
             {
-                g.drawString("" + game.getPlayers().get(0).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
+                g.drawString("" + game.getPlayers().get(3).getScore()[j], (int) (getWidth() / 2.45) + x2, (int) (getHeight() / 8.5) + count * (int) (getHeight() / 9));
                 count++;
             }
         }

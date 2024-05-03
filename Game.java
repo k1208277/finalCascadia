@@ -464,7 +464,6 @@ public class Game
 //            tokenDeck.add(new Token(1));
 //        }
     }
-
 //    public int getGameState()
 //    {
 //        return gameState;

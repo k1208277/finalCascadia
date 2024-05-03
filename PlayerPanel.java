@@ -170,6 +170,7 @@ public class PlayerPanel extends JPanel
         {
             g.drawString(""+ player.getScore()[j], (int)(getWidth()/1.217), (int)(getHeight()/15) + j*(int)(getHeight()/10.286));
         }
+
         //habitats
         int count = 0;
         g.setFont(new Font("j", 1, (int)(getHeight()/22)));
@@ -179,10 +180,19 @@ public class PlayerPanel extends JPanel
             count++;
         }
 
+        //total habitats
+        g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
+        g.drawString(""+player.getScore()[16], (int) (getWidth() / 1.07), (int) (getHeight() / 1.748));
 
-
-        //habitat scoring
-
+        //habitat bonus
+        count = 0;
+        g.setFont(new Font("j", Font.PLAIN, (int)(getHeight()/18.500)));
+        g.setColor(Color.white);
+        for (int j = 7; j < 17; j += 2)
+        {
+            g.drawString("" + player.getScore()[j], (int) (getWidth() / 1.049), (int) (getHeight() / 9.310) + count * (int) (getHeight() / 10.5));
+            count++;
+        }
 
     }
 

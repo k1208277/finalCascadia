@@ -301,22 +301,6 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         drawScoreBoard(g);
                         drawLeaderboard(g);
                     }
-//                    game.bonusesAndScores();
-//                    for(int i = 0; i < game.getPlayers().size(); i++)
-//                    {
-////                        System.out.println(i +"bear "+ game.getPlayers().get(i).getScore()[0]);
-////                        System.out.println(i+"elk " +game.getPlayers().get(i).getScore()[1]);
-////                        System.out.println(i +"salmon "+game.getPlayers().get(i).getScore()[2]);
-////                        System.out.println(i +"hawk "+game.getPlayers().get(i).getScore()[3]);
-////                        System.out.println(i +"fox "+game.getPlayers().get(i).getScore()[4]);
-////                        System.out.println(i+"total " +game.getPlayers().get(i).getScore()[5]);
-//
-//                        System.out.println(i +"mountain "+ game.getPlayers().get(i).getScore()[7]);
-//                        System.out.println(i +"forest "+ game.getPlayers().get(i).getScore()[9]);
-//                        System.out.println(i +"prairie "+ game.getPlayers().get(i).getScore()[11]);
-//                        System.out.println(i +"wetland "+ game.getPlayers().get(i).getScore()[13]);
-//                        System.out.println(i +"river "+ game.getPlayers().get(i).getScore()[15]);
-//                    }
                     break;
                 }
             }
@@ -960,13 +944,33 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         for (int i = 0; i < game.getPlayers().size();i++)
         {
             g.setColor(colors.get(i));
-            g.drawString("" + 20, (int) (getWidth() / 2.591) + x2, (int) (getHeight() / 1.602));
+            g.drawString(""+game.getPlayers().get(i).getScore()[16], (int) (getWidth() / 2.609) + x2 * i, (int) (getHeight() / 1.5));
             x += (int)(getWidth()/5.838);
         }
-        game.getPlayers();
+        //game.getPlayers();
 
 
+        //pine cones
+        x = 0;
+        g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
+        for (int i = 0; i < game.getPlayers().size();i++)
+        {
+            g.setColor(colors.get(i));
+            g.drawString(""+game.getPlayers().get(i).getScore()[17], (int) (getWidth() / 2.609) + x2 * i, (int) (getHeight() / 1.265));
+            x += (int)(getWidth()/5.838);
+        }
+        //game.getPlayers();
 
+        //final score
+        x = 0;
+        g.setFont(new Font("j", 1, (int)(getHeight()/18.500)));
+        for (int i = 0; i < game.getPlayers().size();i++)
+        {
+            g.setColor(colors.get(i));
+            g.drawString(""+game.getPlayers().get(i).getScore()[18], (int) (getWidth() / 2.609) + x2 * i, (int) (getHeight() / 1.102));
+            x += (int)(getWidth()/5.838);
+        }
+        //game.getPlayers();
 
     }
     public void drawLeaderboard(Graphics g)

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="cascaida test jar">
+    <output-path>$PROJECT_DIR$/../../../../Joey/10th grade/CompSci Data Structures/Cascadia</output-path>
+    <root id="archive" name="finalCascadia.jar">
+      <element id="module-output" name="finalCascadia" />
+    </root>
+  </artifact>
+</component>

@@ -359,7 +359,9 @@ public class Game
     public void createGame() throws IOException
     {
         //tiles
-        Scanner s = new Scanner(new File("Cascadia.txt"));
+        InputStream text = Game.class.getResourceAsStream("Cascadia.txt");
+        assert text != null;
+        Scanner s = new Scanner(text);
         BufferedImage img;
         while(s.hasNext())
         {

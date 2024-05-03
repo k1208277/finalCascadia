@@ -777,7 +777,7 @@ public class Game
                 }
             }
         }
-        for (int i = 0; i < playerScores.size(); i++){
+        for (int i = 0; i < firstPlace.size(); i++){
             playerScores.set(firstPlace.get(i), -1);
         }
         maxScore = 0;
@@ -807,7 +807,7 @@ public class Game
                 }
             }
         }
-        for (int i = 0; i < playerScores.size(); i++){
+        for (int i = 0; i < secondPlace.size(); i++){
             playerScores.set(secondPlace.get(i), -1);
         }
 

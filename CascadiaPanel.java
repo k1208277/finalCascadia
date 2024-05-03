@@ -403,7 +403,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             if(gameState==5) {
                 g.drawString("Throw away", (int)(getWidth()/1.67), (int)(getHeight()/1.254));
             }
-            else if (turn == game.getPlayers().size() * 1) {
+            else if (turn == game.getPlayers().size() * 4) {
                 g.drawString("End game", (int)(getWidth()/1.654), (int)(getHeight()/1.254));
             }
             else {
@@ -993,6 +993,18 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getOrientation()));
             rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getOrientation()));
             rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getOrientation()));
+            //medals
+        }
+        TreeMap<Integer, ArrayList<Integer>> temp = game.getRanking();
+        System.out.println(temp.keySet().size());
+        Iterator<Integer> it = temp.keySet().iterator();
+        while(it.hasNext()) {
+            int num = it.next();
+            System.out.println(num);
+            ArrayList<Integer> a = temp.get(num);
+            for(int i = 0; i<a.size(); i++) {
+                g.drawImage(icons.get(num+""), (int)(getWidth()/1.311), (int)(getHeight()/32.727)+a.get(i)*(int)(getHeight()/4.635), (int)(getWidth()/23.133), (int)(getHeight()/9.474), null);
+            }
         }
 
         //main menu button
@@ -1228,7 +1240,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 }
                 case 6: //check if next player button is clicked
                 {
-                    if (x >= (int) (getWidth() / 1.731) && x <= (int) (getWidth() / 1.731) + (int) (getWidth() / 6.906) && y >= (int) (getHeight() / 1.325) && y <= (int) (getHeight() / 1.325) + (int) (getHeight() / 15.652) && turn < game.getPlayers().size() * 20) {  // ONLY USED FOR TESTING SCORING REMEMBER TO CHANGE BACK TO 20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    if (x >= (int) (getWidth() / 1.731) && x <= (int) (getWidth() / 1.731) + (int) (getWidth() / 6.906) && y >= (int) (getHeight() / 1.325) && y <= (int) (getHeight() / 1.325) + (int) (getHeight() / 15.652) && turn < game.getPlayers().size() * 4) {  // ONLY USED FOR TESTING SCORING REMEMBER TO CHANGE BACK TO 20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         nextPlayerClicked = true;
                         game.setCurrentPlayer((game.getPlayerNum() + 1) % game.getPlayers().size());
                         game.updateTileAndTokens();
@@ -1236,7 +1248,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         System.out.println("Turn count = " + turn);
                         resetGameFlags();
                         turn++;
-                    } else if (turn >= game.getPlayers().size() * 20) {
+                    } else if (turn >= game.getPlayers().size() * 4) {
                         System.out.println("END GAME");
                         game.bonusesAndScores();
                         setGameState(10);

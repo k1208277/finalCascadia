@@ -515,11 +515,7 @@ public class Game
         //Create Number of players
         for (int i = 0; i < x; i++)
         {
-//            try {             //HARDCODED PLAYER AND TILE
-//                players.add(new Player(new Board(new Tile(2, 2, 5, 5, 0, 10, 10, false, ImageIO.read(Game.class.getResource("/StarterTiles/1a.png"))))));
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
+
             ArrayList<Tile> st = new ArrayList<>();
             int ind = (int)(Math.random() * 5 + 1);
             boolean added = false;

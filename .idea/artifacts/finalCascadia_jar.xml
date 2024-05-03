@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="finalCascadia:jar">
-    <output-path>$USER_HOME$/Downloads</output-path>
-    <root id="archive" name="finalCascadia.jar">
-      <element id="module-output" name="finalCascadia" />
-    </root>
-  </artifact>
-</component>

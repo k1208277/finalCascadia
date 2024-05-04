@@ -17,7 +17,7 @@ public class HelpPanel extends JPanel
         isVisible = false;
 
         try {
-            for (int i = 1; i < 10; i++) {
+            for (int i = 1; i < 11; i++) {
                 manualImages.put(i, ImageIO.read(HelpPanel.class.getResource("/Manual/pg" + i + ".png")));
             }
         }
@@ -73,11 +73,15 @@ public class HelpPanel extends JPanel
                 g.drawImage(manualImages.get(9), (int)(getWidth()/6.019), (int)(getHeight()/3.234), (int)(getWidth()/1.499), (int)(getHeight()/2.628), null);
                 break;
             }
+            case 10: {
+                g.drawImage(manualImages.get(10), (int)(getWidth()/6.019), (int)(getHeight()/3.234), (int)(getWidth()/1.499), (int)(getHeight()/2.628), null);
+                break;
+            }
         }
         if(pageNum>=2) {
             g.drawImage(icons.get("left"), (int)(getWidth()/11.034), (int)(getHeight()/2.416), (int)(getWidth()/45.714), (int)(getHeight()/5.934), null);
         }
-        if(pageNum<=8) {
+        if(pageNum<=9) {
             g.drawImage(icons.get("right"), (int)(getWidth()/1.141), (int)(getHeight()/2.416), (int)(getWidth()/45.714), (int)(getHeight()/5.934), null);
         }
         g.drawImage(icons.get("exit"), (int)(getWidth()/14.769), (int)(getHeight()/8.12), (int)(getWidth()/21.818), (int)(getHeight()/12.273), null);
@@ -89,7 +93,7 @@ public class HelpPanel extends JPanel
         }
     }
     public void pageRight() {
-        if(pageNum<=8) {
+        if(pageNum<=9) {
             pageNum++;
         }
     }

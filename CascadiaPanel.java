@@ -223,7 +223,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 //main layout - player chooses options
                 case 2: {
                     drawPlayerBoard(g);
-                    drawPrompt(g, "Choose a tile and token!");
+                    if(game.checkOverpopulation(false) == 4) {
+                        drawPrompt(g, "Overpopulation! Click anywhere to clear all tokens!");
+                    }
+                    else {
+                        drawPrompt(g, "Choose a tile and token!");
+                    }
                     drawOptions(g);
                     drawPlayerIcons(g);
                     drawScoringCards(g);
@@ -324,8 +329,13 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         int x = 0; int y = 0;
         switch(getGameState()) {
             case 2 : { //choose tile
-                x = (int)(getWidth()/2.954);
-                y =  (int)(getHeight()/10.693);
+                if(game.checkOverpopulation(false) == 4) {
+                    x = (int)(getWidth()/4.334);
+                }
+                else {
+                    x = (int) (getWidth() / 2.954);
+                }
+                y = (int) (getHeight() / 10.693);
                 break;
             }
             case 3 : {//choose tile placement
@@ -394,7 +404,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
         if(gameState==2) {
             //pinecones
-            if (game.getCurrentPlayer().getPineCones() > 0) {
+            if (game.checkOverpopulation(false) != 4 && game.getCurrentPlayer().getPineCones() > 0) {
                 g2.drawRect((int) (getWidth() / 2.333), (int) (getHeight() / 1.251), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652));
                 g.drawString("Use pinecones", (int) (getWidth() / 2.261), (int) (getHeight() / 1.186));
             }
@@ -500,6 +510,23 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             Graphics2D g2 = (Graphics2D)g;
             g2.setStroke(new BasicStroke((int)(getHeight()/270)));
             g2.drawPolygon(xc, yc, 6);
+        }
+        if(gameState == 5) {
+            g.setColor(colors.get(game.getPlayerNum()));
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setStroke(new BasicStroke((int)(getHeight()/270)));
+            ArrayList<Tile> a = game.getCurrentPlayer().getBoard().traverse();
+            for(int i = 0; i <a.size(); i++) {
+                if(!a.get(i).hasAnimal()) {
+                    for(int e:a.get(i).getPossibleAnimals()) {
+                        if(e == chosenToken.getAnimal()) {
+                            int[] xc = {a.get(i).getXCoord()+(int)(getWidth()/27.428), a.get(i).getXCoord()+(int)(getWidth()/13.714), a.get(i).getXCoord()+(int)(getWidth()/13.714), a.get(i).getXCoord()+(int)(getWidth()/27.428), a.get(i).getXCoord(), a.get(i).getXCoord()};
+                            int[] yc = {a.get(i).getYCoord(), a.get(i).getYCoord()+(int)(getHeight()/26.667), a.get(i).getYCoord()+(int)(getHeight()/8.675), a.get(i).getYCoord()+(int)(getHeight()/6.545), a.get(i).getYCoord()+(int)(getHeight()/8.675), a.get(i).getYCoord()+(int)(getHeight()/26.667)};
+                            g2.drawPolygon(xc, yc, 6);
+                        }
+                    }
+                }
+            }
         }
         g.drawImage(icons.get("b2"), 0, 0, getWidth(), getHeight(), null);
     }
@@ -1008,8 +1035,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         Iterator<Integer> it = temp.keySet().iterator();
         while(it.hasNext()) {
             int num = it.next();
-            System.out.println(num);
             ArrayList<Integer> a = temp.get(num);
+            System.out.println(num+" = "+a);
             for(int i = 0; i<a.size(); i++) {
                 g.drawImage(icons.get(num+""), (int)(getWidth()/1.311), (int)(getHeight()/32.727)+a.get(i)*(int)(getHeight()/4.635), (int)(getWidth()/23.133), (int)(getHeight()/9.474), null);
             }
@@ -1058,11 +1085,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             player.mouseClicked(x, y);
             repaint();
         }//(int)(getWidth()/41.739), (int)(getHeight()/30), (int)(getWidth()/10.105), (int)(getHeight()/17.143)
-        else if(getGameState()!=0 && getGameState() !=1 && x>=(int)(getWidth()/41.739) && x<=(int)(getWidth()/41.739)+(int)(getWidth()/10.105) && y>=(int)(getHeight()/30) && y<=(int)(getHeight()/30)+(int)(getHeight()/17.143)) {
+        else if(getGameState()!=0 && getGameState() !=1 && getGameState() !=10 && x>=(int)(getWidth()/41.739) && x<=(int)(getWidth()/41.739)+(int)(getWidth()/10.105) && y>=(int)(getHeight()/30) && y<=(int)(getHeight()/30)+(int)(getHeight()/17.143)) {
             help.setVisible(true);
             repaint();
         }
-        else if(getGameState()!=0 && getGameState() !=1 && getGameState() !=10 && x>=(int)(getWidth()/1.06) && x<=(int)(getWidth()/1.06)+(int)(getWidth()/32.542)) {
+        else if(getGameState()!=0 && getGameState() !=1 && getGameState() !=10 && x>=(int)(getWidth()/1.06) && x<=(int)(getWidth()/1.06)+(int)(getWidth()/32.542)&& y <= (int) (getHeight() / 1.765)) {
+            //System.out.println("Im stupid");
             int a = 0;
             for (int i = 0; i < game.getPlayers().size() - 1; i++) {
                 if (a == game.getPlayerNum()) {
@@ -1196,12 +1224,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         chosenTile.rotateLeft();
                         repaint();
                     }
-
+                    //System.out.println(x+" >= "+(int)(getWidth()/1.116)+" && "+x+" <= "+((int) (getWidth() / 1.116) + (int) (getWidth() / 12.715)));
                     //right
                     if (x >= (int) (getWidth() / 1.116) && x <= (int) (getWidth() / 1.116) + (int) (getWidth() / 12.715) && y >= (int) (getHeight() / 1.444) && y <= (int) (getHeight() / 1.444) + (int) (getHeight() / 11.739)) {
                         chosenTile.rotateRight();
                         repaint();
-                    }
+                    }//(int)(getWidth()/1.116), (int)(getHeight()/1.444), (int)(getWidth()/12.715), (int)(getHeight()/11.739)
 
                     //ok clicked
                     if (x >= (int) (getWidth() / 1.176) && x <= (int) (getWidth() / 1.176) + (int) (getWidth() / 25.6) && y >= (int) (getHeight() / 1.26) && y <= (int) (getHeight() / 1.26) + (int) (getHeight() / 14.4)/*ok button coordinates */) {

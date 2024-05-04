@@ -764,7 +764,7 @@ public class Game
             //checks for max PineCone size
             int maxPineCone = 0;
             for (int i = 0; i < firstPlace.size(); i++){
-                maxPineCone = Math.max(players.get(firstPlace.get(i)).getScore()[17], maxScore);
+                maxPineCone = Math.max(players.get(firstPlace.get(i)).getScore()[17], maxPineCone);
             }
             for (int i = 0; i < firstPlace.size(); i++) {
                 if (players.get(firstPlace.get(i)).getScore()[17] != maxPineCone) {
@@ -779,7 +779,7 @@ public class Game
         maxScore = 0;
 
         for (int i = 0; i < players.size(); i++){
-            int score = players.get(i).getScore()[18];
+            int score = playerScores.get(i);
             maxScore = Math.max(score, maxScore);
         }
         ArrayList<Integer> secondPlace = ranks.get(2);
@@ -794,7 +794,7 @@ public class Game
             //checks for max PineCone size
             int maxPineCone = 0;
             for (int i = 0; i < secondPlace.size(); i++){
-                maxPineCone = Math.max(players.get(secondPlace.get(i)).getScore()[17], maxScore);
+                maxPineCone = Math.max(players.get(secondPlace.get(i)).getScore()[17], maxPineCone);
             }
             for (int i = 0; i < secondPlace.size(); i++) {
                 if (players.get(secondPlace.get(i)).getScore()[17] != maxPineCone) {
@@ -806,9 +806,8 @@ public class Game
         for (int i = 0; i < secondPlace.size(); i++){
             playerScores.set(secondPlace.get(i), -1);
         }
-
         for (int i = 0; i < players.size(); i++){
-            int score = players.get(i).getScore()[18];
+            int score = playerScores.get(i);
             maxScore = Math.max(score, maxScore);
         }
         ArrayList<Integer> thirdPlace = ranks.get(3);
@@ -823,7 +822,7 @@ public class Game
             //checks for max PineCone size
             int maxPineCone = 0;
             for (int i = 0; i < thirdPlace.size(); i++) {
-                maxPineCone = Math.max(players.get(thirdPlace.get(i)).getScore()[17], maxScore);
+                maxPineCone = Math.max(players.get(thirdPlace.get(i)).getScore()[17], maxPineCone);
             }
             for (int i = 0; i < thirdPlace.size(); i++) {
                 if (players.get(thirdPlace.get(i)).getScore()[17] != maxPineCone) {

@@ -17,7 +17,7 @@ public class HelpPanel extends JPanel
         isVisible = false;
 
         try {
-            for (int i = 1; i < 9; i++) {
+            for (int i = 1; i < 10; i++) {
                 manualImages.put(i, ImageIO.read(HelpPanel.class.getResource("/Manual/pg" + i + ".png")));
             }
         }
@@ -37,43 +37,47 @@ public class HelpPanel extends JPanel
         g.setColor(new Color(0, 0, 0, 153));
         g.fillRect((int)(getWidth()/17.944), (int)(getHeight()/10.093), (int)(getWidth()/1.126), (int)(getHeight()/1.249));
         switch(pageNum) {
-            case 1: {
-                g.drawImage(manualImages.get(1), (int)(getWidth()/5.12), (int)(getHeight()/3.224), (int)(getWidth()/1.642), (int)(getHeight()/2.634), null);
+            case 1 : {
+                g.drawImage(manualImages.get(1), 0, 0, getWidth(), getHeight(), null);
                 break;
             }
             case 2: {
-                g.drawImage(manualImages.get(2), (int)(getWidth()/4.486), (int)(getHeight()/4.909), (int)(getWidth()/1.806), (int)(getHeight()/1.69), null);
+                g.drawImage(manualImages.get(2), (int)(getWidth()/5.12), (int)(getHeight()/3.224), (int)(getWidth()/1.642), (int)(getHeight()/2.634), null);
                 break;
             }
             case 3: {
-                g.drawImage(manualImages.get(3), (int)(getWidth()/4.518), (int)(getHeight()/4.909), (int)(getWidth()/1.796), (int)(getHeight()/1.69), null);
+                g.drawImage(manualImages.get(3), (int)(getWidth()/4.486), (int)(getHeight()/4.909), (int)(getWidth()/1.806), (int)(getHeight()/1.69), null);
                 break;
             }
             case 4: {
-                g.drawImage(manualImages.get(4), (int)(getWidth()/5.598), (int)(getHeight()/5.51), (int)(getWidth()/1.557), (int)(getHeight()/1.57), null);
+                g.drawImage(manualImages.get(4), (int)(getWidth()/4.518), (int)(getHeight()/4.909), (int)(getWidth()/1.796), (int)(getHeight()/1.69), null);
                 break;
             }
             case 5: {
-                g.drawImage(manualImages.get(5), (int)(getWidth()/4.539), (int)(getHeight()/4.576), (int)(getWidth()/1.791), (int)(getHeight()/1.779), null);
+                g.drawImage(manualImages.get(5), (int)(getWidth()/5.598), (int)(getHeight()/5.51), (int)(getWidth()/1.557), (int)(getHeight()/1.57), null);
                 break;
             }
             case 6: {
-                g.drawImage(manualImages.get(6), (int)(getWidth()/5.455), (int)(getHeight()/3.803), (int)(getWidth()/1.58), (int)(getHeight()/2.114), null);
+                g.drawImage(manualImages.get(6), (int)(getWidth()/4.539), (int)(getHeight()/4.576), (int)(getWidth()/1.791), (int)(getHeight()/1.779), null);
                 break;
             }
             case 7: {
-                g.drawImage(manualImages.get(7), (int)(getWidth()/4.324), (int)(getHeight()/4.481), (int)(getWidth()/1.862), (int)(getHeight()/1.809), null);
+                g.drawImage(manualImages.get(7), (int)(getWidth()/5.455), (int)(getHeight()/3.803), (int)(getWidth()/1.58), (int)(getHeight()/2.114), null);
                 break;
             }
             case 8: {
-                g.drawImage(manualImages.get(8), (int)(getWidth()/6.019), (int)(getHeight()/3.234), (int)(getWidth()/1.499), (int)(getHeight()/2.628), null);
+                g.drawImage(manualImages.get(8), (int)(getWidth()/4.324), (int)(getHeight()/4.481), (int)(getWidth()/1.862), (int)(getHeight()/1.809), null);
+                break;
+            }
+            case 9: {
+                g.drawImage(manualImages.get(9), (int)(getWidth()/6.019), (int)(getHeight()/3.234), (int)(getWidth()/1.499), (int)(getHeight()/2.628), null);
                 break;
             }
         }
         if(pageNum>=2) {
             g.drawImage(icons.get("left"), (int)(getWidth()/11.034), (int)(getHeight()/2.416), (int)(getWidth()/45.714), (int)(getHeight()/5.934), null);
         }
-        if(pageNum<=7) {
+        if(pageNum<=8) {
             g.drawImage(icons.get("right"), (int)(getWidth()/1.141), (int)(getHeight()/2.416), (int)(getWidth()/45.714), (int)(getHeight()/5.934), null);
         }
         g.drawImage(icons.get("exit"), (int)(getWidth()/14.769), (int)(getHeight()/8.12), (int)(getWidth()/21.818), (int)(getHeight()/12.273), null);
@@ -85,7 +89,7 @@ public class HelpPanel extends JPanel
         }
     }
     public void pageRight() {
-        if(pageNum<=7) {
+        if(pageNum<=8) {
             pageNum++;
         }
     }

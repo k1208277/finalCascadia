@@ -336,7 +336,7 @@ public class Board
             case 0: return 0;
             case 1: return 4;
             case 2: return 11;
-            case 3: return 18;
+            case 3: return 19;
             default: return 25;
         }
     }

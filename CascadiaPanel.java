@@ -13,6 +13,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
     private MainMenuPanel start;
     private HashMap<String, BufferedImage> icons;
     private HashMap<Integer, BufferedImage> tokenImages, scoringCards;
+    private ArrayList<BufferedImage> tempTokenImages;
     private int gameState;
     private boolean tileClicked, tokenClicked, twoPlayerCLicked, threePlayerClicked, fourPlayerClicked, usePineConesClicked, chooseTileTokenClicked, clearTokenClicked, okClicked, throwAwayClicked;
     private boolean nextPlayerClicked;
@@ -38,6 +39,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
         icons = new HashMap<String, BufferedImage>();
         tokenImages = new HashMap<Integer, BufferedImage>();
         scoringCards = new HashMap<Integer, BufferedImage>();
+        tempTokenImages = new ArrayList<BufferedImage>();
         //game = new Game();
         colors = new ArrayList<Color>();
         colors.add(new Color(255, 243, 188));
@@ -111,6 +113,12 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             scoringCards.put(2, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/hawk - solidarity card.png")));
             scoringCards.put(3, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/fox - nearby animals card.png")));
             scoringCards.put(4, ImageIO.read(CascadiaPanel.class.getResource("/ScoringCards/bear - mating pairs card.png")));
+
+            tempTokenImages.add(ImageIO.read(CascadiaPanel.class.getResource("/Tokens/bear token.png")));
+            tempTokenImages.add(ImageIO.read(CascadiaPanel.class.getResource("/Tokens/elk token.png")));
+            tempTokenImages.add(ImageIO.read(CascadiaPanel.class.getResource("/Tokens/fish token.png")));
+            tempTokenImages.add(ImageIO.read(CascadiaPanel.class.getResource("/Tokens/hawk token.png")));
+            tempTokenImages.add(ImageIO.read(CascadiaPanel.class.getResource("/Tokens/fox token.png")));
         }
         catch(Exception e)
         {
@@ -196,7 +204,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             help.paint(g, icons, getWidth(), getHeight());
         }
         else if(player.isVisible() && gameState!=10) {
-            player.paint(g, icons, scoringCards, tokenImages, game.getPlayers(), getWidth(), getHeight());
+            player.paint(g, icons, scoringCards, tempTokenImages, tokenImages, game.getPlayers(), getWidth(), getHeight());
         }
         else {
             switch (s) {
@@ -295,7 +303,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 }
                 case 10: {
                     if(player.isVisible()) {
-                        player.paint(g, icons, scoringCards, tokenImages, game.getPlayers(), getWidth(), getHeight());
+                        player.paint(g, icons, scoringCards, tempTokenImages, tokenImages, game.getPlayers(), getWidth(), getHeight());
                     }
                     else {
                         drawScoreBoard(g);
@@ -403,7 +411,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             if(gameState==5) {
                 g.drawString("Throw away", (int)(getWidth()/1.67), (int)(getHeight()/1.254));
             }
-            else if (turn == game.getPlayers().size() * 4) {
+            else if (turn == game.getPlayers().size() * 1) {
                 g.drawString("End game", (int)(getWidth()/1.654), (int)(getHeight()/1.254));
             }
             else {
@@ -810,7 +818,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
         //icons
         for(int i = 0; i<5; i++) {
-            g.drawImage(tokenImages.get(i+1), (int)(getWidth()/41.739), (int)(getHeight()/6.75)+i*(int)(getHeight()/7.8), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
+            g.drawImage(tempTokenImages.get(i), (int)(getWidth()/41.739), (int)(getHeight()/6.75)+i*(int)(getHeight()/7.8), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
             g.drawImage(icons.get("t"+(i+1)), (int)(getWidth()/3.232), (int)(getHeight()/23.478)+i*(int)(getHeight()/9.1), (int)(getWidth()/20.211), (int)(getHeight()/13.333), null);
         }
         g.drawImage(icons.get("person"), (int)(getWidth() / 32.266), (int)(getHeight() / 18), (int)(getWidth() / 28.657), (int)(getHeight() / 14.4), null);
@@ -1240,7 +1248,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                 }
                 case 6: //check if next player button is clicked
                 {
-                    if (x >= (int) (getWidth() / 1.731) && x <= (int) (getWidth() / 1.731) + (int) (getWidth() / 6.906) && y >= (int) (getHeight() / 1.325) && y <= (int) (getHeight() / 1.325) + (int) (getHeight() / 15.652) && turn < game.getPlayers().size() * 4) {  // ONLY USED FOR TESTING SCORING REMEMBER TO CHANGE BACK TO 20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    if (x >= (int) (getWidth() / 1.731) && x <= (int) (getWidth() / 1.731) + (int) (getWidth() / 6.906) && y >= (int) (getHeight() / 1.325) && y <= (int) (getHeight() / 1.325) + (int) (getHeight() / 15.652) && turn < game.getPlayers().size() * 1) {  // ONLY USED FOR TESTING SCORING REMEMBER TO CHANGE BACK TO 20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         nextPlayerClicked = true;
                         game.setCurrentPlayer((game.getPlayerNum() + 1) % game.getPlayers().size());
                         game.updateTileAndTokens();
@@ -1248,7 +1256,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                         System.out.println("Turn count = " + turn);
                         resetGameFlags();
                         turn++;
-                    } else if (turn >= game.getPlayers().size() * 4) {
+                    } else if (turn >= game.getPlayers().size() * 1) {
                         System.out.println("END GAME");
                         game.bonusesAndScores();
                         setGameState(10);

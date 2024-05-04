@@ -18,11 +18,11 @@ public class PlayerPanel extends JPanel
         isVisible = false;
     }
 
-    public void paint(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players, int w, int h) {
+    public void paint(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, ArrayList<BufferedImage> tempTokenImages, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players, int w, int h) {
         setWH(w, h);
         if(isVisible) {
             drawBoard(g, icons, tokenImages);
-            drawOthers(g, icons, scoringCards, tokenImages, players);
+            drawOthers(g, icons, scoringCards, tempTokenImages, players);
             drawShift(g, icons);
         }
     }
@@ -58,7 +58,7 @@ public class PlayerPanel extends JPanel
         g.fillPolygon(xp, yp, 3);
     }
 
-    public void drawOthers(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players) {
+    public void drawOthers(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, ArrayList<BufferedImage> tokenImages, ArrayList<Player> players) {
         ArrayList<Color> colors = new ArrayList<Color>();
         colors.add(new Color(255, 243, 188));
         colors.add(new Color(154, 225, 228));
@@ -125,7 +125,7 @@ public class PlayerPanel extends JPanel
             }
         }
     }
-    public void drawEndScores(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players, ArrayList<Color> colors) {
+    public void drawEndScores(Graphics g, HashMap<String, BufferedImage> icons, ArrayList<BufferedImage> tokenImages, ArrayList<Player> players, ArrayList<Color> colors) {
         for(int i = 0; i<players.size(); i++) {
             if(player.equals(players.get(i))) {
                 //System.out.println(e+" = player");
@@ -141,7 +141,7 @@ public class PlayerPanel extends JPanel
         for(int i = 0; i<5; i++) {
             g2.drawLine((int)(getWidth()/1.327), (int)(getHeight()/8.372)+i*(int)(getHeight()/10.693), (int)(getWidth()/1.014), (int)(getHeight()/8.372)+i*(int)(getHeight()/10.693));
             g2.drawLine((int)(getWidth()/1.068), (int)(getHeight()/9.818)+i*(int)(getHeight()/10.693), (int)(getWidth()/1.031), (int)(getHeight()/27)+i*(int)(getHeight()/10.693));
-            g.drawImage(tokenImages.get(i+1), (int)(getWidth()/1.31), (int)(getHeight()/27)+i*(int)(getHeight()/10.8), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
+            g.drawImage(tokenImages.get(i), (int)(getWidth()/1.31), (int)(getHeight()/27)+i*(int)(getHeight()/10.8), (int)(getWidth()/23.704), (int)(getHeight()/13.333), null);
             g.drawImage(icons.get("t"+(i+1)), (int)(getWidth()/1.15), (int)(getHeight()/27)+i*(int)(getHeight()/10.8), (int)(getWidth()/20.211), (int)(getHeight()/13.333), null);
         }
         g2.drawLine((int)(getWidth()/1.327), (int)(getHeight()/1.701), (int)(getWidth()/1.014), (int)(getHeight()/1.701));

@@ -1206,12 +1206,11 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 //                                    System.out.println(t.getAdjacentTiles());
 //                                }
                                 tilePlaced = true;
-                                System.out.println("Starting tile's habitats = "+ getChosenTile().getAllHabitats());
+                                //System.out.println("Starting tile's habitats = "+ getChosenTile().getAllHabitats());
                                 game.getAvailableTiles()[tileChosenNum] = null;
                                 setGameState(4);
                                 repaint();
                             }
-                            //THIS NEEDS TO BE A LOOP OR SOMETHING TO ENSURE THE TILE CAN BE PLACED WHEN CLICKED IN A RANDOM PLACE
                         }
                     }
 

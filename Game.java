@@ -806,6 +806,8 @@ public class Game
         for (int i = 0; i < secondPlace.size(); i++){
             playerScores.set(secondPlace.get(i), -1);
         }
+
+        maxScore = 0;
         for (int i = 0; i < players.size(); i++){
             int score = playerScores.get(i);
             maxScore = Math.max(score, maxScore);

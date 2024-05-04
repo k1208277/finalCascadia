@@ -536,19 +536,3 @@ public class Board
     }
 
 }
-/*
-random method - when a tile is placed on the board, all of its null tiles become adjacent, empty tiles
-Tile t;
-
-for (int i = 0; i <= 5; i++){
-   if (t.getAdjacent(i) == null){
-   (Board).addTile(new Tile(), t, i);
-    }
- }
-
-
-
-
-
-
- */

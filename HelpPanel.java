@@ -74,7 +74,7 @@ public class HelpPanel extends JPanel
                 break;
             }
             case 10: {
-                g.drawImage(manualImages.get(10), (int)(getWidth()/6.019), (int)(getHeight()/3.234), (int)(getWidth()/1.499), (int)(getHeight()/2.628), null);
+                g.drawImage(manualImages.get(10), (int)(getWidth()/5.908), (int)(getHeight()/4.954), (int)(getWidth()/1.513), (int)(getHeight()/1.68), null);
                 break;
             }
         }

@@ -1141,7 +1141,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
                     //pinecones clicked
                     //(int) (getWidth() / 2.333), (int) (getHeight() / 1.251), (int) (getWidth() / 6.784), (int) (getHeight() / 15.652)
-                    if (x >= (int) (getWidth() / 2.333) && x <= (int) (getWidth() / 2.333) + (int) (getWidth() / 6.784) && y >= (int) (getHeight() / 1.251) && y <= (int) (getHeight() / 1.251) + (int) (getHeight() / 15.652) && game.getCurrentPlayer().getPineCones() > 0) //coordinates for use pinecone button
+                    else if (x >= (int) (getWidth() / 2.333) && x <= (int) (getWidth() / 2.333) + (int) (getWidth() / 6.784) && y >= (int) (getHeight() / 1.251) && y <= (int) (getHeight() / 1.251) + (int) (getHeight() / 15.652) && game.getCurrentPlayer().getPineCones() > 0) //coordinates for use pinecone button
                     {
                         usePineConesClicked = true;
                         setGameState(7);

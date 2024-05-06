@@ -458,6 +458,62 @@ public class Board
 
     }
 
+    public void updateTileCoordsSmall(int x, int y, int width, int height){
+        ArrayList<Tile> allTiles = traverse();
+        for(int i = 0; i < allTiles.size(); i++){
+            allTiles.get(i).setChecker(false);
+        }
+
+        setBoardWidthandHeight(width, height);
+        startTile.setXCoord((int)(x));
+        startTile.setYCoord((int)(y));
+        Queue<Tile> q = new LinkedList<>();
+        ArrayList<Tile> end =  new ArrayList<>();
+        q.add(startTile);
+        startTile.setChecker(true);
+        while (!q.isEmpty()){
+            Tile tile = q.poll();
+            end.add(tile);
+            //System.out.println(tile.getAdjacentTiles());
+            for (int i = 0; i <= 5; i++){
+                Tile t = tile.getAdjacent(i);
+                if (t != null && !t.isChecked()) {
+                    if (i == 0) {
+                        t.setYCoord(tile.getYCoord() - (int) (boardHeight / 37.241));
+                        t.setXCoord(tile.getXCoord() - (int) (boardWidth / 106.667));
+                    }
+                    if (i == 1) {
+                        t.setYCoord(tile.getYCoord() - (int) (boardHeight / 37.241));
+                        t.setXCoord(tile.getXCoord() + (int) (boardWidth / 106.667));
+                    }
+                    if (i == 2) {
+                        t.setXCoord(tile.getXCoord() + (int) (boardWidth / 54.857));
+                        t.setYCoord(tile.getYCoord());
+                    }
+                    if (i == 3) {
+                        t.setXCoord(tile.getXCoord() + (int) (boardWidth / 106.667));
+                        t.setYCoord(tile.getYCoord() + (int) (boardHeight / 37.241));
+                    }
+                    if (i == 4) {
+                        t.setXCoord(tile.getXCoord() - (int) (boardWidth / 106.667));
+                        t.setYCoord(tile.getYCoord() + (int) (boardHeight / 37.241));
+                    }
+                    if (i == 5) {
+                        t.setXCoord(tile.getXCoord() - (int) (boardWidth / 54.857));
+                        t.setYCoord(tile.getYCoord());
+                    }
+                    t.setChecker(true);
+                    q.add(t);
+                }
+            }
+        }
+        //System.out.println("starter tiles adjacents: " + startTile.getAdjacentTiles());
+
+        for (int i = 0; i < end.size(); i++){
+            end.get(i).setChecker(false);
+        }
+
+    }
 
     public HashMap<Tile, ArrayList<Integer>> allNullTiles(){
         ArrayList<Tile> allTiles = traverse();

@@ -561,10 +561,20 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
             g.setColor(Color.white);
             g.drawString("x "+game.getPlayers().get(e).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
-            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(e).getBoard().getStartTile().getOrientation()));
-            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getOrientation()));
-            rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getOrientation()));
-
+            //rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(e).getBoard().getStartTile().getOrientation()));
+            //rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(3).getOrientation()));
+            //rotateImage(g, game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(e).getBoard().getStartTile().getAdjacent(4).getOrientation()));
+            ArrayList<Tile> t = game.getPlayers().get(e).getBoard().traverse();
+            game.getPlayers().get(e).getBoard().updateTileCoordsSmall((int)(getWidth()/1.24), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), getWidth(), getHeight());
+            for(int j = 0; j<t.size(); j++) {
+                //System.out.println(j+" is j and /t"+t.size()+" is the size");
+                if (t.get(j).getXCoord() >= (int) (getWidth() / 1.303) && t.get(j).getXCoord()+(int) (getWidth() / 54.857)<= (int) (getWidth() / 1.159) && t.get(j).getYCoord() >= (int) (getHeight() / 10.485)+i*(int)(getHeight()/4.576) && t.get(j).getYCoord() + (int) (getHeight() / 27.692) <= (int) (getHeight() / 4.32)+i*(int)(getHeight()/4.576)) {
+                    rotateImage(g, t.get(j).getImage(), t.get(j).getXCoord(), t.get(j).getYCoord(), (int) (getWidth() / 54.857), (int) (getHeight() / 27.692), 60 * (6 - t.get(j).getOrientation()));
+                    if(t.get(j).hasAnimal()) {
+                        g.drawImage(tokenImages.get(t.get(j).getAnimal()), t.get(j).getXCoord()+(int)(getWidth()/384), t.get(j).getYCoord()+(int)(getHeight()/154.286), (int)(getWidth()/76.8), (int)(getHeight()/43.2), null);
+                    }
+                }
+            }
             e++;
 
         }
@@ -1025,9 +1035,20 @@ public class CascadiaPanel extends JPanel implements MouseListener{
             g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
             g.setColor(Color.white);
             g.drawString("x "+game.getPlayers().get(i).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
-            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getOrientation()));
-            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getOrientation()));
-            rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getOrientation()));
+            //rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getOrientation()));
+            //rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(3).getOrientation()));
+            //rotateImage(g, game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-game.getPlayers().get(i).getBoard().getStartTile().getAdjacent(4).getOrientation()));
+            ArrayList<Tile> t = game.getPlayers().get(i).getBoard().traverse();
+            game.getPlayers().get(i).getBoard().updateTileCoordsSmall((int)(getWidth()/1.24), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), getWidth(), getHeight());
+            for(int j = 0; j<t.size(); j++) {
+                //System.out.println(j+" is j and /t"+t.size()+" is the size");
+                if (t.get(j).getXCoord() >= (int) (getWidth() / 1.303) && t.get(j).getXCoord()+(int) (getWidth() / 54.857)<= (int) (getWidth() / 1.159) && t.get(j).getYCoord() >= (int) (getHeight() / 10.485)+i*(int)(getHeight()/4.576) && t.get(j).getYCoord() + (int) (getHeight() / 27.692) <= (int) (getHeight() / 4.32)+i*(int)(getHeight()/4.576)) {
+                    rotateImage(g, t.get(j).getImage(), t.get(j).getXCoord(), t.get(j).getYCoord(), (int) (getWidth() / 54.857), (int) (getHeight() / 27.692), 60 * (6 - t.get(j).getOrientation()));
+                    if(t.get(j).hasAnimal()) {
+                        g.drawImage(tokenImages.get(t.get(j).getAnimal()), t.get(j).getXCoord()+(int)(getWidth()/384), t.get(j).getYCoord()+(int)(getHeight()/154.286), (int)(getWidth()/76.8), (int)(getHeight()/43.2), null);
+                    }
+                }
+            }
             //medals
         }
         TreeMap<Integer, ArrayList<Integer>> temp = game.getRanking();

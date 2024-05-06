@@ -22,7 +22,7 @@ public class PlayerPanel extends JPanel
         setWH(w, h);
         if(isVisible) {
             drawBoard(g, icons, tokenImages);
-            drawOthers(g, icons, scoringCards, tempTokenImages, players);
+            drawOthers(g, icons, scoringCards, tempTokenImages, tokenImages, players);
             drawShift(g, icons);
         }
     }
@@ -58,7 +58,7 @@ public class PlayerPanel extends JPanel
         g.fillPolygon(xp, yp, 3);
     }
 
-    public void drawOthers(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, ArrayList<BufferedImage> tokenImages, ArrayList<Player> players) {
+    public void drawOthers(Graphics g, HashMap<String, BufferedImage> icons, HashMap<Integer, BufferedImage> scoringCards, ArrayList<BufferedImage> tempTokenImages, HashMap<Integer, BufferedImage> tokenImages, ArrayList<Player> players) {
         ArrayList<Color> colors = new ArrayList<Color>();
         colors.add(new Color(255, 243, 188));
         colors.add(new Color(154, 225, 228));
@@ -89,7 +89,7 @@ public class PlayerPanel extends JPanel
         g.drawString("x "+player.getPineCones(), (int)(getWidth()/1.526), (int)(getHeight()/1.108));
 
         if(endGame) {
-            drawEndScores(g, icons, tokenImages, players, colors);
+            drawEndScores(g, icons, tempTokenImages, players, colors);
         }
         else {
             int e = 0;
@@ -111,9 +111,21 @@ public class PlayerPanel extends JPanel
                 g.drawImage(icons.get("pinecone"), (int)(getWidth()/1.153), (int)(getHeight()/6.879)+i*(int)(getHeight()/4.576), (int)(getWidth()/28.657), (int)(getHeight()/20), null);
                 g.setColor(Color.white);
                 g.drawString("x "+players.get(e).getPineCones(), (int)(getWidth()/1.097), (int)(getHeight()/5.4)+i*(int)(getHeight()/4.576));
-                rotateImage(g, players.get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-players.get(e).getBoard().getStartTile().getOrientation()));
-                rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-players.get(e).getBoard().getStartTile().getAdjacent(3).getOrientation()));
-                rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-players.get(e).getBoard().getStartTile().getAdjacent(4).getOrientation()));
+                //rotateImage(g, players.get(e).getBoard().getStartTile().getImage(), (int)(getWidth()/1.253), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-players.get(e).getBoard().getStartTile().getOrientation()));
+                //rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(3).getImage(), (int)(getWidth()/1.24), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-players.get(e).getBoard().getStartTile().getAdjacent(3).getOrientation()));
+                //rotateImage(g, players.get(e).getBoard().getStartTile().getAdjacent(4).getImage(), (int)(getWidth()/1.266), (int)(getHeight()/6.102)+i*(int)(getHeight()/4.576), (int)(getWidth()/56.471), (int)(getHeight()/27.692), 60*(6-players.get(e).getBoard().getStartTile().getAdjacent(4).getOrientation()));
+                ArrayList<Tile> t = players.get(e).getBoard().traverse();
+                players.get(e).getBoard().updateTileCoordsSmall((int)(getWidth()/1.24), (int)(getHeight()/7.297)+i*(int)(getHeight()/4.576), getWidth(), getHeight());
+                for(int j = 0; j<t.size(); j++) {
+                    //System.out.println(j+" is j and /t"+t.size()+" is the size");
+                    if (t.get(j).getXCoord() >= (int) (getWidth() / 1.303) && t.get(j).getXCoord()+(int) (getWidth() / 54.857)<= (int) (getWidth() / 1.159) && t.get(j).getYCoord() >= (int) (getHeight() / 10.485)+i*(int)(getHeight()/4.576) && t.get(j).getYCoord() + (int) (getHeight() / 27.692) <= (int) (getHeight() / 4.32)+i*(int)(getHeight()/4.576)) {
+                        rotateImage(g, t.get(j).getImage(), t.get(j).getXCoord(), t.get(j).getYCoord(), (int) (getWidth() / 54.857), (int) (getHeight() / 27.692), 60 * (6 - t.get(j).getOrientation()));
+                        if(t.get(j).hasAnimal()) {
+                            System.out.println(t.get(j).getAnimal() + " is the animal ");
+                            g.drawImage(tokenImages.get(t.get(j).getAnimal()), t.get(j).getXCoord()+(int)(getWidth()/384), t.get(j).getYCoord()+(int)(getHeight()/154.286), (int)(getWidth()/76.8), (int)(getHeight()/43.2), null);
+                        }
+                    }
+                }
 
                 e++;
 

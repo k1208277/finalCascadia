@@ -254,7 +254,7 @@ public class PlayerPanel extends JPanel
                 boolean b = false;
                 for(int e = 0; e<temp.size(); e++) {
                     Tile t = temp.get(e);
-                    if(t.getXCoord()+(int)(getWidth()/13.714)<=(int)(getWidth()/6.784)+(int)(getWidth()/1.69)) {
+                    if(t.getXCoord()+(int)(getWidth()/12.5)<=(int)(getWidth()/6.784)+(int)(getWidth()/1.69)) {
                         b = true;
                     }
                 }
@@ -325,19 +325,19 @@ public class PlayerPanel extends JPanel
         }
         if(x>=(int) (getWidth() / 1.235) && x<=(int)(getWidth()/1.076) && y>=(int)(getHeight()/1.401) && y<=(int)(getHeight()/1.065)) {
             if(x>=(int)(getWidth()/1.176) && x<=(int)(getWidth()/1.176)+(int)(getWidth()/25.6) && y>=(int)(getHeight()/1.401) && y<=(int)(getHeight()/1.401)+(int)(getHeight()/14.4)) {
-                shift(1);
-                repaint();
-            }
-            else if(x>=(int)(getWidth()/1.117) && x<=(int)(getWidth()/1.076) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) {
-                shift(2);
-                repaint();
-            }
-            else if(x>=(int) (getWidth() / 1.176) && x<=(int) (getWidth() / 1.124) && y>=(int)(getHeight()/1.145) && y<=(int)(getHeight()/1.065)) {
                 shift(3);
                 repaint();
             }
-            else if(x>=(int) (getWidth() / 1.235) && x<=(int) (getWidth() / 1.184) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) {
+            else if(x>=(int)(getWidth()/1.117) && x<=(int)(getWidth()/1.076) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) {
                 shift(4);
+                repaint();
+            }
+            else if(x>=(int) (getWidth() / 1.176) && x<=(int) (getWidth() / 1.124) && y>=(int)(getHeight()/1.145) && y<=(int)(getHeight()/1.065)) {
+                shift(1);
+                repaint();
+            }
+            else if(x>=(int) (getWidth() / 1.235) && x<=(int) (getWidth() / 1.184) && y>=(int)(getHeight()/1.26) && y<=(int)(getHeight()/1.26)+(int)(getHeight()/14.4)) {
+                shift(2);
                 repaint();
             }
         }

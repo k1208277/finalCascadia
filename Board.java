@@ -269,7 +269,7 @@ public class Board
             Tile ht = allHawks.get(i);
             boolean isAlone = true;
             for(int j = 0; j <= 5; j++){
-                if (ht.getAdjacent(i) != null && ht.getAdjacent(i).getAnimal() == 3){
+                if (ht.getAdjacent(j) != null && ht.getAdjacent(j).getAnimal() == 3){
                     isAlone = false;
                 }
             }

@@ -445,6 +445,7 @@ public class Game
                 tokenDeck.add(new Token(i));
             }
         }
+
     }
     public Player getCurrentPlayer()
     {

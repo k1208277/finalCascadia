@@ -1267,6 +1267,7 @@ public class CascadiaPanel extends JPanel implements MouseListener{
                     {
                         throwAwayClicked = true;
                         tileTokenPlacement = null;
+                        game.getTokenDeck().add(game.getAvailableTokens()[tokenChosenNum]);
                         game.getAvailableTokens()[tokenChosenNum] = null;
                         setGameState(6);
                     } else {

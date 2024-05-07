@@ -618,6 +618,7 @@ public class Game
                     for(int j = 0; j < availableTokens.length; j++)
                     {
                         if(availableTokens[j].getAnimal() == i)
+                            tokenDeck.add(availableTokens[j]);
                             availableTokens[j] = null;
                     }
                     updateTileAndTokens();

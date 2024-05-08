@@ -541,6 +541,8 @@ public class CascadiaPanel extends JPanel implements MouseListener{
 
         g.drawString("x "+game.getCurrentPlayer().getPineCones(), (int)(getWidth()/1.526), (int)(getHeight()/1.108));
 
+        g.setFont(new Font("hi", 1, (int)(getHeight()/30.72)));
+        g.drawString("Turn: "+((turn-1)/game.getPlayers().size()+1), (int)(getWidth()/1.12), (int)(getHeight()/1.072));
         g.setColor(Color.white);
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke((int)(getHeight()/270)));

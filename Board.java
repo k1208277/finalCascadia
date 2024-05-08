@@ -230,7 +230,6 @@ public class Board
                 }
             }
 
-
             if (validRun) {
                 switch(run.size()){
                     case 0: {score += 0; break;}
